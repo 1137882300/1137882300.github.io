@@ -1,6 +1,6 @@
 ---
 title: hexo博客命令
-categories: 
+categories:
   - web前端
 tags:
   - jQuery

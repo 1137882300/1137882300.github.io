@@ -1,6 +1,6 @@
 ---
 title: 香港澳门旅游攻略(原始版)
-categories: 
+categories:
   - 旅游
 tags:
   - 攻略
