@@ -1,141 +1,55 @@
 ---
-title: Hello World
+title: 香港澳门旅游攻略(原始版)
 categories: 
-  - web前端
+  - 旅游
 tags:
-  - jQuery
-  - 表格
-  - 表单验证
+  - 攻略
+  - 澳门
+  - 旅游
+  - 香港
 ---
 
-git clone https://github.com/amehime/hexo-theme-shoka.git ./themes/shoka
+### 旅游时间
+- 28.29.30.31.1
+
+### 出发
+- 9点地铁2号线→19号线，约1小时10分（10：20）
+- ✈️28/12 杭州 → 香港，航班号：HX115，12:20杭州T4 —— 14:55香港T1
+- 机场到酒店，城巴，约37元/人，1小时20分，17点
+- 酒店：香港铜锣湾利景酒店（28-30）
+
+### 香港游玩地点
+- → 旺角：繁华商业区，天桥打卡街区，弥敦道，女人街（本地小商品）
+- → 油麻地警署
+- → 本地菜场，庙街
+- → 尖沙咀(维多利亚港，星光大道(手印、李嘉诚同款机位)，轮渡，海港城，K11)
+- → 5港币天星小轮去中环(10分钟)，买上层，右边，傍晚，20港币3圈摩天轮(可以和太平山顶二选一)
+- → 公交去太平山顶，缆车下山→500m皇后像公园3港币叮叮车夜游中环(夜生活)
+
+坚尼地城是海边
+
+29/12香港
+
+### 🚢12月29号：香港 → 澳门
+
+### 澳门地图
+- 🚢香港港澳码头上环坐船去澳门（外港码头，氹仔码头）
+<img src="https://gitee.com/coderzane/images/raw/master/images/202312251141002.png" alt=""/>
 
 
-yarn remove hexo-renderer-marked
+### 澳门游玩地点
+- **澳门半岛：**大三巴牌坊，恋爱巷，玫瑰圣母堂，议事亭前地广场，澳门新葡京，南湾湖广场，东望洋灯塔
+- **氹仔：**永利皇宫，官也街，威尼斯人，威尼斯人度假村，8字摩天轮，巴黎人，伦敦人，路环岛
 
 
-npm un hexo-renderer-marked --save
-
-npm i hexo-renderer-multi-markdown-it --save
-
-
-
-9556d23c97824374fc83207e3557bf1a
-
-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
+### 回家
+- 31/12澳门→香港
+- 香港中港城码头下
+✈️香港西九龙 → 杭州，G100，11：36 —— 18：35
 
 
-
-https://gitee.com/api/v5/repos/owner/repo/contents/path/fileName
-
-https://gitee.com/api/v5/repos/coderzane/images/contents/master/images/1703052299628.jpg
-
-https://gitee.com/api/v5/repos/coderzane/images/contents/images/202312201034862.jpg
-
-
-https://gitee.com/api/v5/repos/coderzane/images/git/gitee/trees/sha
-
-
-https://gitee.com/api/v5/repos/coderzane/images/git/blobs/sha
-
-
-https://gitee.com/coderzane/images/raw/master/images/202312201034862.jpg
-
-
-npm un hexo-renderer-marked --save
-
-npm uninstall hexo-renderer-markdown-it --save
-
-
-https://github.com/theme-shoka-x/hexo-theme-shokaX.git ./themes/shokaX
-
-
-yarn add hexo-lightning-minify
-
-
-npm uninstall hexo-lightning-minify --save
-
-
-hexo init crab
-cd crab
-npm install
-
-hexo clean   # 清除缓存文件等
-hexo cl  # 清除缓存文件等
-hexo g   # 生成页面
-hexo s   # 启动预览
-
-
-
-安装
-npm install -g hexo-cli
-
-npm install hexo -g   //安装  
-npm update hexo -g 	  //升级
-hexo version  	      //查看hexo的版本
-hexo init nodejs-hexo   //创建nodejs-hexo 名字的本地文件
-hexo init nodejs-hexo    //创建博客
-hexo init blog          //初始化，生成文件夹为blog
-cd blog  	             //进入blog文件夹
-npm install            //安装依赖库
-hexo generate           //生成一套静态网页
-hexo server         //运行测试,浏览器打开地址，http://localhost:4000/
-hexo deploy         //进行部署
-
-hexo new "new article"  //新建文章‘new article’
-hexo new page "about"  //新建页面 ‘about’
-
-hexo n "我的博客"` == `hexo new` "我的博客"    //新建文章
-hexo g == hexo generate        //生成`
-hexo s == hexo server          //启动服务预览
-hexo d == hexo deploy          //部署
-
-
-npm config set registry http://registry.npmmirror.com
-
-官方镜像源
-npm config set registry https://registry.npmjs.org/
-
-淘宝镜像源
-npm config set registry https://registry.npm.taobao.org/
-
-
-步骤：
-
-hexo init crab
-cd crab
-npm install
-
-theme: butterfly
-
-npm install hexo-theme-butterfly
-
-pug 以及 stylus 的渲染器
-npm install hexo-renderer-pug hexo-renderer-stylus --save
-
-注意：(Hexo會自動合併主題中的 _config.yml 和 _config.butterfly.yml 裏的配置，如果存在同名配置，會使用 _config.butterfly.yml 的配置，其優先度較高。)
-
-hexo new page tags
-
-hexo new page categories
-
-hexo new page link
-
-
-搜索需要安装 hexo-generator-searchdb 或者 hexo-generator-search，根据它的文档去做相应配置
-npm install hexo-generator-searchdb
-npm install hexo-generator-search --save
-字数统计特性
-npm install hexo-wordcount --save
-PWA 特性
-npm install hexo-offline --save
-
-使用hexo d 部署
-npm install hexo-deployer-git --save
-
-
-
-
-
-强制push 且覆盖
-git push -f
+### 费用
+- 机票：1534
+- 返程高铁：1642
+- 香港酒店：1210.5（完成后评价拿返现76.89）
+- 澳门酒店：2077.3（完成后评价拿返现177.7）
