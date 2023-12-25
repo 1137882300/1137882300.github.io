@@ -13,6 +13,7 @@ menu:
   时间轴: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   类目: /categories/ || fas fa-folder-open
+  留言板: /guestbook/ || comment
   清单||fas fa-list:
     音乐: /music/ || fas fa-music
     照片: /Gallery/ || fas fa-images

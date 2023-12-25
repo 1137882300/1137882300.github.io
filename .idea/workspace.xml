@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94b4ec13-9bdb-4990-b155-fd15b85155e2" name="Changes" comment="" />
+    <list default="true" id="94b4ec13-9bdb-4990-b155-fd15b85155e2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/source/guestbook/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.butterfly.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.butterfly.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
