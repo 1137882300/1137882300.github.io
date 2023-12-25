@@ -447,6 +447,12 @@ gitalk:
   owner: 1137882300
   admin: 1137882300
   option:
+  language: zh-CN # en, zh-CN, zh-TW, es-ES, fr, ru
+  perPage: 10 # Pagination size, with maximum 100.
+  distractionFreeMode: false # Facebook-like distraction free mode.
+  pagerDirection: last # Comment sorting direction, available values are last and first.
+  createIssueManually: false # Gitalk will create a corresponding github issue for your every single page automatically
+
 
 # valine
 # https://valine.js.org
