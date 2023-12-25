@@ -104,4 +104,4 @@ theme: butterfly
 deploy:
   type: git
   repo: https://github.com/1137882300/1137882300.github.io
-  branch: v2
+  branch: v3
