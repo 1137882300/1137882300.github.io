@@ -13,7 +13,7 @@ menu:
   时间轴: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   类目: /categories/ || fas fa-folder-open
-  留言板: /guestbook/ || iconfont icon-liuyanban
+  留言板: /guestbook/ || fas fa-comment-dots #iconfont icon-liuyanban
   相册: /gallery/ || fas fa-solid fa-image # iconfont icon-xiangce
   清单||fas fa-list:
     音乐: /music/ || fas fa-music
@@ -640,7 +640,7 @@ theme_color:
   meta_theme_color_dark: "#0d0d0d"
 
 # The top_img settings of home page
-top_img: https://gitee.com/coderzane/images/raw/master/images/202312261057981.jpg
+top_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 # default: top img - full screen, site info - middle (默認top_img全屏，site_info在中間)
 # The position of site info, eg: 300px/300em/300rem/10% (主頁標題距離頂部距離)
 index_site_info_top:
@@ -659,7 +659,7 @@ text_align_justify: false
 # Website Background (設置網站背景)
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
-background: url(https://gitee.com/coderzane/images/raw/master/images/202312261057981.jpg)
+background: url(https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg)
 
 # Footer Background
 footer_bg: true
