@@ -13,7 +13,7 @@ menu:
   时间轴: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   类目: /categories/ || fas fa-folder-open
-  留言板: /guestbook/ || comment
+  留言板: /guestbook/ || iconfont icon-liuyanban
   清单||fas fa-list:
     音乐: /music/ || fas fa-music
     照片: /Gallery/ || fas fa-images
@@ -53,17 +53,17 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img:
+index_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
 # If the banner of page not setting, it will show the top_img
-default_top_img:
+default_top_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
 # The banner image of archive page
-archive_img:
+archive_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)
-tag_img:
+tag_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
 # The banner image of tag page
 # format:
@@ -72,7 +72,7 @@ tag_per_img:
 
 # If the banner of category page not setting, it will show the top_img
 # note: category page, not categories page (子分類頁面的 top_img)
-category_img:
+category_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
 # The banner image of category page
 # format:
@@ -656,7 +656,7 @@ text_align_justify: false
 # Website Background (設置網站背景)
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
-background:
+background: url(https://gitee.com/coderzane/images/raw/master/images/202312261057981.jpg)
 
 # Footer Background
 footer_bg: true
@@ -932,7 +932,8 @@ css_prefix: true
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
 inject:
   head:
-    # - <link rel="stylesheet" href="/xxx.css">
+#     - <link rel="stylesheet" href="/xxx.css">
+     - <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4388343_4lr6yboyinx.css">
   bottom:
     # - <script src="xxxx"></script>
 
