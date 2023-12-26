@@ -52,29 +52,29 @@ avatar:
 # Disable all banner image
 disable_top_img: false
 
-# The banner image of home page
-index_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
+# The banner image of home page 主页的 top_img
+index_img: https://gitee.com/coderzane/images/raw/master/images/202312261143251.png
 
 # If the banner of page not setting, it will show the top_img
 default_top_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
-# The banner image of archive page
+# The banner image of archive page 归档页面的 top_img
 archive_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)
 tag_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
-# The banner image of tag page
+# The banner image of tag page tag子页面的 top_img，可配置每个 tag 的 top_img
 # format:
 #  - tag name: xxxxx
 tag_per_img:
 
-# If the banner of category page not setting, it will show the top_img
+# If the banner of category page not setting, it will show the top_img category 子页面 的 默认 top_img
 # note: category page, not categories page (子分類頁面的 top_img)
 category_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
-# The banner image of category page
+# The banner image of category page category 子页面的 top_img，可配置每个 category 的 top_img
 # format:
 #  - category name: xxxxx
 category_per_img:
@@ -89,7 +89,8 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+#    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+    - https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
@@ -638,6 +639,7 @@ theme_color:
   meta_theme_color_dark: "#0d0d0d"
 
 # The top_img settings of home page
+top_img: https://gitee.com/coderzane/images/raw/master/images/202312261057981.jpg
 # default: top img - full screen, site info - middle (默認top_img全屏，site_info在中間)
 # The position of site info, eg: 300px/300em/300rem/10% (主頁標題距離頂部距離)
 index_site_info_top:
@@ -862,14 +864,18 @@ note:
 # It may contain bugs and unstable, give feedback when you find the bugs.
 # https://github.com/MoOx/pjax
 pjax:
-  enable: false
+  enable: true
   exclude:
     # - xxxx
     # - xxxx
 
+aplayer:
+  meting: true
+  asset_inject: false
+
 # Inject the css and script (aplayer/meting)
 aplayerInject:
-  enable: false
+  enable: true
   per_page: true
 
 # Snackbar (Toast Notification 彈窗)
@@ -934,8 +940,11 @@ inject:
   head:
 #     - <link rel="stylesheet" href="/xxx.css">
      - <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4388343_4lr6yboyinx.css">
+     - <meta name="referrer" content="no-referrer")
   bottom:
     # - <script src="xxxx"></script>
+    - <div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div>
+
 
 # CDN
 # Don't modify the following settings unless you know how they work

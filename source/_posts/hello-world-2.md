@@ -49,6 +49,7 @@ pie
 <div class="gallery-group-main">
 {% galleryGroup '壁纸' '收藏的一些壁纸' '/Gallery/wallpaper' https://i.loli.net/2019/11/10/T7Mu8Aod3egmC4Q.png %}
 {% galleryGroup '漫威' '关于漫威的图片' '/Gallery/marvel' https://i.loli.net/2019/12/25/8t97aVlp4hgyBGu.jpg %}
+{% galleryGroup '漫威' '关于漫威的图片' '/Gallery/marvel' https://gitee.com/coderzane/images/raw/master/images/202312261143251.png %}
 {% galleryGroup 'OH MY GIRL' '关于OH MY GIRL的图片' '/Gallery/ohmygirl' https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg %}
 </div>
 
@@ -65,6 +66,8 @@ pie
 你看我长得漂亮不
 
 ![](https://i.loli.net/2021/03/19/2P6ivUGsdaEXSFI.png)
+![bbb](https://i.loli.net/2021/03/19/2P6ivUGsdaEXSFI.png)
+![aaa](https://gitee.com/coderzane/images/raw/master/images/202312261143251.png)
 
 我觉得很漂亮 {% inlineImg https://i.loli.net/2021/03/19/5M4jUB3ynq7ePgw.png 150px %}
 
