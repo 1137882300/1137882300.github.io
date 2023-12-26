@@ -14,6 +14,7 @@ menu:
   标签: /tags/ || fas fa-tags
   类目: /categories/ || fas fa-folder-open
   留言板: /guestbook/ || iconfont icon-liuyanban
+  相册: /gallery/ || fas fa-solid fa-image # iconfont icon-xiangce
   清单||fas fa-list:
     音乐: /music/ || fas fa-music
     照片: /Gallery/ || fas fa-images
@@ -933,6 +934,30 @@ Open_Graph_meta:
 # Add the vendor prefixes to ensure compatibility
 css_prefix: true
 
+# 电子钟 需要安装插件：npm install hexo-butterfly-clock-anzhiyu --save
+electric_clock:
+  enable: false # 开关
+  priority: 5 #过滤器优先权
+  enable_page: all # 应用页面
+  exclude:
+  # - /posts/
+  # - /about/
+  layout: # 挂载容器类型
+    type: class
+    name: sticky_layout
+    index: 0
+  loading: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif #加载动画自定义
+  clock_css: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css
+  clock_js: https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js
+  ip_api: https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0
+  # 和风天气key 默认是 b16a1fa0e63c46a4b8f28abfb06ae3fe
+  qweather_key: ddd824ef4b9a42ffa8de14ba00be0d1c # 你的key
+  # 高得地图web服务key 默认为 e2b04289e870b005374ee030148d64fd&s=rsv3
+  gaud_map_key: 24f61931d9c09de973249a440d9809f0 # 你的key
+  default_rectangle: false # 开启后将一直显示rectangle位置的天气，否则将获取访问者的地理位置与天气
+  rectangle: 112.982279,28.19409 # 获取访问者位置失败时会显示该位置的天气，同时该位置为开启default_rectangle后的位置
+
+
 # Inject
 # Insert the code to head (before '</head>' tag) and the bottom (before '</body>' tag)
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
@@ -944,6 +969,7 @@ inject:
   bottom:
     # - <script src="xxxx"></script>
     - <div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div>
+    - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>
 
 
 # CDN
