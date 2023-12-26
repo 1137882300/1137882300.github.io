@@ -105,3 +105,10 @@ deploy:
   type: git
   repo: https://github.com/1137882300/1137882300.github.io
   branch: deploy
+
+
+# hexo-admin authentification 
+admin:
+  username: juzi
+  password_hash: $2a$10$1XkI1TA8/4V4stg32pHDA.HD6zW/zsuhIO8ViQUrEg5oizxdIc/RC
+  secret: xiaopangxie
