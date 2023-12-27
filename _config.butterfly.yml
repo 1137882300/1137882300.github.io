@@ -53,18 +53,21 @@ avatar:
 # Disable all banner image
 disable_top_img: false
 
-# The banner image of home page 主页的 top_img
-index_img: https://gitee.com/coderzane/images/raw/master/images/202312261143251.png
+# The banner image of home page 主页的 top_img 设置主界面图片
+index_img: https://cdn.jsdelivr.net/gh/1137882300/images@master/images/202312271120681.jpg
+# https://cdn.jsdelivr.net/gh/1137882300/images@master/images/202312271102530.jpg
+# https://bu.dusays.com/2023/03/24/641dc715cfebe.jpg
+
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
+default_top_img: https://gitee.com/coderzane/images/raw/master/images/202312270945308.jpg
 
 # The banner image of archive page 归档页面的 top_img
-archive_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
+archive_img: https://cdn.jsdelivr.net/gh/1137882300/images@master/images/202312271120166.webp
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)
-tag_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
+tag_img: https://cdn.jsdelivr.net/gh/1137882300/images@master/images/202312271122307.webp 
 
 # The banner image of tag page tag子页面的 top_img，可配置每个 tag 的 top_img
 # format:
@@ -73,13 +76,14 @@ tag_per_img:
 
 # If the banner of category page not setting, it will show the top_img category 子页面 的 默认 top_img
 # note: category page, not categories page (子分類頁面的 top_img)
-category_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
+category_img: https://cdn.jsdelivr.net/gh/1137882300/images@master/images/202312271129180.jpg
 
 # The banner image of category page category 子页面的 top_img，可配置每个 category 的 top_img
 # format:
 #  - category name: xxxxx
 category_per_img:
 
+# 文章上方的图片由文章属性 cover 控制
 cover:
   # display the cover or not (是否顯示文章封面)
   index_enable: true
@@ -92,6 +96,8 @@ cover:
   default_cover:
 #    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
     - https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
+    - https://gitee.com/coderzane/images/raw/master/images/202312270943633.jpg
+    - https://gitee.com/coderzane/images/raw/master/images/202312270943402.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
@@ -640,7 +646,7 @@ theme_color:
   meta_theme_color_dark: "#0d0d0d"
 
 # The top_img settings of home page
-top_img: https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg
+#top_img: https://gitee.com/coderzane/images/raw/master/images/202312270946883.jpg
 # default: top img - full screen, site info - middle (默認top_img全屏，site_info在中間)
 # The position of site info, eg: 300px/300em/300rem/10% (主頁標題距離頂部距離)
 index_site_info_top:
@@ -659,7 +665,7 @@ text_align_justify: false
 # Website Background (設置網站背景)
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
-background: url(https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg)
+background: # url(https://gitee.com/coderzane/images/raw/master/images/202312261105927.jpg)
 
 # Footer Background
 footer_bg: true
@@ -969,7 +975,7 @@ inject:
   bottom:
     # - <script src="xxxx"></script>
     - <div class="aplayer no-destroy" data-id="7427714271" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-lrctype="1" data-preload="none" data-autoplay="true" muted></div>
-    - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>
+#    - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>
 
 
 # CDN
