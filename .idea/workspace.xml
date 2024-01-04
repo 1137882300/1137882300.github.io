@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="94b4ec13-9bdb-4990-b155-fd15b85155e2" name="Changes" comment="add post">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_config.butterfly.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.butterfly.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/命令.md" beforeDir="false" afterPath="$PROJECT_DIR$/命令.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +68,7 @@
       <workItem from="1703555503080" duration="23404000" />
       <workItem from="1703639348705" duration="17661000" />
       <workItem from="1703681395025" duration="1518000" />
-      <workItem from="1704369304392" duration="1324000" />
+      <workItem from="1704369304392" duration="3097000" />
     </task>
     <task id="LOCAL-00001" summary="add post">
       <created>1703682137091</created>
