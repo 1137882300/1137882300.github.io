@@ -1,9 +1,9 @@
 ---
 title: 5分钟带你深入浅出搞懂 Nginx
 shortTitle: Nginx 入门
-category:
+categories:
   - Java企业级开发
-tag:
+tags:
   - Nginx
 description: 本文是一篇通俗易懂、风趣幽默的 Nginx 入门教程，内容涵盖 Nginx 是什么、Nginx 的作用、Nginx 的安装、Nginx 的常用命令、Nginx 的配置、Nginx 的学习资料等知识点。学 Nginx，就认准二哥的 Java 进阶之路😄。
 head:
@@ -253,11 +253,3 @@ root 我指定了 `/home/www` 目录，首页文件为 index.html。这个文件
 这些资料如果能全部过一遍的话，我要喊你 Nginx 小王子了，估计公司遇到 Nginx 问题的话，你肯定是解决问题的那一个。
 
 ----
-
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括Java基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
-

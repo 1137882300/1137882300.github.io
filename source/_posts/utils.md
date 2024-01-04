@@ -1,9 +1,9 @@
 ---
 title: 其他常用Java工具类：IPUtil、CollectionUtils、MDC、ClassUtils、BeanUtils、ReflectionUtils
 shortTitle: 其他常用工具类
-category:
+categories:
   - Java核心
-tag:
+tags:
   - 常用工具类
 description: 描述：本文详细介绍了Java编程中常用的一些工具类，如IpUtil、MDC、ClassUtils、BeanUtils、ReflectionUtils等。通过具体的代码示例，阐述了这些工具类在实际应用中的优势和使用方法。掌握这些实用的Java工具类，让您在Java编程中轻松应对各种开发任务，提高开发效率。
 head:
