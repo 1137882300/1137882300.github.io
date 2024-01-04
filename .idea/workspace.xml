@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94b4ec13-9bdb-4990-b155-fd15b85155e2" name="Changes" comment="">
+    <list default="true" id="94b4ec13-9bdb-4990-b155-fd15b85155e2" name="Changes" comment="add post">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_config.butterfly.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.butterfly.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/测试文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/测试文档.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/命令.md" beforeDir="false" afterPath="$PROJECT_DIR$/命令.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,21 +38,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "F:/WorkSpace/1137882300.github.io/source/_posts",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/DevelopSoftware/WorkSpace/1137882300.github.io/source/_posts&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\WorkSpace\1137882300.github.io\source\_posts" />
+      <recent name="D:\DevelopSoftware\WorkSpace\1137882300.github.io\source\_posts" />
       <recent name="F:\WorkSpace\1137882300.github.io\source\about" />
+      <recent name="F:\WorkSpace\1137882300.github.io\source\_posts" />
       <recent name="F:\WorkSpace\1137882300.github.io" />
     </key>
   </component>
@@ -66,10 +68,18 @@
       <workItem from="1703467017019" duration="2652000" />
       <workItem from="1703470175339" duration="963000" />
       <workItem from="1703555503080" duration="23404000" />
-      <workItem from="1703639348705" duration="19111000" />
-      <workItem from="1704159455212" duration="2573000" />
-      <workItem from="1704348522391" duration="7789000" />
+      <workItem from="1703639348705" duration="17661000" />
+      <workItem from="1703681395025" duration="1518000" />
+      <workItem from="1704369304392" duration="1324000" />
     </task>
+    <task id="LOCAL-00001" summary="add post">
+      <created>1703682137091</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703682137091</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -83,40 +93,12 @@
             <State />
           </value>
         </entry>
-        <entry key="e59d9ea6-a076-4714-b1f5-8b3b2c9df866">
-          <value>
-            <State>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="roots">
-                    <value>
-                      <list>
-                        <option value="$PROJECT_DIR$" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="e59d9ea6-a076-4714-b1f5-8b3b2c9df866" value="TOOL_WINDOW" />
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="add post" />
+    <option name="LAST_COMMIT_MESSAGE" value="add post" />
   </component>
 </project>
