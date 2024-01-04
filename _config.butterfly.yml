@@ -461,6 +461,8 @@ gitalk:
   distractionFreeMode: false # Facebook-like distraction free mode.
   pagerDirection: last # Comment sorting direction, available values are last and first.
   createIssueManually: false # Gitalk will create a corresponding github issue for your every single page automatically
+  proxy: https://proxy-vercel-seven.vercel.app/github/login/oauth/access_token
+#  proxy: https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token
 
 
 # valine
