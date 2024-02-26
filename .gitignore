@@ -2,3 +2,5 @@
 db.json
 .deploy_git
 .idea/workspace.xml
+.idea
+public

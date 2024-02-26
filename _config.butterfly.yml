@@ -241,10 +241,15 @@ aside:
       enable: true
       icon: fab fa-github
       text: 关注我
-      link: https://github.com/xxxxxx
+      link: https://github.com/1137882300
   card_announcement:
     enable: true
-    content: This is my Blog
+    content:
+      如果你在使用中遇到問題，請到 <a href="https://github.com/jerryc127/hexo-theme-butterfly/issues" style="color:#49b1f5">Github Issues</a> 或者 <a href="/messageboard/" style="color:#49b1f5">留言板</a> 進行反饋，你也可以加入 QQ 群（由於 QQ 群只能有500人，會定時清理潛水的人）<div class="social-button">
+      <a class="button--animated" href="https://jq.qq.com/?_wv=1027&k=KU9105XR" target="_blank">QQ 1 群 👍</a>
+      <a class="button--animated" href="https://jq.qq.com/?_wv=1027&k=r1nK0DQz" target="_blank">QQ 2 群 👍</a>
+      <a class="button--animated" href="https://t.me/bu2fly" target="_blank">Telegram 👍</a>
+      </div>
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
@@ -706,13 +711,13 @@ canvas_ribbon:
 
 # Fluttering Ribbon (動態彩帶)
 canvas_fluttering_ribbon:
-  enable: false
+  enable: true
   mobile: false
 
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
 canvas_nest:
-  enable: true
+  enable: false
   color: '0,0,255' #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
   opacity: 0.7 # the opacity of line (0~1), default: 0.5.
   zIndex: -1 # z-index property of the background, default: -1.
