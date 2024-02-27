@@ -13,7 +13,7 @@ head:
 date: 2022-08-09
 keywords: ''
 cover:
-abbrlink: fghh56
+abbrlink: 112217
 ---
 
 大家好，我是二哥呀。最近在搭建[技术派](https://paicoding.com/)网站，就不可避免地要用到 Nginx，索性就出一期 Nginx 的入门教程，希望也可以帮助到大家~😁

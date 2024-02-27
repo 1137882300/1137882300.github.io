@@ -7,7 +7,7 @@ tags:
 date: 2017-03-22
 keywords: ''
 cover: 
-abbrlink: 576grrw
+abbrlink: 112211
 ---
 
 # 全文搜索引擎Elasticsearch入门教程

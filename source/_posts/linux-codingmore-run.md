@@ -9,7 +9,7 @@ shortTitle: 一键部署编程喵到生产环境
 date: 2018-12-09
 keywords: ''
 cover:
-abbrlink: hk78er
+abbrlink: 112216
 ---
 
 ## 云服务器

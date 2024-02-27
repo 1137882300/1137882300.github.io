@@ -9,7 +9,7 @@ description: 本文详细介绍了 Java Serializable 接口的实际作用与意
 date: 2023-11-09
 keywords: ''
 cover:
-abbrlink: fgnty56
+abbrlink: 112219
 ---
 
 # 7.9 序列接口Serializable

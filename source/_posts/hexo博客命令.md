@@ -9,7 +9,7 @@ tags:
 date: 2019-12-11
 keywords: ''
 cover:
-abbrlink: 34fer43
+abbrlink: 112214
 ---
 
 git clone https://github.com/amehime/hexo-theme-shoka.git ./themes/shoka

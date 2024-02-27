@@ -7,7 +7,7 @@ tags:
 date: 2022-10-09
 keywords: ''
 cover:
-abbrlink: hntyh56
+abbrlink: 112221
 ---
 
 # 可能是把ZooKeeper概念讲的最清楚的一篇文章

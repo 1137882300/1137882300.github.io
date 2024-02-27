@@ -13,7 +13,7 @@ head:
 date: 2017-11-09
 keywords: ''
 cover:
-abbrlink: fgb56
+abbrlink: 112220
 ---
 
 # 9.8 其他常用工具类

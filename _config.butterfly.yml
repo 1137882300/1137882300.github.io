@@ -429,7 +429,7 @@ addtoany:
 comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
-  use: Livere,Gitalk # Valine,Disqus
+  use: Twikoo,Gitalk # Valine,Disqus
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
@@ -515,9 +515,9 @@ facebook_comments:
 # Twikoo
 # https://github.com/imaegoo/twikoo
 twikoo:
-  envId:
+  envId: blog-twikoo-black.vercel.app
   region:
-  visitor: false
+  visitor: true
   option:
 
 # Giscus

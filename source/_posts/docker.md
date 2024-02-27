@@ -8,7 +8,7 @@ tags:
 date: 2021-03-22
 keywords: ''
 cover: https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/Butterfly-docs-02-cover.png
-abbrlink: 567yfg
+abbrlink: 112210
 ---
 
 ### 关于 Docker
@@ -194,13 +194,13 @@ systemctl restart docker
 public class DockerController {
     @RequestMapping("/")
     public String hello() {
-        return "Docker，我告诉你，沉默王二是沙雕";
+        return "Docker，我是沙雕";
     }
 }
 ```
 
 
-@RequestMapping、@RestController 注解我们在前几个章节介绍过了，也就是表明我们这是一个 SpringMVC 的项目，`/` 路径意味着我们只要在浏览器地址栏输入 `localhost:8080` 就可以发送请求了，响应结果为 “Docker，我告诉你，沉默王二是沙雕”。
+@RequestMapping、@RestController 注解我们在前几个章节介绍过了，也就是表明我们这是一个 SpringMVC 的项目，`/` 路径意味着我们只要在浏览器地址栏输入 `localhost:8080` 就可以发送请求了，响应结果为 “Docker，你好”。
 
 启动服务后，可以通过 Intellij IDEA 的 HTTP Client 验证一下。
 
@@ -291,7 +291,6 @@ docker run -d --name itwanger -p 8080:8080 itwanger/springboot-docker:0.0.1-SNAP
 然后在浏览器中访问 8080 端口，就可以看到我们的应用程序在 Docker 上成功运行了。
 
 
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-79a760b1-c084-4a5c-adc0-911b2e44ae7a.png)
 
 当利用 `docker run` 来创建容器时，Docker 在后台运行的标准操作包括：
 
@@ -309,10 +308,3 @@ docker run -d --name itwanger -p 8080:8080 itwanger/springboot-docker:0.0.1-SNAP
 
 
 ![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-6b4fbbb0-3986-403b-9d7e-7e50cf27b499.png)
-
-----
-
-### 源码路径：
-
-> - 编程喵：[https://github.com/itwanger/coding-more](https://github.com/itwanger/coding-more)
-> - codingmore-docker：[https://github.com/itwanger/codingmore-learning](https://github.com/itwanger/codingmore-learning/tree/main/springboot-docker)

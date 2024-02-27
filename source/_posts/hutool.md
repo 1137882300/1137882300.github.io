@@ -9,7 +9,7 @@ description: 本文详细介绍了国产Java工具包Hutool，阐述了它在简
 date: 2020-01-24
 keywords: ''
 cover:
-abbrlink: 23dewd23
+abbrlink: 112215
 ---
 
 # 9.6 Hutool工具类库
