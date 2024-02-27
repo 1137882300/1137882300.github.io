@@ -118,3 +118,21 @@ admin:
   username: juzi
   password_hash: $2a$10$1XkI1TA8/4V4stg32pHDA.HD6zW/zsuhIO8ViQUrEg5oizxdIc/RC
   secret: xiaopangxie
+
+# 搜索相关的 https://dashboard.algolia.com/account/api-keys/restricted?applicationId=8Y3BT0M4D5
+algolia:
+  appId: "8Y3BT0M4D5"
+  apiKey: "00e7d3d6a2840feeb77ac9e3178f6e6b"
+  adminApiKey: "4d3e57496c6c441a8ab6f3aba3f44964"
+  chunkSize: 5000
+  indexName: "prod_NAME"
+  fields:
+    - content:strip:truncate,0,500
+    - excerpt:strip
+    - gallery
+    - permalink
+    - photos
+    - slug
+    - tags
+    - title
+
