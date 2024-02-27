@@ -4,6 +4,10 @@ categories:
   - Java企业级开发
 tags:
   - Elasticsearch
+date: 2017-03-22
+keywords: ''
+cover: 
+abbrlink: 576grrw
 ---
 
 # 全文搜索引擎Elasticsearch入门教程

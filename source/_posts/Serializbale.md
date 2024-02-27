@@ -6,6 +6,10 @@ categories:
 tags:
   - Java IO
 description: 本文详细介绍了 Java Serializable 接口的实际作用与意义，阐述了虽然它是一个空接口，但在 Java 对象序列化中具有重要的标记作用。同时，文章还提供了 Serializable 接口的实际应用示例和序列化机制。阅读本文，将帮助您更深入地了解 Serializable 接口在 Java 编程中的关键地位，有效实现对象的序列化与反序列化。
+date: 2023-11-09
+keywords: ''
+cover:
+abbrlink: fgnty56
 ---
 
 # 7.9 序列接口Serializable

@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Serializable接口</title>
-    <url>/2024/02/06/Serializbale/</url>
+    <url>/article/fgnty56.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="7-9-序列接口Serializable"><a href="#7-9-序列接口Serializable" class="headerlink" title="7.9 序列接口Serializable"></a>7.9 序列接口Serializable</h1><p>对于 Java 的序列化，我之前一直停留在最浅层次的认知上——把那个要<a href="https://javabetter.cn/io/serialize.html">序列化</a>的类实现 <code>Serializbale</code> 接口就可以了嘛。</p>
 <p>我似乎不愿意做更深入的研究，因为会用就行了嘛。</p>
 <p>但随着时间的推移，见到 <code>Serializbale</code> 的次数越来越多，我便对它产生了浓厚的兴趣。是时候花点时间研究研究了。</p>
@@ -143,7 +143,7 @@
   </entry>
   <entry>
     <title>hexo博客命令</title>
-    <url>/2024/02/06/hexo%E5%8D%9A%E5%AE%A2%E5%91%BD%E4%BB%A4/</url>
+    <url>/article/34fer43.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>git clone <a href="https://github.com/amehime/hexo-theme-shoka.git">https://github.com/amehime/hexo-theme-shoka.git</a> .&#x2F;themes&#x2F;shoka</p>
 <p>yarn remove hexo-renderer-marked</p>
 <p>npm un hexo-renderer-marked –save</p>
@@ -194,7 +194,7 @@
   </entry>
   <entry>
     <title>Guava：Google开源的Java工具库，太强大了</title>
-    <url>/2021/02/02/guava/</url>
+    <url>/article/dc584b87.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="9-7-Guava工具库"><a href="#9-7-Guava工具库" class="headerlink" title="9.7 Guava工具库"></a>9.7 Guava工具库</h1><h3 id="01、前世今生"><a href="#01、前世今生" class="headerlink" title="01、前世今生"></a>01、前世今生</h3><p>你好呀，我是 Guava。</p>
 <p>我由 Google 公司开源，目前在 GitHub 上已经有 39.9k 的铁粉了，由此可以证明我的受欢迎程度。</p>
 <p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/common-tool/guava-01.png"></p>
@@ -323,7 +323,7 @@
   </entry>
   <entry>
     <title>测试文档</title>
-    <url>/2024/02/06/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/</url>
+    <url>/article/dfgdg.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <div class="mermaid-wrap"><pre class="mermaid-src" hidden>
   我是内容：mermaid标签
@@ -492,7 +492,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>Hutool：国产良心工具包，让你的Java变得更甜</title>
-    <url>/2024/02/06/hutool/</url>
+    <url>/article/23dewd23.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="9-6-Hutool工具类库"><a href="#9-6-Hutool工具类库" class="headerlink" title="9.6 Hutool工具类库"></a>9.6 Hutool工具类库</h1><p>读者群里有个小伙伴感慨说，“Hutool 这款开源类库太厉害了，基本上该有该的工具类，它里面都有。”讲真的，我平常工作中也经常用 Hutool，它确实可以帮助我们简化每一行代码，使 Java 拥有函数式语言般的优雅，让 Java 语言变得“甜甜的”。</p>
 <p>Hutool 的作者在<a href="https://hutool.cn/">官网</a>上说，Hutool 是 Hu+tool 的自造词（好像不用说，我们也能猜得到），“Hu”用来致敬他的“前任”公司，“tool”就是工具的意思，谐音就有意思了，“糊涂”，寓意追求“万事都作糊涂观，无所谓失，无所谓得”（一个开源类库，上升到了哲学的高度，作者厉害了）。</p>
 <p>看了一下开发团队的一个成员介绍，一个 Java 后端工具的作者竟然爱前端、爱数码，爱美女，嗯嗯嗯，确实“难得糊涂”（手动狗头）。</p>
@@ -711,7 +711,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>香港澳门旅游</title>
-    <url>/2024/02/06/%E9%A6%99%E6%B8%AF%E6%BE%B3%E9%97%A8%E6%94%BB%E7%95%A5/</url>
+    <url>/article/nra345.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="旅游时间"><a href="#旅游时间" class="headerlink" title="旅游时间"></a>旅游时间</h3><ul>
 <li>28.29.30.31.1</li>
 </ul>
@@ -782,7 +782,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>其他常用Java工具类：IPUtil、CollectionUtils、MDC、ClassUtils、BeanUtils、ReflectionUtils</title>
-    <url>/2024/02/06/utils/</url>
+    <url>/article/fgb56.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="9-8-其他常用工具类"><a href="#9-8-其他常用工具类" class="headerlink" title="9.8 其他常用工具类"></a>9.8 其他常用工具类</h1><p>除了我们前面提到的 Java 原生工具类，比如说 <a href="https://javabetter.cn/common-tool/arrays.html">Arrays</a>、<a href="https://javabetter.cn/common-tool/Objects.html">Objects</a>、<a href="https://javabetter.cn/common-tool/collections.html">Collections</a>、<a href="https://javabetter.cn/common-tool/scanner.html">Scanner</a> 等，还有一些第三方的工具类，比如说 <a href="https://javabetter.cn/common-tool/hutool.html">Hutool</a>、<a href="https://javabetter.cn/common-tool/guava.html">Guava</a> 等，以及我们今天介绍的 IpUtil、CollectionUtils、StringUtils、MDC、ClassUtils、BeanUtils、ReflectionUtils 等等，在很大程度上能够提高我们的生产效率。</p>
 <p>当然了，如果能好好看一下它们的源码，对技术功底的提升，也是有很大帮助的。</p>
 <h3 id="IpUtil：获取本机-Ip"><a href="#IpUtil：获取本机-Ip" class="headerlink" title="IpUtil：获取本机 Ip"></a>IpUtil：获取本机 Ip</h3><p>获取本机 IP 算是比较常见的一个需求场景了，比如业务报警，可能就会带上出问题的机器 IP，方便直接上去看日志定位问题，那么问题来了，如何获取机器 IP 呢？</p>
@@ -892,7 +892,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>5分钟带你深入浅出搞懂 Nginx</title>
-    <url>/2024/02/06/nginx/</url>
+    <url>/article/fghh56.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>大家好，我是二哥呀。最近在搭建<a href="https://paicoding.com/">技术派</a>网站，就不可避免地要用到 Nginx，索性就出一期 Nginx 的入门教程，希望也可以帮助到大家~😁</p>
 <p>作为开发者，相信大家都知道 Nginx 的重要性。Nginx 是一个高性能的 HTTP 和反向代理 Web 服务器，由俄罗斯的伊戈尔·赛索耶夫开发，第一个版本发布于 2004 年 10 月 4 日。</p>
 <p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nginx/nginx-01.png"></p>
@@ -1005,7 +1005,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>过滤器、拦截器、监听器</title>
-    <url>/2024/02/06/Filter-Interceptor-Listener/</url>
+    <url>/article/56y6gt.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>先说作用。</p>
 <ul>
 <li>过滤器（Filter）：当有一堆请求，只希望符合预期的请求进来。</li>
@@ -1092,7 +1092,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>es 入门</title>
-    <url>/2024/02/06/es-rumen/</url>
+    <url>/article/576grrw.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="全文搜索引擎Elasticsearch入门教程"><a href="#全文搜索引擎Elasticsearch入门教程" class="headerlink" title="全文搜索引擎Elasticsearch入门教程"></a>全文搜索引擎Elasticsearch入门教程</h1><p>学习真的是一件令人开心的事情，上次分享了 <a href="https://mp.weixin.qq.com/s/NPJkMy5RppyFk9QhzHxhrw">Redis 入门</a>的文章后，收到了很多小伙伴的鼓励，比如说：“哎呀，不错呀，二哥，通俗易懂，十分钟真的入门了”。瞅瞅，瞅瞅，我决定再接再厉，入门一下 Elasticsearch，因为我们公司的商城系统升级了，需要用 Elasticsearch 做商品的搜索。</p>
 <p>不过，我首先要声明一点，我对 Elasticsearch 并没有进行很深入的研究，仅仅是因为要用，就学一下。但作为一名负责任的技术博主，我是用心的，为此还特意在某某时间上买了一门视频课程，作者叫阮一鸣。说实话，他光秃秃的头顶让我对这门课程产生了浓厚的兴趣。</p>
 <p>经过三天三夜的学习，总算是入了 Elasticsearch 的门，我就决定把这些心得体会分享出来，感兴趣的小伙伴可以作为参考。遇到文章中有错误的地方，不要手下留情，过来捶我，只要不打脸就好。</p>
@@ -1171,7 +1171,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>一键部署 Spring Boot 到远程 Docker 容器</title>
-    <url>/2024/02/06/docker/</url>
+    <url>/article/567yfg.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="关于-Docker"><a href="#关于-Docker" class="headerlink" title="关于 Docker"></a>关于 Docker</h3><p>Docker 是用 go 语言编写的，这也是 go 语言近些年越来越火的原因之一。关于 Docker，有 3 个重要的概念需要了解下：</p>
 <ul>
 <li>image：镜像，一个文件，用来创建容器；如果你有 Windows 装机经历，那可以很好理解镜像这个词的含义，反正我年少的时候没少把 Windows 镜像刻盘重装系统。</li>
@@ -1339,7 +1339,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>编程喵🐱实战项目如何在云服务器上跑起来？</title>
-    <url>/2024/02/06/linux-codingmore-run/</url>
+    <url>/article/hk78er.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="云服务器"><a href="#云服务器" class="headerlink" title="云服务器"></a>云服务器</h2><p>我们需要一台云服务器，我之前白嫖过一台丐版的，1 核1G 内存，并且已经安装了宝塔面板（安装教程戳<a href="https://javabetter.cn/szjy/install-baota-mianban.html">链接🔗</a>）。</p>
 <p>这是从宝塔面板首页看到的服务器配置详情。</p>
 <p><img src="https://cdn.tobebetterjavaer.com/codingmore/images/2022-06-10ef01787c-ee09-4474-a182-70bd6a2daf72.png"></p>
@@ -1488,7 +1488,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>OSS</title>
-    <url>/2024/02/06/oss/</url>
+    <url>/article/ghj68i6t.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="崩溃！我带的实习生竟然把图片直接存到了服务器上！"><a href="#崩溃！我带的实习生竟然把图片直接存到了服务器上！" class="headerlink" title="崩溃！我带的实习生竟然把图片直接存到了服务器上！"></a>崩溃！我带的实习生竟然把图片直接存到了服务器上！</h1><p>小二是新来的实习生，作为技术 leader，我给他安排了一个非常简单的练手任务，把前端 markdown 编辑器里上传的图片保存到服务器端，结果他真的就把图片直接保存到了服务器上，这下可把我气坏了，就不能搞个对象存储服务，比如说 OSS、MinIO？</p>
 <p>他理直气壮地反驳道：“谁让你不讲清楚，我去找老板把你开掉！”我瞬间就怂了，说，“来来来，我手把手教你怎么把图片保存到 OSS 上，好不好？”</p>
 <p>“不用了，还是我来教你吧。”小二非常自信，下面是他在 Spring Boot 应用中整合 OSS 做的记录。</p>
@@ -1552,7 +1552,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>hexo博客命令</title>
-    <url>/2024/02/06/zk-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/</url>
+    <url>/article/hntyh56.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="可能是把ZooKeeper概念讲的最清楚的一篇文章"><a href="#可能是把ZooKeeper概念讲的最清楚的一篇文章" class="headerlink" title="可能是把ZooKeeper概念讲的最清楚的一篇文章"></a>可能是把ZooKeeper概念讲的最清楚的一篇文章</h1><p>整理：沉默王二，戳<a href="https://mp.weixin.qq.com/s/-evZg0epRrOr1IwQ3GJ2Zg">转载链接</a>，作者：月伴飞鱼，戳<a href="https://mp.weixin.qq.com/s/B2ngp0q5kdWsCNH8sw_5DA">原文链接</a>。</p>
 <h2 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h2><p>Apache ZooKeeper 是由Apache Hadoop的子项目发展而来，为分布式应用提供高效且可靠的分布式协调服务。</p>
 <p>在解决分布式数据一致性方面，ZK没有直接采用Paxos算法，而是采用了ZAB（ZooKeeper Atomic Broadcast）协议。<br>ZK可以提供诸如数据发布&#x2F;订阅、负载均衡、命名服务、分布式协调&#x2F;通知，集群管理，Master选举，分布式锁，分布式队列等功能。</p>
@@ -2200,7 +2200,7 @@ w:Rock-y did-nt like that</div>
   </entry>
   <entry>
     <title>收藏的博客地址</title>
-    <url>/2024/02/06/%E6%94%B6%E8%97%8F%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%9C%B0%E5%9D%80/</url>
+    <url>/article/fg45yh.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="魔法"><a href="#魔法" class="headerlink" title="魔法"></a>魔法</h3><ul>
 <li><a href="https://kjgx668.blogspot.com/2024/01/20240vpsipcdnyoutube4k.html">https://kjgx668.blogspot.com/2024/01/20240vpsipcdnyoutube4k.html</a></li>
 </ul>

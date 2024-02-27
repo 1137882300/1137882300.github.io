@@ -6,6 +6,10 @@ tags:
   - jQuery
   - 表格
   - 表单验证
+date: 2019-12-11
+keywords: ''
+cover:
+abbrlink: 34fer43
 ---
 
 git clone https://github.com/amehime/hexo-theme-shoka.git ./themes/shoka

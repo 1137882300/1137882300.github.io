@@ -6,6 +6,10 @@ tags:
   - Vue
 title: 编程喵🐱实战项目如何在云服务器上跑起来？
 shortTitle: 一键部署编程喵到生产环境
+date: 2018-12-09
+keywords: ''
+cover:
+abbrlink: hk78er
 ---
 
 ## 云服务器
