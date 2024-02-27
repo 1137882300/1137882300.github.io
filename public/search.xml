@@ -1551,7 +1551,7 @@ w:Rock-y did-nt like that</div>
       </tags>
   </entry>
   <entry>
-    <title>hexo博客命令</title>
+    <title>ZooKeeper</title>
     <url>/article/hntyh56.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="可能是把ZooKeeper概念讲的最清楚的一篇文章"><a href="#可能是把ZooKeeper概念讲的最清楚的一篇文章" class="headerlink" title="可能是把ZooKeeper概念讲的最清楚的一篇文章"></a>可能是把ZooKeeper概念讲的最清楚的一篇文章</h1><p>整理：沉默王二，戳<a href="https://mp.weixin.qq.com/s/-evZg0epRrOr1IwQ3GJ2Zg">转载链接</a>，作者：月伴飞鱼，戳<a href="https://mp.weixin.qq.com/s/B2ngp0q5kdWsCNH8sw_5DA">原文链接</a>。</p>
 <h2 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h2><p>Apache ZooKeeper 是由Apache Hadoop的子项目发展而来，为分布式应用提供高效且可靠的分布式协调服务。</p>

@@ -9,6 +9,7 @@ description:
 top_img:
 comments:
 cover:
+abbrlink:
 toc:
 toc_number:
 toc_style_simple:
