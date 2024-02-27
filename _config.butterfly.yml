@@ -515,7 +515,7 @@ facebook_comments:
 # Twikoo
 # https://github.com/imaegoo/twikoo
 twikoo:
-  envId: blog-twikoo-black.vercel.app
+  envId: https://comment.funning.top/
   region:
   visitor: true
   option:
