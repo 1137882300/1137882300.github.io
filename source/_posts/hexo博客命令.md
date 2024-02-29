@@ -8,7 +8,7 @@ tags:
   - 表单验证
 date: 2019-12-11
 keywords: ''
-cover:
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E6%96%B0%E5%8A%A0%E5%9D%A1%202.png
 abbrlink: 112214
 ---
 

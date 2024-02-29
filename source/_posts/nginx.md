@@ -12,7 +12,7 @@ head:
       content: nginx,nginx入门,nginx教程,nginx配置,nginx反向代理,nginx负载均衡,nginx动静分离
 date: 2022-08-09
 keywords: ''
-cover:
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E5%BE%B7%E5%9B%BD%202.png
 abbrlink: 112217
 ---
 

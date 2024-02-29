@@ -6,7 +6,7 @@ tags:
   - Elasticsearch
 date: 2017-03-22
 keywords: ''
-cover: 
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%9B%85%E5%8A%A0%E8%BE%BE%202.png
 abbrlink: 112211
 ---
 

@@ -6,7 +6,7 @@ type: "tags"
 comments:
 description:
 keywords:
-top_img:
+top_img: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E7%BA%BD%E7%BA%A6%202.png
 mathjax:
 katex:
 aside:

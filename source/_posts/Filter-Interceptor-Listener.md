@@ -6,7 +6,7 @@ tags:
 title: 过滤器、拦截器、监听器
 date: 2018-11-09
 keywords: ''
-cover:
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E6%B3%B0%E5%9B%BD%202.png
 abbrlink: 112212
 ---
 

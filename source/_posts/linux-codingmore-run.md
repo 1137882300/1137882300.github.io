@@ -8,7 +8,7 @@ title: 编程喵🐱实战项目如何在云服务器上跑起来？
 shortTitle: 一键部署编程喵到生产环境
 date: 2018-12-09
 keywords: ''
-cover:
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E6%B3%95%E5%9B%BD%202.png
 abbrlink: 112216
 ---
 
