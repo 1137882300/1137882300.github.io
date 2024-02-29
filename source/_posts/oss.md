@@ -6,7 +6,7 @@ tags:
   - Spring Boot
 date: 2023-11-09
 keywords: ''
-cover:
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E5%A4%9A%E5%85%83.png
 abbrlink: 112218
 ---
 
