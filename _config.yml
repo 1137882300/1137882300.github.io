@@ -137,3 +137,6 @@ algolia:
     - tags
     - title
 
+# google收录试用的
+sitemap:
+  path: sitemap.xml
