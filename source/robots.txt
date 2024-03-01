@@ -1,0 +1,13 @@
+# 允许所有用户代理的浏览器爬虫进行访问（爬取数据）
+User-agent: *
+
+# 不允许访问的内容
+Disallow: /img/
+Disallow: /css/
+Disallow: /js/
+Disallow: /photos/
+Disallow: /*.css
+Disallow: /*.js
+
+Sitemap: https://www.funning.top/sitemap.xml
+Sitemap: https://www.funning.top/baidusitemap.xml
