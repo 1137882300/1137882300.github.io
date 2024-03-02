@@ -1,22 +1,18 @@
 ---
-title: 其他常用Java工具类：IPUtil、CollectionUtils、MDC、ClassUtils、BeanUtils、ReflectionUtils
+title: 常用Java工具类：IPUtil、CollectionUtils、MDC、ClassUtils、BeanUtils、ReflectionUtils
 shortTitle: 其他常用工具类
 categories:
   - Java核心
 tags:
-  - 常用工具类
+  - 工具类
 description: 描述：本文详细介绍了Java编程中常用的一些工具类，如IpUtil、MDC、ClassUtils、BeanUtils、ReflectionUtils等。通过具体的代码示例，阐述了这些工具类在实际应用中的优势和使用方法。掌握这些实用的Java工具类，让您在Java编程中轻松应对各种开发任务，提高开发效率。
-head:
-  - - meta
-    - name: keywords
-      content: Java,Java SE,Java基础,Java教程,二哥的Java进阶之路,Java进阶之路,Java入门,教程,java,工具类,轮子,java 工具类,java IPUtil,java CollectionUtils
 date: 2017-11-09
 keywords: ''
 cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E7%BA%BD%E7%BA%A6%202.png
 abbrlink: 112220
 ---
 
-# 9.8 其他常用工具类
+# 常用工具类
 
 除了我们前面提到的 Java 原生工具类，比如说 [Arrays](https://javabetter.cn/common-tool/arrays.html)、[Objects](https://javabetter.cn/common-tool/Objects.html)、[Collections](https://javabetter.cn/common-tool/collections.html)、[Scanner](https://javabetter.cn/common-tool/scanner.html) 等，还有一些第三方的工具类，比如说 [Hutool](https://javabetter.cn/common-tool/hutool.html)、[Guava](https://javabetter.cn/common-tool/guava.html) 等，以及我们今天介绍的 IpUtil、CollectionUtils、StringUtils、MDC、ClassUtils、BeanUtils、ReflectionUtils 等等，在很大程度上能够提高我们的生产效率。
 
@@ -26,7 +22,7 @@ abbrlink: 112220
 
 获取本机 IP 算是比较常见的一个需求场景了，比如业务报警，可能就会带上出问题的机器 IP，方便直接上去看日志定位问题，那么问题来了，如何获取机器 IP 呢？
 
-#### 1. 基本方法
+#### 基本方法
 
 如何获取机器 IP？如果了解 InetAddress 这个工具类，就很容易写出一个简单的工具类，如下
 
@@ -52,7 +48,7 @@ public static String getLocalIP() {
 
 ![](https://cdn.tobebetterjavaer.com/stutymore/utils-20230330095801.png)
 
-#### 2. 进阶版
+#### 进阶版
 
 做一点简单的改动，获取 IPV4 的地址，源码如下
 
@@ -94,7 +90,7 @@ public static String getLocalIpByNetcard() {
 
 ![](https://cdn.tobebetterjavaer.com/stutymore/utils-20230330100334.png)
 
-#### 3. 完整工具类
+#### 完整工具类
 
 ```java
 import java.net.*;
@@ -259,7 +255,7 @@ Class<?>[] allInterfaces = ClassUtils.getAllInterfaces(new User());
 
 如果你想获取某个类的包名，可以使用 ClassUtils 的`getPackageName`方法。例如：
 
-```java
+```shell
 String packageName = ClassUtils.getPackageName(User.class);
 System.out.println(packageName);
 ```
@@ -268,7 +264,7 @@ System.out.println(packageName);
 
 如果你想判断某个类是否内部类，可以使用 ClassUtils 的`isInnerClass`方法。例如：
 
-```java
+```shell
 System.out.println(ClassUtils.isInnerClass(User.class));
 ```
 
@@ -276,7 +272,7 @@ System.out.println(ClassUtils.isInnerClass(User.class));
 
 如果你想判断对象是否代理对象，可以使用 ClassUtils 的`isCglibProxy`方法。例如：
 
-```java
+```shell
 System.out.println(ClassUtils.isCglibProxy(new User()));
 ```
 
@@ -294,10 +290,10 @@ Spring 给我们提供了一个`JavaBean`的工具类，它在`org.springframewo
 
 曾几何时，你有没有这样的需求：把某个对象中的所有属性，都拷贝到另外一个对象中。这时就能使用 BeanUtils 的`copyProperties`方法。例如：
 
-```java
+```shell
 User user1 = new User();
 user1.setId(1L);
-user1.setName("沉默王二");
+user1.setName("马斯克");
 user1.setAddress("中国");
 
 User user2 = new User();
@@ -318,7 +314,7 @@ System.out.println(user);
 
 如果你想获取某个类的指定方法，可以使用 BeanUtils 的`findDeclaredMethod`方法。例如：
 
-```java
+```shell
 Method declaredMethod = BeanUtils.findDeclaredMethod(User.class, "getId");
 System.out.println(declaredMethod.getName());
 ```
@@ -327,7 +323,7 @@ System.out.println(declaredMethod.getName());
 
 如果你想获取某个方法的参数，可以使用 BeanUtils 的`findPropertyForMethod`方法。例如：
 
-```java
+```shell
 Method declaredMethod = BeanUtils.findDeclaredMethod(User.class, "getId");
 PropertyDescriptor propertyForMethod = BeanUtils.findPropertyForMethod(declaredMethod);
 System.out.println(propertyForMethod.getName());
@@ -363,7 +359,7 @@ Field field = ReflectionUtils.findField(User.class, "id");
 
 如果你想通过反射调用某个方法，传递参数，可以使用 ReflectionUtils 类的`invokeMethod`方法。例如：
 
-```java
+```shell
  ReflectionUtils.invokeMethod(method, springContextsUtil.getBean(beanName), param);
 ```
 
@@ -371,7 +367,7 @@ Field field = ReflectionUtils.findField(User.class, "id");
 
 如果你想判断某个字段是否常量，可以使用 ReflectionUtils 类的`isPublicStaticFinal`方法。例如：
 
-```java
+```shell
 Field field = ReflectionUtils.findField(User.class, "id");
 System.out.println(ReflectionUtils.isPublicStaticFinal(field));
 ```
@@ -380,22 +376,9 @@ System.out.println(ReflectionUtils.isPublicStaticFinal(field));
 
 如果你想判断某个方法是否 equals 方法，可以使用 ReflectionUtils 类的`isEqualsMethod`方法。例如：
 
-```java
+```shell
 Method method = ReflectionUtils.findMethod(User.class, "getId");
 System.out.println(ReflectionUtils.isEqualsMethod(method));
 ```
 
-当然这个类还有不少有趣的方法，感兴趣的朋友，可以看看下面内容：
 
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/common-tool/utils-0a4ecb9c-b9d2-4090-a7b7-c626a0672b94.jpg)
-
->参考链接：[https://juejin.cn/post/7102418518599008286](https://juejin.cn/post/7102418518599008286) 作者：苏三，编辑：沉默王二
-
----
-
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括Java基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)

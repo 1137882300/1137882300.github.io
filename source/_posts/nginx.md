@@ -2,21 +2,16 @@
 title: 5分钟带你深入浅出搞懂 Nginx
 shortTitle: Nginx 入门
 categories:
-  - Java企业级开发
+  - 中间件
 tags:
   - Nginx
-description: 本文是一篇通俗易懂、风趣幽默的 Nginx 入门教程，内容涵盖 Nginx 是什么、Nginx 的作用、Nginx 的安装、Nginx 的常用命令、Nginx 的配置、Nginx 的学习资料等知识点。学 Nginx，就认准二哥的 Java 进阶之路😄。
-head:
-  - - meta
-    - name: keywords
-      content: nginx,nginx入门,nginx教程,nginx配置,nginx反向代理,nginx负载均衡,nginx动静分离
+description: 本文是一篇通俗易懂、风趣幽默的 Nginx 入门教程，内容涵盖 Nginx 是什么、Nginx 的作用、Nginx 的安装、Nginx 的常用命令、Nginx 的配置、Nginx 的学习资料等知识点 。
 date: 2022-08-09
 keywords: ''
 cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E5%BE%B7%E5%9B%BD%202.png
 abbrlink: 112217
 ---
 
-大家好，我是二哥呀。最近在搭建[技术派](https://paicoding.com/)网站，就不可避免地要用到 Nginx，索性就出一期 Nginx 的入门教程，希望也可以帮助到大家~😁
 
 作为开发者，相信大家都知道 Nginx 的重要性。Nginx 是一个高性能的 HTTP 和反向代理 Web 服务器，由俄罗斯的伊戈尔·赛索耶夫开发，第一个版本发布于 2004 年 10 月 4 日。
 
@@ -34,7 +29,7 @@ Nginx 的特点是：
 
 基于这些特点，越来越多的网站开始使用 Nginx。于是，掌握 Nginx 就变成了开发者的一项必不可少的技能。
 
-## 一、Nginx 的作用
+## Nginx 的作用
 
 **反向代理**是 Nginx 作为 Web 服务器最常用的功能之一。什么是反向代理呢？很多初学者在第一次遇到这个名词的时候总免不了出现很多问号。
 
@@ -68,7 +63,7 @@ Nginx 的特点是：
 
 ![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nginx/nginx-05.png)
 
-## 二、Nginx 的安装
+## Nginx 的安装
 
 针对不同的操作系统，Nginx 的安装各不相同。
 
@@ -128,7 +123,7 @@ Linux 的安装方式有很多种，每一家的服务器厂商都会有 doc 文
 
 ![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nginx/nginx-10.png)
 
-## 三、Nginx 常用命令
+## Nginx 常用命令
 
 通常来说，Nginx 一旦启动后，我们是很少让它退出的，使用最多的就是 reload 命令。当我们修改了配置文件，是需要执行一次 reload 命令让 Nginx 生效的。
 
@@ -152,7 +147,7 @@ nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
 
 另外，Nginx 的 reload 对用户是无感的，这一点我觉得很牛逼，你重启了 Nginx，但用户就仿佛没有感觉，还在继续访问网站，这就是 Nginx 的优势。
 
-## 四、Nginx 的配置
+## Nginx 的配置
 
 我们先来看一下 Nginx 的配置结构图：
 
@@ -215,20 +210,18 @@ root 我指定了 `/home/www` 目录，首页文件为 index.html。这个文件
 <!DOCTYPE html>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>沉默王二</title>
+<title>马斯克</title>
   <body>
     <img src="niubi.jpeg" />
   </body>
 </html>
 ```
 
-很言简意赅，总之就是二哥，牛逼~
-
 好，保存配置文件，并且 reload Nginx，我们在本地的浏览器中输入服务器的 IP 地址就可以看到效果了。
 
 ![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nginx/nginx-12.png)
 
-## 五、Nginx 的学习资料
+## Nginx 的学习资料
 
 关于 Nginx 的负载均衡，还有动静分离，我们以后有机会再讲。Nginx 的入门非常简单，但有一说一，如果想要在工作中用好 Nginx，还是需要花费一番功夫的。
 
@@ -255,5 +248,3 @@ root 我指定了 `/home/www` 目录，首页文件为 index.html。这个文件
 >https://juejin.cn/post/6844904144235413512
 
 这些资料如果能全部过一遍的话，我要喊你 Nginx 小王子了，估计公司遇到 Nginx 问题的话，你肯定是解决问题的那一个。
-
-----

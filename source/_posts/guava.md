@@ -1,5 +1,5 @@
 ---
-title: Guava：Google开源的Java工具库，太强大了
+title: Guava:Google开源的Java工具库，太强大了
 shortTitle: Guava工具库
 categories:
   - Java核心
@@ -12,9 +12,9 @@ cover: https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/Butterfly-docs-02-cover.png
 abbrlink: 112213
 ---
 
-# 9.7 Guava工具库
+## Guava工具库
 
-### 01、前世今生
+### 前世今生
 
 你好呀，我是 Guava。
 
@@ -26,7 +26,7 @@ abbrlink: 112213
 
 这么说吧，学好如何使用我，能让你在编程中变得更快乐，写出更优雅的代码！
 
-### 02、引入 Guava
+### 引入 Guava
 
 如果你要在 Maven 项目使用我的话，需要先在 pom.xml 文件中引入我的依赖。
 
@@ -49,7 +49,7 @@ Doug Lea，java.util.concurrent 包的作者，曾说过一句话：“[null 真
 
 代码示例如下所示。
 
-```java
+```shell
 Optional<Integer> possible = Optional.of(5);
 possible.isPresent(); // returns true
 possible.get(); // returns 5
@@ -69,7 +69,7 @@ possible.get(); // returns 5
 - 常见的 Object 方法，比如说 Objects.equals、Objects.hashCode，JDK 7 引入的 Objects 类提供同样的方法，当然也是从我这借鉴的灵感。
 - 更强大的比较器
 
-### 04、集合
+### 集合
 
 首先我来说一下，为什么需要不可变集合。
 
@@ -81,7 +81,7 @@ possible.get(); // returns 5
 
 下面的代码利用 JDK 的 [`Collections.unmodifiableList(list)`](https://javabetter.cn/common-tool/collections.html) 得到一个不可修改的集合 unmodifiableList。
 
-```java
+```shell
 List list = new ArrayList();
 list.add("雷军");
 list.add("乔布斯");
@@ -102,7 +102,7 @@ Exception in thread "main" java.lang.UnsupportedOperationException
 
 你可以把 `unmodifiableList.add()` 换成 `list.add()`。
 
-```java
+```shell
 List list = new ArrayList();
 list.add("雷军");
 list.add("乔布斯");
@@ -117,7 +117,7 @@ list.add("马云");
 
 我就不会犯这种错，来看下面的代码。
 
-```java
+```shell
 List<String> stringArrayList = Lists.newArrayList("雷军","乔布斯");
 ImmutableList<String> immutableList = ImmutableList.copyOf(stringArrayList);
 immutableList.add("马云");
@@ -155,18 +155,18 @@ public final boolean add(E e) {
 
 我提供了连接器——Joiner，可以用分隔符把字符串序列连接起来。下面的代码将会返回“雷军; 乔布斯”，你可以使用 `useForNull(String)` 方法用某个字符串来替换 null，而不像 `skipNulls()` 方法那样直接忽略 null。
 
-```java
+```shell
 Joiner joiner = Joiner.on("; ").skipNulls();
 return joiner.join("雷军", null, "乔布斯");
 ```
 
 我还提供了拆分器—— Splitter，可以按照指定的分隔符把字符串序列进行拆分。
 
-```java
+```shell
 Splitter.on(',')
         .trimResults()
         .omitEmptyStrings()
-        .split("雷军,乔布斯,,   沉默王二");
+        .split("雷军,乔布斯,,   火锅");
 ```
 
 ### 06、缓存
@@ -255,21 +255,21 @@ List<Integer> list = Lists.newArrayList();
 List<Integer> list = Lists.newArrayList(1, 2, 3);
 ```
 执行结果：
-```java
+```shell
 [1, 2, 3]
 ```
 
 #### 笛卡尔积
 
 如果你想将两个集合做`笛卡尔积`，Lists的`cartesianProduct`方法可以帮你实现：
-```java
+```shell
 List<Integer> list1 = Lists.newArrayList(1, 2, 3);
 List<Integer> list2 = Lists.newArrayList(4,5);
 List<List<Integer>> productList = Lists.cartesianProduct(list1,list2);
 System.out.println(productList);
 ```
 执行结果：
-```java
+```shell
 [[1, 4], [1, 5], [2, 4], [2, 5], [3, 4], [3, 5]]
 ```
 
@@ -277,7 +277,7 @@ System.out.println(productList);
 
 如果你想将一个`大集合`分成若干个`小集合`，可以使用Lists的`partition`方法：
 
-```java
+```shell
 List<Integer> list = Lists.newArrayList(1, 2, 3, 4, 5);
 List<List<Integer>> partitionList = Lists.partition(list, 2);
 System.out.println(partitionList);
@@ -285,7 +285,7 @@ System.out.println(partitionList);
 
 执行结果：
 
-```java
+```shell
 [[1, 2], [3, 4], [5]]
 ```
 
@@ -299,7 +299,7 @@ System.out.println(partitionList);
 
 如果我们想把某个集合转换成另外一个接口，可以使用Lists的 `transform`方法。例如：
 
-```java
+```shell
 List<String> list = Lists.newArrayList("a","b","c");
 List<String> transformList = Lists.transform(list, x -> x.toUpperCase());
 System.out.println(transformList);
@@ -311,7 +311,7 @@ System.out.println(transformList);
 
 Lists的有颠倒顺序的方法`reverse`。例如：
 
-```java
+```shell
 List<Integer> list = Lists.newArrayList(3, 1, 2);
 List<Integer> reverseList = Lists.reverse(list);
 System.out.println(reverseList);
@@ -319,7 +319,7 @@ System.out.println(reverseList);
 
 执行结果：
 
-```java
+```shell
 [2, 1, 3]
 ```
 
@@ -329,19 +329,6 @@ Lists还有其他的好用的工具，我在这里只是抛砖引玉，有兴趣
 
 ![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/common-tool/guava-4b962b06-a626-4707-9fe9-f5729536d9c5.jpg)
 
-### 08、尾声
+### 尾声
 
-上面介绍了我认为最常用的功能，作为 Google 公司开源的 Java 开发核心库，个人觉得实用性还是很高的（不然呢？嘿嘿嘿）。引入到你的项目后不仅能快速的实现一些开发中常用的功能，而且还可以让代码更加的优雅简洁。
-
-我觉得适用于每一个 Java 项目，至于其他的一些功能，比如说散列、事件总线、数学运算、反射，就等待你去发掘了。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/common-tool/guava-03.png)
-
-----
-
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括Java基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+上面介绍了我认为最常用的功能，作为 Google 公司开源的 Java 开发核心库，个人觉得实用性还是很高的）。引入到你的项目后不仅能快速的实现一些开发中常用的功能，而且还可以让代码更加的优雅简洁。

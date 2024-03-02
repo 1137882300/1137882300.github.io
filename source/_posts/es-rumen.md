@@ -1,7 +1,7 @@
 ---
-title: es 入门
+title: es入门知识
 categories:
-  - Java企业级开发
+  - 中间件
 tags:
   - Elasticsearch
 date: 2017-03-22
@@ -10,18 +10,7 @@ cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%9B%85%E5%8
 abbrlink: 112211
 ---
 
-# 全文搜索引擎Elasticsearch入门教程
-
-学习真的是一件令人开心的事情，上次分享了 [Redis 入门](https://mp.weixin.qq.com/s/NPJkMy5RppyFk9QhzHxhrw)的文章后，收到了很多小伙伴的鼓励，比如说：“哎呀，不错呀，二哥，通俗易懂，十分钟真的入门了”。瞅瞅，瞅瞅，我决定再接再厉，入门一下 Elasticsearch，因为我们公司的商城系统升级了，需要用 Elasticsearch 做商品的搜索。
-
-不过，我首先要声明一点，我对 Elasticsearch 并没有进行很深入的研究，仅仅是因为要用，就学一下。但作为一名负责任的技术博主，我是用心的，为此还特意在某某时间上买了一门视频课程，作者叫阮一鸣。说实话，他光秃秃的头顶让我对这门课程产生了浓厚的兴趣。
-
-经过三天三夜的学习，总算是入了 Elasticsearch 的门，我就决定把这些心得体会分享出来，感兴趣的小伙伴可以作为参考。遇到文章中有错误的地方，不要手下留情，过来捶我，只要不打脸就好。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/elasticsearch/rumen-ebb2bdbc-2cdb-4540-b48f-41f92c848f2f.jpg)
-
-
-### 01、Elasticsearch 是什么
+### Elasticsearch 是什么
 
 >Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中以及意料之外的情况。
 
@@ -37,7 +26,7 @@ Elastic Stack 又是什么呢？整个架构图如下图（来源于网络，侵
 
 理论方面的内容就不说太多了，我怕小伙伴们会感到枯燥。毕竟入门嘛，实战才重要。
 
-### 02、安装 Elasticsearch
+### 安装 Elasticsearch
 
 Elasticsearch 是由 Java 开发的，所以早期的版本需要先在电脑上安装 JDK 进行支持。后来的版本中内置了 Java 环境，所以直接下载就行了。Elasticsearch 针对不同的操作系统有不同的安装包，我们这篇入门的文章就以 Windows 为例吧。
 
@@ -77,7 +66,7 @@ Elasticsearch 是免安装的，只需要把 zip 包解压就可以了。
 
 那如何停止服务呢？可以直接按下 `Ctrl+C` 组合键——粗暴、壁咚。
 
-### 03、安装 Kibana
+### 安装 Kibana
 
 通过 Kibana，我们可以对 Elasticsearch 服务进行可视化操作，就像在 Linux 操作系统下安装一个图形化界面一样。
 
@@ -105,7 +94,7 @@ Elasticsearch 是免安装的，只需要把 zip 包解压就可以了。
 
 ![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/elasticsearch/rumen-5c44bd79-d3a9-49fb-9414-04dc38840cfb.jpg)
 
-### 04、Elasticsearch 的关键概念
+### Elasticsearch 的关键概念
 
 在进行下一步之前，需要先来理解 Elasticsearch 中的几个关键概念，比如说什么是索引，什么是类型，什么是文档等等。Elasticsearch 既然是一个数据引擎，它里面的一些概念就和 MySQL 有一定的关系。
 
@@ -114,9 +103,9 @@ Elasticsearch 是免安装的，只需要把 zip 包解压就可以了。
 看完上面这幅图（来源于网络，侵删），是不是瞬间就清晰了。向 Elasticsearch 中存储数据，其实就是向 Elasticsearch 中的 index 下面的 type 中存储 JSON 类型的数据。
 
 
-### 05、在 Java 中使用 Elasticsearch
+### 在 Java 中使用 Elasticsearch
 
-有些小伙伴可能会问，“二哥，我是一名 Java 程序员，我该如何在 Java 中使用 Elasticsearch 呢？”这个问题问得好，这就来，这就来。
+有些小伙伴可能会问，“大哥，我是一名 Java 程序员，我该如何在 Java 中使用 Elasticsearch 呢？”这个问题问得好，这就来，这就来。
 
 Elasticsearch 既然内置了 Java 运行环境，自然就提供了一系列 API 供我们操作。
 
@@ -142,7 +131,7 @@ public class ElasticsearchTest {
 
         IndexRequest indexRequest = new IndexRequest("writer")
                 .id("1")
-                .source("name", "沉默王二",
+                .source("name", "火锅",
                         "age", 18,
                         "memo", "一枚有趣的程序员");
         IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
@@ -173,7 +162,7 @@ public class ElasticsearchTest {
 好了，来看一下程序的输出结果：
 
 ```
-{"name":"沉默王二","age":18,"memo":"一枚有趣的程序员"}
+{"name":"火锅","age":18,"memo":"一枚有趣的程序员"}
 ```
 
 完全符合我们的预期，perfect！

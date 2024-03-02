@@ -2,10 +2,10 @@
 categories:
   - Java企业级开发
 tags:
-  - Spring Boot
+  - SpringBoot
   - Vue
-title: 编程喵🐱实战项目如何在云服务器上跑起来？
-shortTitle: 一键部署编程喵到生产环境
+title: 如何把项目部署到云服务器
+shortTitle: 一键部署到生产环境
 date: 2018-12-09
 keywords: ''
 cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E6%B3%95%E5%9B%BD%202.png
@@ -14,15 +14,12 @@ abbrlink: 112216
 
 ## 云服务器
 
-我们需要一台云服务器，我之前白嫖过一台丐版的，1 核1G 内存，并且已经安装了宝塔面板（安装教程戳[链接🔗](https://javabetter.cn/szjy/install-baota-mianban.html)）。
+我们需要一台云服务器，我之前白嫖过一台丐版的，1 核1G 内存，并且已经安装了宝塔面板。
 
 这是从宝塔面板首页看到的服务器配置详情。
 
 ![](https://cdn.tobebetterjavaer.com/codingmore/images/2022-06-10ef01787c-ee09-4474-a182-70bd6a2daf72.png)
 
-马上 618 了，阿里云服务器也开始整活了，需要白嫖的小伙伴可以先加群。
-
-![](https://cdn.tobebetterjavaer.com/codingmore/images/2022-06-10c69c16d4-b9e3-4add-b316-0c4670e76789.png)
 
 ## MySQL
 
@@ -413,13 +410,3 @@ server {
     }
 }
 ```
-
-ok，登录 admin 端，可以看到我们的文章管理页面了。
-
-
-![](https://cdn.tobebetterjavaer.com/codingmore/images/2022-06-1061fbe711-7715-47d5-9bb9-21b872881be1.png)
-
-## 网站域名
-
-- 编程喵 web 端：[www.codingmore.top](http://www.codingmore.top/admin/)
-- 编程喵 admin 端：[www.codingmore.top/admin](http://www.codingmore.top/admin)

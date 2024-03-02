@@ -2,7 +2,7 @@
 categories:
   - Java企业级开发
 tags:
-  - Spring Boot
+  - SpringBoot
 title: 过滤器、拦截器、监听器
 date: 2018-11-09
 keywords: ''
@@ -190,7 +190,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 public class MyInterceptorController {
     @RequestMapping("/hello")
     public String hello() {
-        return "沉默王二是傻X";
+        return "火锅是傻X";
     }
 }
 ```
@@ -257,18 +257,4 @@ public class WebLogAspect {
 
 通过拦截后的请求信息大概是这样的：
 
-
 ![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/Filter-Interceptor-Listener-7a4b219d-bd3e-435e-a2dc-93f4fe4e8cc2.png)
-
-
-## 监听器
-
-根据监听对象可以把监听器分为 3 类：
-
- 
-----
-
-## 源码路径：
-
-> - 编程喵：[https://github.com/itwanger/coding-more](https://github.com/itwanger/coding-more)
-> - 过滤器，拦截器、监听器专用：[https://github.com/itwanger/coding-more](https://github.com/itwanger/codingmore-learning/tree/main/codingmore-filter-interceptor-listener)
