@@ -9,5 +9,7 @@ Disallow: /photos/
 Disallow: /*.css
 Disallow: /*.js
 
+Disallow: manifest.json
+
 Sitemap: https://www.funning.top/sitemap.xml
 Sitemap: https://www.funning.top/baidusitemap.xml
