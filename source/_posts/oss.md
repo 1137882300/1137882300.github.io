@@ -6,7 +6,7 @@ tags:
   - SpringBoot
 date: 2023-11-09
 keywords: ''
-cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E5%A4%9A%E5%85%83.png
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E8%80%81%E6%8C%9D.jpg
 abbrlink: 112218
 ---
 

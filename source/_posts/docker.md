@@ -7,7 +7,7 @@ tags:
   - SpringBoot
 date: 2021-03-22
 keywords: ''
-cover: https://cdn.jsdelivr.net/gh/jerryc127/CDN/img/Butterfly-docs-02-cover.png
+cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images/%E8%A1%97%E9%81%93.jpg
 abbrlink: 112210
 ---
 
