@@ -218,7 +218,7 @@ footer:
   owner:
     enable: true
     since: 2023
-  custom_text: 天天开心~
+  custom_text: 朋友你是最棒的～
   copyright: true # Copyright of theme and framework
 
 # aside (側邊欄)
