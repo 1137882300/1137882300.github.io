@@ -981,6 +981,7 @@ electric_clock:
 inject:
   head:
     - <link rel="stylesheet" href="/css/tzy.css">
+    - <link rel="stylesheet" href="/css/custom.css">
     - <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4388343_4lr6yboyinx.css">
     - <meta name="referrer" content="no-referrer")
   bottom:
