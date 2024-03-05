@@ -3,22 +3,28 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 螃蟹的蜗居
-subtitle: '螃蟹钳'
-description: ''
-keywords:
-author: juzi
+title: 罗布斯
+subtitle: '｜罗布斯'
+description: '2024一起加油！'
+keywords: 'blog,博客,知识,文章,技术,AI,人工智能,chatgpt,gpt'
+author: 罗布斯
 language: zh-CN
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://1137882300.github.io/crab-blog
-permalink: :year/:month/:day/:title/
+url: https://www.funning.top/
+#permalink: :year/:month/:day/:title/
+permalink: article/:abbrlink.html # post为自定义前缀
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
   trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+abbrlink:
+  alg: crc32   #算法： crc16(default) and crc32
+  rep: hex     #进制： dec(default) and hex
+
 
 # Directory
 source_dir: source
@@ -29,6 +35,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - 'robots.txt'
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -43,9 +50,8 @@ render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
-syntax_highlighter: highlight.js
 highlight:
-  enable: false
+  enable: true
   line_number: true
   auto_detect: false
   tab_replace: ''
@@ -98,107 +104,64 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: shoka
+theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  - type: git
+    repo: https://github.com/1137882300/1137882300.github.io
+    branch: deploy
+  - type: baidu_url_submitter
 
 
+# hexo-admin authentification 
+admin:
+  username: juzi
+  password_hash: $2a$10$1XkI1TA8/4V4stg32pHDA.HD6zW/zsuhIO8ViQUrEg5oizxdIc/RC
+  secret: xiaopangxie
 
-markdown:
-  render: # 渲染器设置
-    html: false # 过滤 HTML 标签
-    xhtmlOut: true # 使用 '/' 来闭合单标签 （比如 <br />）。
-    breaks: true # 转换段落里的 '\n' 到 <br>。
-    linkify: true # 将类似 URL 的文本自动转换为链接。
-    typographer:
-    quotes: '“”‘’'
-  plugins: # markdown-it插件设置
-    - plugin:
-        name: markdown-it-toc-and-anchor
-        enable: true
-        options: # 文章目录以及锚点应用的class名称，shoka主题必须设置成这样
-          tocClassName: 'toc'
-          anchorClassName: 'anchor'
-    - plugin:
-        name: markdown-it-multimd-table
-        enable: true
-        options:
-          multiline: true
-          rowspan: true
-          headerless: true
-    - plugin:
-        name: ./markdown-it-furigana
-        enable: true
-        options:
-          fallbackParens: "()"
-    - plugin:
-        name: ./markdown-it-spoiler
-        enable: true
-        options:
-          title: "你知道得太多了"
-
-
-minify:
-  html:
-    enable: true
-    stamp: false
-    exclude:
-      - '**/json.ejs'
-      - '**/atom.ejs'
-      - '**/rss.ejs'
-  css:
-    enable: true
-    stamp: false
-    exclude:
-      - '**/*.min.css'
-  js:
-    enable: true
-    stamp: false
-    mangle:
-      toplevel: true
-    output:
-    compress:
-    exclude:
-      - '**/*.min.js'
-
-autoprefixer:
-  exclude:
-    - '*.min.css'
-  # browsers:
-  #   - 'last 2 versions'
-
+# 搜索相关的 https://dashboard.algolia.com/account/api-keys/restricted?applicationId=8Y3BT0M4D5
 algolia:
-  appId: #Your appId
-  apiKey: #Your apiKey
-  adminApiKey: #Your adminApiKey
+  appId: "8Y3BT0M4D5"
+  apiKey: "00e7d3d6a2840feeb77ac9e3178f6e6b"
+  adminApiKey: "4d3e57496c6c441a8ab6f3aba3f44964"
   chunkSize: 5000
-  indexName: #"shoka"
+  indexName: "prod_NAME"
   fields:
-    - title #必须配置
-    - path #必须配置
-    - categories #推荐配置
-    - content:strip:truncate,0,2000
+    - content:strip:truncate,0,500
+    - excerpt:strip
     - gallery
+    - permalink
     - photos
+    - slug
     - tags
+    - title
 
-feed:
-    limit: 20
-    order_by: "-date"
-    tag_dir: false
-    category_dir: false
-    rss:
-        enable: true
-        template: "themes/shoka/layout/_alternate/rss.ejs"
-        output: "rss.xml"
-    atom:
-        enable: true
-        template: "themes/shoka/layout/_alternate/atom.ejs"
-        output: "atom.xml"
-    jsonFeed:
-        enable: true
-        template: "themes/shoka/layout/_alternate/json.ejs"
-        output: "feed.json"
+# google收录试用的
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
+
+# 百度主动推送
+baidu_url_submit:
+  count: 100 	# 提交最新的一个链接
+  host: funning.top # 在百度站长平台中注册的域名
+  token: YourToken # 请注意这是你百度站长平台主动推送的的秘钥, 所以请不要把博客源代码发布在公众仓库里!
+  path: baidu_urls.txt # 文本文档的地址, 新链接会保存在此文本文档里
+
+# Baidu Push (百度推送)
+baidu_push: true
+
+
+# Security
+encrypt: # hexo-blog-encrypt
+  abstract: 有东西被加密了, 请输入密码查看.
+  message: 您好, 这里需要密码.
+  tags:
+    - {name: 旅游, password: pmt520}
+  theme: xray
+  wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.
+  wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.

@@ -6,3 +6,9 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+
+/node_modules
+.deploy_git
+.idea/workspace.xml
+.idea
+/public
