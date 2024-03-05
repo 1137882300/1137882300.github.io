@@ -9,6 +9,12 @@ tags:
   - 旅游
   - 香港
 date: 2023-11-09
+password: pmt520
+abstract: 有东西被加密了, 请输入密码查看.
+message: 您好, 这里需要密码.
+theme: xray
+wrong_pass_message: 抱歉, 这个密码看着不太对, 请再试试.
+wrong_hash_message: 抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.
 keywords: ''
 cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A6%99%E6%B8%AF.png
 abbrlink: 112224
