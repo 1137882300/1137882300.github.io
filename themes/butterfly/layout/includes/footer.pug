@@ -1,11 +1,86 @@
 #footer-wrap
+  //if theme.footer.owner.enable
+  //  - var now = new Date()
+  //  - var nowYear = now.getFullYear()
+  //  if theme.footer.owner.since && theme.footer.owner.since != nowYear
+  //    .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By ${config.author}`
+  //  else
+  //    .copyright!= `&copy;${nowYear} By ${config.author}`
+  //if theme.footer.copyright
+  //  .framework-info
+  //    span= _p('footer.framework') + ' '
+  //    a(href='https://hexo.io')= 'Hexo'
+  //    span.footer-separator |
+  //    span= _p('footer.theme') + ' '
+  //    a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'
+  //if theme.footer.custom_text
+  //  .footer_custom_text!=`${theme.footer.custom_text}`
+
+  #ft
+    .ft-item-1
+      .t-top
+        .t-t-l
+          p.ft-t.t-l-t 公益广告🧬
+          .bg-ad
+            div
+              | 国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。
+            .btn-xz-box
+              a.btn-xz(href='https://www.hack-gov.com.cn/posts/21480.html') 下载（国家反诈中心）
+        .t-t-r
+          p.ft-t.t-l-t 修仙导航
+          ul.ft-links
+            li
+              a(href='https://funning.top/articles/hexo1600/') 建站指南
+              a(href='https://funning.top/nav.html') 网址导航
+            li
+              a(href='https://funning.top/sponsorWall/') 来杯咖啡
+              a(href='https://funning.top/comments/') 留点什么
+            li
+              a(href='https://funning.top/about/') 关于博主
+              a(href='https://funning.top/archives/') 文章归档
+            li
+              a(href='https://funning.top/categories/') 文章分类
+              a(href='https://funning.top/tags/') 文章标签
+            li
+              a(href='https://funning.top/gallery/') 我的相册
+              a(href='https://funning.top/bangumis/') 我的追番
+            li
+              a(href='https://funning.top/specialEffects/') 一些特效
+              a(href='https://funning.top/wallpaper/') 一些壁纸
+    .ft-item-2
+      p.ft-t 推荐友链
+      .ft-img-group
+        .img-group-item
+          a(href='https://funning.top/')
+            img(src='https://gitee.com/coderzane/images/raw/master/images/202312271155254.jpg' alt='')
+        .img-group-item
+          a(href='https://fe32.top/')
+            img(src='https://bu.dusays.com/2022/05/02/626f92e193879.jpg' alt='')
+        .img-group-item
+          a(href='https://www.fomal.cc/')
+            img(src='https://sourcebucket.s3.bitiful.net/img/avatar.webp' alt='')
+        .img-group-item
+          a(href='https://butterfly.js.org/')
+            img(src='https://sourcebucket.s3.bitiful.net/img/jerry.png' alt='')
+        .img-group-item
+          a(href='https://akilar.top/')
+            img(src='https://sourcebucket.s3.bitiful.net/img/akilar.jpg' alt='')
+        .img-group-item
+          a(href='https://blog.anheyu.com/')
+            img(src='https://sourcebucket.s3.bitiful.net/img/anzhiyu.jpg' alt='')
+        .img-group-item
+          a(href='https://www.startly.cn/')
+            img(src='https://sourcebucket.s3.bitiful.net/img/xiaoqi.webp' alt='')
+        .img-group-item
+          a(href='https://blog.leonus.cn/')
+            img(src='https://sourcebucket.s3.bitiful.net/img/leonus.webp' alt='')
   if theme.footer.owner.enable
     - var now = new Date()
     - var nowYear = now.getFullYear()
-    if theme.footer.owner.since && theme.footer.owner.since != nowYear
-      .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear} By ${config.author}`
+    if theme.footer.owner.since && theme.footer.owner.since !== nowYear
+      .copyright!= `&copy;${theme.footer.owner.since} - ${nowYear + ' '} <i id="heartbeat" class="fa fas fa-heartbeat"></i> ${config.author}`
     else
-      .copyright!= `&copy;${nowYear} By ${config.author}`
+      .copyright!= `&copy;${nowYear + ' '} <i id="heartbeat" class="fa fas fa-heartbeat"></i> ${config.author}`
   if theme.footer.copyright
     .framework-info
       span= _p('footer.framework') + ' '
@@ -15,3 +90,4 @@
       a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'
   if theme.footer.custom_text
     .footer_custom_text!=`${theme.footer.custom_text}`
+
