@@ -1,9 +1,11 @@
 ---
-title: es入门知识
+title: elasticsearch 入门知识
 categories:
-  - 中间件
+  - [中间件]
+  - [elasticsearch]
 tags:
-  - Elasticsearch
+  - 入门
+  - 基础
 date: 2017-03-22
 keywords: ''
 cover: https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%9B%85%E5%8A%A0%E8%BE%BE%202.png

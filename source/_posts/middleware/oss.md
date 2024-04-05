@@ -1,7 +1,7 @@
 ---
 title: OSS基本操作
 categories:
-  - Java企业级开发
+  - 中间件
 tags:
   - SpringBoot
 date: 2023-11-09

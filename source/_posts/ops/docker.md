@@ -2,7 +2,8 @@
 title: 一键部署SpringBoot到远程Docker容器
 shortTitle: 部署SpringBoot到Docker
 categories:
-  - Java企业级开发
+  - [SpringBoot]
+  - [Docker]
 tags:
   - SpringBoot
 date: 2021-03-22

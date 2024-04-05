@@ -1,9 +1,10 @@
 ---
 categories:
-  - Java企业级开发
+  - SpringBoot
 tags:
   - SpringBoot
   - Vue
+  - 生产环境
 title: 如何把项目部署到云服务器
 shortTitle: 一键部署到生产环境
 date: 2018-12-09
