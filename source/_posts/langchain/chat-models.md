@@ -14,7 +14,7 @@ tags:
 description:
 date: 2024-04-01
 keywords: 'AI,prompt,LangChain'
-cover:
+cover: https://img.funning.top/menggu1.png
 abbrlink: 112240
 ---
 
