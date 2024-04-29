@@ -272,7 +272,7 @@ body {
 
 #footer-wrap,
 #footer-wrap a {
-    color: var(--font-color)
+    color: #cae4ff
 }
 
 [data-theme='dark'] #web_bg:before,
@@ -413,7 +413,7 @@ body,
     margin: 0 auto 12px;
     /* background: pink; */
     display: flex;
-    color: var(--font-color) !important;
+    color: #fbfdff !important;
     text-align: left;
     flex-wrap: wrap;
 }
