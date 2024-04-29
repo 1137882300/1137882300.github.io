@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一键部署SpringBoot到远程Docker容器 | 罗布斯</title><meta name="author" content="罗布斯"><meta name="copyright" content="罗布斯"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="关于 DockerDocker 是用 go 语言编写的，这也是 go 语言近些年越来越火的原因之一。关于 Docker，有 3 个重要的概念需要了解下：  image：镜像，一个文件，用来创建容器；如果你有 Windows 装机经历，那可以很好理解镜像这个词的含义，反正我年少的时候没少把 Windows 镜像刻盘重装系统。 container：容器，一个可运行的镜像实例，里面运行着一个完整的操作系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一键部署SpringBoot到远程Docker容器">
+<meta property="og:url" content="https://www.funning.top/article/112210.html">
+<meta property="og:site_name" content="罗布斯">
+<meta property="og:description" content="关于 DockerDocker 是用 go 语言编写的，这也是 go 语言近些年越来越火的原因之一。关于 Docker，有 3 个重要的概念需要了解下：  image：镜像，一个文件，用来创建容器；如果你有 Windows 装机经历，那可以很好理解镜像这个词的含义，反正我年少的时候没少把 Windows 镜像刻盘重装系统。 container：容器，一个可运行的镜像实例，里面运行着一个完整的操作系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/1137882300/images@master/images/%E8%A1%97%E9%81%93.jpg">
+<meta property="article:published_time" content="2021-03-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-04T09:36:16.037Z">
+<meta property="article:author" content="罗布斯">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/1137882300/images@master/images/%E8%A1%97%E9%81%93.jpg"><link rel="shortcut icon" href="/img/favicon2.png"><link rel="canonical" href="https://www.funning.top/article/112210.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="codeva-UwY9cKFK3S"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8Y3BT0M4D5","apiKey":"00e7d3d6a2840feeb77ac9e3178f6e6b","indexName":"prod_NAME","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一键部署SpringBoot到远程Docker容器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-04 17:36:16'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/tzy.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_4388343_4lr6yboyinx.css"><meta name="referrer" content="no-referrer")<meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (true) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://gitee.com/coderzane/images/raw/master/images/202312271155254.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 类目</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-solid fa-image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/1137882300/images@master/images/%E8%A1%97%E9%81%93.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="罗布斯"><span class="site-name">罗布斯</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 类目</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-solid fa-image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一键部署SpringBoot到远程Docker容器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-21T16:00:00.000Z" title="发表于 2021-03-22 00:00:00">2021-03-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-04T09:36:16.037Z" title="更新于 2024-03-04 17:36:16">2024-03-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91/">Java企业级开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title="一键部署SpringBoot到远程Docker容器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="关于-Docker"><a href="#关于-Docker" class="headerlink" title="关于 Docker"></a>关于 Docker</h3><p>Docker 是用 go 语言编写的，这也是 go 语言近些年越来越火的原因之一。关于 Docker，有 3 个重要的概念需要了解下：</p>
+<ul>
+<li>image：镜像，一个文件，用来创建容器；如果你有 Windows 装机经历，那可以很好理解镜像这个词的含义，反正我年少的时候没少把 Windows 镜像刻盘重装系统。</li>
+<li>container：容器，一个可运行的镜像实例，里面运行着一个完整的操作系统，可以做一切你当前操作系统可以做的事情。</li>
+<li>Dockerfile：镜像构建的模板，描述镜像构建的步骤。</li>
+</ul>
+<p>它们之间的关系是，通过 Dockerfile 构建出镜像，然后通过镜像构建容器，容器里可以跑程序。另外，一个镜像可以创建多个容器，每个容器之间是相互隔离的。</p>
+<p>对于我们开发人员来说，Docker 可以做到：</p>
+<ul>
+<li>编写本地代码</li>
+<li>使用 Docker 将程序推送到测试环境</li>
+<li>发现 bug 后在开发环境下修复，重新部署到测试环境测试</li>
+<li>测试完成后，推送到生产环境</li>
+</ul>
+<p>在这个过程中，Docker 提供的是开发环境、测试环境和生产环境的一致性，细细想一下，是不是挺恐怖的。。。。。</p>
+<p>以后我们开发人员再说什么“我本地运行的好好的呀”就甩不了锅了，哈哈。</p>
+<p>Java 程序员应该对 Docker 这句宣传语很熟悉：</p>
+<blockquote>
+<p>Build once，Run anywhere（搭建一次，到处能用）</p>
+</blockquote>
+<p>Docker 采用的是 CS 架构，客户端与 Docker 守护进程交互，后者负责构建、运行和分发 Docker 容器的工作。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-5583604e-5ef8-4187-b29b-ff8527829141.png"></p>
+<p>Docker 的应用场景非常丰富，比如说：</p>
+<ul>
+<li>自动打包和部署应用</li>
+<li>创建轻量、私有的PaaS环境</li>
+<li>自动化测试和持续集成&#x2F;部署</li>
+<li>部署并扩展Web应用、数据库和后端服务器</li>
+<li>创建安全沙盒</li>
+<li>轻量级的桌面虚拟化</li>
+</ul>
+<h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><p>Docker Engine（引擎）需要安装在 64 位的 Linux 服务器上（32 位不支持），并且需要一些先决条件（针对 CentOS 系统）：</p>
+<blockquote>
+<p>PS：Linux 社区已不再维护 CentOS 8，导致 yum 源需要<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/405635.htm">切换</a>，后面打算把系统切换为 Anolis或Alinux</p>
+</blockquote>
+<ul>
+<li>必须是 CentOS 7 或者 8版本，以下版本不支持</li>
+<li>centos-extras 存储库必须是启用的，一般是启用的，如果没启用的话，需要手动启用</li>
+</ul>
+<p>我的云服务器安装的是 CentOS 系统，所以这里就以 CentOS 作为演示环境。我个人更喜欢 RPM（Red-Hat Package Manager，红帽软件包管理器）安装包的方式，简单高效。</p>
+<p>第一步，安装 yum-utils 工具包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+
+<p>第二步，使用 yum-utils 提供的 yum-config-manager 工具配置 Docker 的安装仓库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p>第三步，安装 Docker 引擎（包括 Docker Engine, containerd, 和 Docker Compose）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br></pre></td></tr></table></figure>
+
+<p>第四步，启动 Docker。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<p>第五步，验证 Docker 是否正确安装。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p>如果出现以下提示信息，就表明 Docker 安装成功了！</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-e1443e64-810b-46e3-9c1c-f144cdca1a35.png"></p>
+<p>以上是 Docker 官方提供的安装方式，稍显复杂，其实我们可以用更简洁的方式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 首先安装 Docker</span><br><span class="line">yum -y install docker</span><br><span class="line"></span><br><span class="line"># 然后启动 Docker 服务</span><br><span class="line">service docker start</span><br><span class="line"></span><br><span class="line"># 测试安装是否成功</span><br><span class="line">docker -v</span><br></pre></td></tr></table></figure>
+
+
+<p>Docker 针对 Windows 和 macOS 系统都提供了桌面版，可以到官网下载安装包。</p>
+<blockquote>
+<p>Docker 下载地址：<a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a></p>
+</blockquote>
+<p>我这里以 macOS 为例，M1 芯片可以选择 Apple Chip。下载完成后直接傻瓜式安装就可以了。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-f4cd508b-c77b-44a1-979f-b4e9e7ff82ef.png"></p>
+<p>安装并启动成功后的界面如下所示:</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-c78c5bea-aa4c-472f-aa69-20854211fd02.png"></p>
+<p>按照提示，在终端输入命令 <code>docker run -d -p 80:80 docker/getting-started</code>：</p>
+<p>再次回到 Docker 桌面版，可以看到刚刚通过 80 端口在 Docker 中跑起来的 Docker 教程。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-36708add-535a-41d3-bbcf-68e2750e5f16.png"></p>
+<p>点击「open in browser」图标就可以在浏览器打开教程文档了。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-209a79c6-294f-4f0d-9fe1-1ab62190d4ef.png"></p>
+<p>Windows 用户也可以通过我之前推荐的 chocolatey 命令行工具安装。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-4ef004a5-5b96-41eb-8621-65edfbe64f14.png"></p>
+<p>（Windows 的安装等下一次拿到小米的笔记本后，我装一个把这部分补充完整）</p>
+<h3 id="开启-Docker-远程访问权限"><a href="#开启-Docker-远程访问权限" class="headerlink" title="开启 Docker 远程访问权限"></a>开启 Docker 远程访问权限</h3><p>为了将我们本地的应用程序部署到 Docker 服务器上，我们需要开启一下 Docker 的远程访问权限。</p>
+<p>第一步，通过以下命令打开 Docker 配置文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/docker.service</span><br></pre></td></tr></table></figure>
+
+<p>第二步，在 service 节点下编辑 ExecStart 属性，增加 <code>-H tcp://0.0.0.0:2375</code></p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-a1be68f4-cb1b-45b1-ab6a-b39259a3ef39.png"></p>
+<p>这样就相当于对外开放了 2375 端口，如果你安装了宝塔面板，记得在安全页放行该端口，同时，云服务器的防火墙也要放开该端口。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-9bddcf0e-c6a7-414d-82ef-7881009ea6c9.png"></p>
+<p>配置完成后，重启 Docker。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload </span><br><span class="line">systemctl restart docker </span><br></pre></td></tr></table></figure>
+
+<p>在浏览器地址栏输入 <code>http://ip:2375/version</code> 测试一下是否生效。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-29852364-5b55-43b4-a7fa-6a9c4a592606.png"></p>
+<p>之后，可以在 Intellij IDEA 中配置一下 Docker 的 TCP socket，如果出现 connection successful 就表明链接成功了。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-a6e42514-8740-48ac-8baf-b97f49cb1818.png"></p>
+<h3 id="使用-Docker-部署-Spring-Boot"><a href="#使用-Docker-部署-Spring-Boot" class="headerlink" title="使用 Docker 部署 Spring Boot"></a>使用 Docker 部署 Spring Boot</h3><p>第一步，新建一个简单的 Spring Boot 项目。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-3f748cc6-2efe-487d-9799-f02794145aec.png"></p>
+<p>一个非常简单的 Web 项目，只有一个控制器，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DockerController</span> &#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">hello</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Docker，我是沙雕&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>@RequestMapping、@RestController 注解我们在前几个章节介绍过了，也就是表明我们这是一个 SpringMVC 的项目，<code>/</code> 路径意味着我们只要在浏览器地址栏输入 <code>localhost:8080</code> 就可以发送请求了，响应结果为 “Docker，你好”。</p>
+<p>启动服务后，可以通过 Intellij IDEA 的 HTTP Client 验证一下。</p>
+<p>第二步，构建 Spring Boot 项目的 Docker 镜像文件 Dockerfile。</p>
+<p>在项目根目录新建 Dockerfile 文件，见下图位置。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-08d6ce30-8192-4a7e-8bdc-95adb91c7c74.png"></p>
+<p>具体内容如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk:8-jdk-alpine</span><br><span class="line">ARG JAR_FILE=target/*.jar</span><br><span class="line">COPY $&#123;JAR_FILE&#125; app.jar</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app.jar&quot;]</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li><code>FROM openjdk:8-jdk-alpine</code>：表示使用 JDK8 为基础镜像。</li>
+<li><code>ARG JAR_FILE=target/*.jar</code>：表示定义一个参数名为 JAR_FILE，值为 <code>target/*.jar</code> 的构建参数</li>
+<li><code>COPY $&#123;JAR_FILE&#125; app.jar</code>：表示把 target 目录下的 jar 文件复制一份新的到镜像内的 app.jar 文件</li>
+<li><code>ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app.jar&quot;]</code>：表示通过 <code>java -jar</code> 的形式运行 <code>app.jar</code>，ENTRYPOINT 用来配置容器启动时的运行命令，第一个参数是运行命令，后面是一个一个参数。</li>
+</ul>
+<p>第三步，在 pom.xml 文件中添加 Maven 的 Docker 插件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;com.spotify&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;docker-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.2&lt;/version&gt;</span><br><span class="line">    &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;id&gt;build-image&lt;/id&gt;</span><br><span class="line">            &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;build&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">    &lt;/executions&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;dockerHost&gt;http://ip:2375&lt;/dockerHost&gt;</span><br><span class="line">        &lt;imageName&gt;itwanger/$&#123;project.artifactId&#125;&lt;/imageName&gt;</span><br><span class="line">        &lt;imageTags&gt;</span><br><span class="line">            &lt;imageTag&gt;$&#123;project.version&#125;&lt;/imageTag&gt;</span><br><span class="line">        &lt;/imageTags&gt;</span><br><span class="line">        &lt;forceTags&gt;true&lt;/forceTags&gt;</span><br><span class="line">        &lt;dockerDirectory&gt;$&#123;project.basedir&#125;&lt;/dockerDirectory&gt;</span><br><span class="line">        &lt;resources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;targetPath&gt;/&lt;/targetPath&gt;</span><br><span class="line">                &lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt;</span><br><span class="line">                &lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;/include&gt;</span><br><span class="line">            &lt;/resource&gt;</span><br><span class="line">        &lt;/resources&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 <code>executions</code> 节点下添加 docker:build，表示在执行 mvn:package 打包的时候顺带构建一下 Docker 镜像。</li>
+<li>在 <code>configuration</code> 节点下添加 Docker 主机的地址、镜像的名字、镜像的版本、镜像文件的目录、以及 resources 节点下配置的 jar 包位置和名称等。</li>
+</ul>
+<p>配置搞定后，接下来就是对项目进行打包，可以直接点击 Maven 面板中的 package 进行打包。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-1932f285-bb8d-4225-af6e-014ed2c9104b.png"></p>
+<p>首次打包需要下载一些基础镜像，打包成功后，可以在 Docker 容器中查看我们刚刚打包好的镜像，命令 <code>docker images</code>。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-730b4f5b-d556-4f73-9dfc-b22152d86f08.png"></p>
+<p>接下来，我们就可以启动这个镜像的容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name itwanger -p 8080:8080 itwanger/springboot-docker:0.0.1-SNAPSHOT</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-d</code>: 后台运行容器，并返回容器ID；</li>
+<li><code>--name</code>: 为容器指定一个名称 itwanger；</li>
+<li><code>-p</code>: 指定端口映射，格式为：主机(宿主)端口:容器端口</li>
+</ul>
+<p>然后在浏览器中访问 8080 端口，就可以看到我们的应用程序在 Docker 上成功运行了。</p>
+<p>当利用 <code>docker run</code> 来创建容器时，Docker 在后台运行的标准操作包括：</p>
+<ul>
+<li>检查本地是否存在指定的镜像，不存在就从仓库下载</li>
+<li>利用镜像创建并启动一个容器</li>
+<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+<li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+<li>从地址池配置一个 ip 地址给容器</li>
+<li>执行用户指定的应用程序</li>
+<li>执行完毕后容器被终止</li>
+</ul>
+<h3 id="Intellij-IDEA-直连-Docker"><a href="#Intellij-IDEA-直连-Docker" class="headerlink" title="Intellij IDEA 直连 Docker"></a>Intellij IDEA 直连 Docker</h3><p>新版的 Intellij IDEA 中已经默认继承了 Docker，所以我们可以通过 services 面板打开 Docker，直接进行操作。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/docker-6b4fbbb0-3986-403b-9d7e-7e50cf27b499.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.funning.top">罗布斯</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.funning.top/article/112210.html">https://www.funning.top/article/112210.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.funning.top" target="_blank">罗布斯</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SpringBoot/">SpringBoot</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/1137882300/images@master/images/%E8%A1%97%E9%81%93.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/wechat.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/article/112217.html" title="5分钟带你深入浅出搞懂 Nginx"><img class="cover" src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E5%BE%B7%E5%9B%BD%202.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">5分钟带你深入浅出搞懂 Nginx</div></div></a></div><div class="next-post pull-right"><a href="/article/112213.html" title="Guava:Google开源的Java工具库，太强大了"><img class="cover" src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images/%E5%AE%AB%E6%AE%BF.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Guava:Google开源的Java工具库，太强大了</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/article/112212.html" title="过滤器、拦截器、监听器"><img class="cover" src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E6%B3%B0%E5%9B%BD%202.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-11-09</div><div class="title">过滤器、拦截器、监听器</div></div></a></div><div><a href="/article/112216.html" title="如何把项目部署到云服务器"><img class="cover" src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E6%B3%95%E5%9B%BD%202.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-09</div><div class="title">如何把项目部署到云服务器</div></div></a></div><div><a href="/article/112218.html" title="OSS基本操作"><img class="cover" src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E8%80%81%E6%8C%9D.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-09</div><div class="title">OSS基本操作</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Twikoo</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://gitee.com/coderzane/images/raw/master/images/202312271155254.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">罗布斯</div><div class="author-info__description">2024一起加油！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/1137882300"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/1137882300" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhong923828430@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">如果你在使用中遇到問題，請到 <a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly/issues" style="color:#49b1f5">Github Issues</a> 或者 <a href="/messageboard/" style="color:#49b1f5">留言板</a> 進行反饋，你也可以加入 QQ 群（由於 QQ 群只能有500人，會定時清理潛水的人）<div class="social-button"> <a class="button--animated" href="https://jq.qq.com/?_wv=1027&k=KU9105XR" target="_blank">QQ 1 群 👍</a> <a class="button--animated" href="https://jq.qq.com/?_wv=1027&k=r1nK0DQz" target="_blank">QQ 2 群 👍</a> <a class="button--animated" href="https://t.me/bu2fly" target="_blank">Telegram 👍</a> </div></div></div><div class="card-widget"><div class="item-headline"><i></i><span></span></div><div class="item-content"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-Docker"><span class="toc-number">1.</span> <span class="toc-text">关于 Docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Docker"><span class="toc-number">2.</span> <span class="toc-text">安装 Docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-Docker-%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90"><span class="toc-number">3.</span> <span class="toc-text">开启 Docker 远程访问权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Docker-%E9%83%A8%E7%BD%B2-Spring-Boot"><span class="toc-number">4.</span> <span class="toc-text">使用 Docker 部署 Spring Boot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intellij-IDEA-%E7%9B%B4%E8%BF%9E-Docker"><span class="toc-number">5.</span> <span class="toc-text">Intellij IDEA 直连 Docker</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/article/112231.html" title="【超级干货！】8个免费GPT-4网站！🤯立省$20不香吗？教你如何白嫖使用GPT-4🤖 | How to Access GPT-4 for Free!"><img src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images/bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【超级干货！】8个免费GPT-4网站！🤯立省$20不香吗？教你如何白嫖使用GPT-4🤖 | How to Access GPT-4 for Free!"/></a><div class="content"><a class="title" href="/article/112231.html" title="【超级干货！】8个免费GPT-4网站！🤯立省$20不香吗？教你如何白嫖使用GPT-4🤖 | How to Access GPT-4 for Free!">【超级干货！】8个免费GPT-4网站！🤯立省$20不香吗？教你如何白嫖使用GPT-4🤖 | How to Access GPT-4 for Free!</a><time datetime="2024-03-02T16:00:00.000Z" title="发表于 2024-03-03 00:00:00">2024-03-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112224.html" title="香港澳门旅游"><img src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A6%99%E6%B8%AF.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="香港澳门旅游"/></a><div class="content"><a class="title" href="/article/112224.html" title="香港澳门旅游">香港澳门旅游</a><time datetime="2023-11-08T16:00:00.000Z" title="发表于 2023-11-09 00:00:00">2023-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112219.html" title="Serializable接口你真的了解吗？"><img src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A3%8E%E6%99%AF%E5%9B%BE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Serializable接口你真的了解吗？"/></a><div class="content"><a class="title" href="/article/112219.html" title="Serializable接口你真的了解吗？">Serializable接口你真的了解吗？</a><time datetime="2023-11-08T16:00:00.000Z" title="发表于 2023-11-09 00:00:00">2023-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112218.html" title="OSS基本操作"><img src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E8%80%81%E6%8C%9D.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OSS基本操作"/></a><div class="content"><a class="title" href="/article/112218.html" title="OSS基本操作">OSS基本操作</a><time datetime="2023-11-08T16:00:00.000Z" title="发表于 2023-11-09 00:00:00">2023-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112230.html" title="2024年免费域名注册网站大全(持续更新,建议收藏)"><img src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images/bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024年免费域名注册网站大全(持续更新,建议收藏)"/></a><div class="content"><a class="title" href="/article/112230.html" title="2024年免费域名注册网站大全(持续更新,建议收藏)">2024年免费域名注册网站大全(持续更新,建议收藏)</a><time datetime="2023-03-02T16:00:00.000Z" title="发表于 2023-03-03 00:00:00">2023-03-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/1137882300/images@master/images/%E8%A1%97%E9%81%93.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By 罗布斯</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">朋友你是最棒的～</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const abcjsInit = () => {
+    const abcjsFn = () => {
+      document.querySelectorAll(".abc-music-sheet").forEach(ele => {
+        ABCJS.renderAbc(ele, ele.innerHTML, {responsive: 'resize'})
+      })
+    }
+    
+    typeof ABCJS === 'object' ? abcjsFn()
+      : getScript('https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic-min.min.js').then(abcjsFn)
+  }
+
+  window.pjax ? abcjsInit() : window.addEventListener('load', abcjsInit)
+})()</script><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://comment.funning.top/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(init)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://comment.funning.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+      
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: '2586dcda65614e220acd',
+      clientSecret: 'f0aa4822850d4b3b8251d8afdef391a83a120500',
+      repo: 'gitalk-comments-blog',
+      owner: '1137882300',
+      admin: ['1137882300'],
+      id: '6d5384dff0c5f0fa64e9b16e7802db79',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Twikoo' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://comment.funning.top/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></div></body></html>
