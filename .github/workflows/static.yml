@@ -1,43 +1,57 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# workflow 的名称
+name: deploy-static-pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # push：当推送到默认分支（即 "master" 分支）时触发 workflow。
   push:
     branches: ["master"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch：允许手动从 Actions 选项卡中触发 workflow。
   workflow_dispatch:
 
+# 指定了 workflow 需要的权限
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
+  # 可以读取仓库的内容。
   contents: read
+  # 可以写入 GitHub Pages
   pages: write
+  # 可以写入身份验证 token。
   id-token: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# 指定了并发控制的配置。
 concurrency:
+  # 将 workflow 分组成 "pages" 组，以便并发控制
   group: "pages"
+  # 不取消正在进行的运行，以便允许生产环境的部署完成
   cancel-in-progress: false
 
 jobs:
   # Single deploy job since we're just deploying
   deploy:
     environment:
+      # 环境变量的名称是 "github-pages"。
       name: github-pages
+      # 环境变量的值是 deployment 步骤的输出 URL。
       url: ${{ steps.deployment.outputs.page_url }}
+    # 指定了 job 运行的环境是最新的 Ubuntu。
     runs-on: ubuntu-latest
     steps:
+        # actions/checkout@v4 action 检出仓库的代码。
       - name: Checkout
         uses: actions/checkout@v4
+        # actions/configure-pages@v5 action 配置 GitHub Pages。
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        # 使用 actions/upload-pages-artifact@v3 action 上传整个仓库作为 artifact。
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
+          # 指定了上传的路径是当前目录（即 '.'）
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
+        # 使用 actions/deploy-pages@v4 action 将 artifact 部署到 GitHub Pages。
         uses: actions/deploy-pages@v4
