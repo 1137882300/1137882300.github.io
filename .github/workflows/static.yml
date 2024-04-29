@@ -4,7 +4,7 @@ name: deploy-static-pages
 on:
   # push：当推送到默认分支（即 "master" 分支）时触发 workflow。
   push:
-    branches: ["master"]
+    branches: ["deploy"]
 
   # workflow_dispatch：允许手动从 Actions 选项卡中触发 workflow。
   workflow_dispatch:
