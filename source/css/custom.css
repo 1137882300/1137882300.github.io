@@ -248,7 +248,7 @@
 .card-info-avatar .author-status-box .author-status span {
     width: 0;
     font-size: 12px;
-    height: 100%;
+    height: 83%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

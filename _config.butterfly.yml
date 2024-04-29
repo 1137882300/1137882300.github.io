@@ -244,12 +244,7 @@ aside:
       link: https://github.com/1137882300
   card_announcement:
     enable: true
-    content:
-      如果你在使用中遇到問題，請到 <a href="https://github.com/jerryc127/hexo-theme-butterfly/issues" style="color:#49b1f5">Github Issues</a> 或者 <a href="/messageboard/" style="color:#49b1f5">留言板</a> 進行反饋，你也可以加入 QQ 群（由於 QQ 群只能有500人，會定時清理潛水的人）<div class="social-button">
-      <a class="button--animated" href="https://jq.qq.com/?_wv=1027&k=KU9105XR" target="_blank">QQ 1 群 👍</a>
-      <a class="button--animated" href="https://jq.qq.com/?_wv=1027&k=r1nK0DQz" target="_blank">QQ 2 群 👍</a>
-      <a class="button--animated" href="https://t.me/bu2fly" target="_blank">Telegram 👍</a>
-      </div>
+    content: <div style="text-indent:2em">如果阅读过程中遇到了问题，请及时评论或者留言，看到了会在第一时间给你回复。</div>
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
