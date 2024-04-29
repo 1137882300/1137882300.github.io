@@ -112,7 +112,7 @@ deploy:
   - type: git
     repo: https://github.com/1137882300/1137882300.github.io
     branch: deploy
-  - type: baidu_url_submitter
+#  - type: baidu_url_submitter
 
 
 # hexo-admin authentification 
