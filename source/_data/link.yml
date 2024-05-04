@@ -2,18 +2,37 @@
   class_desc: 那些人，那些事
   flink_style: anzhiyu
   link_list:
-    - name: Hexo
-      link: https://hexo.io/zh-tw/
-      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
-      descr: 快速、簡單且強大的網誌框架
-      recommend: true
-      color: vip
-    - name: Hexo2222
-      link: https://hexo.io/zh-tw/
-      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
-      descr: 快速、簡單且強大的網誌框架
+    - name: 茗辰原 の 异世界
+      link: https://not.mcy.cloudns.org/
+      avatar: https://ice.frostsky.com/2024/01/07/e83fb8c32b0eedf803ea76a2d839f7e3.png
+      descr: 茗辰原，一个与众不同的异世界，等待你的探索与发现。
       recommend: true
       color:
+    - name: Gin 琴酒
+      link: https://blog.gincode.icu/
+      avatar: https://files.superbed.cn/store/images/0e/8f/64baa3da1ddac507ccec0e8f.png
+      descr: 满堂花醉三千客，一剑霜寒十四州。|
+      color:
+    - name: 学海无涯
+      link: https://caolib.github.io
+      avatar: https://img2.imgtp.com/2024/04/04/A1kg7et8.gif
+      descr: 停止摆烂，背水一战
+      recommend: true
+      color: vip
+      tag: 新
+    - name: Jerry Zhou
+      link: https://blog.jerryz.com.cn/
+      avatar: https://img.examcoo.com/ask/7386438/202111/163626915705190.jpg
+      descr: 永远相信美好的事情即将发生
+      recommend: false
+      color: vip
+      tag: 新
+    - name: 星空故事·魔法小屋
+      link: https://blog.sinzmise.top/
+      avatar: https://blog.sinzmise.top/img/avatar.png
+      descr: 种下一颗有故事的种子，让它带着魔法和奇迹生根发芽
+      recommend: false
+      color: vip
       tag: 新
 
 - class_name: 网站
@@ -43,15 +62,36 @@
   class_desc: 小伙伴们
   flink_style: flexcard
   link_list:
-    - name: Hexo
-      link: https://hexo.io/zh-tw/
-      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
-      descr: 快速、簡單且強大的網誌框架
+    - name: Evan
+      link: https://www.evan.xin
+      avatar: https://www.evan.xin/logo.png
+      descr: Crappy technophiles
       recommend: true
       color: vip
-    - name: Hexo2222
-      link: https://hexo.io/zh-tw/
-      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
-      descr: 快速、簡單且強大的網誌框架
+    - name: 小城故事
+      link: https://webxc.eu.org
+      avatar: https://npm.elemecdn.com/webxc/logo/logo.jpg
+      descr: 欢迎光临小城故事!
       recommend: true
       color:
+    - name: 云烟
+      link: https://www.yunyanck.cn/
+      avatar: https://q1.qlogo.cn/g?b=qq&nk=634267404&s=100
+      descr: 祝少年不老 何妨迷路看风光
+      recommend: false
+      color: vip
+      tag: 新
+    - name: JiangnanPsalter
+      link: https://jiangnanpsalter.com/
+      avatar: https://jiangnanpsalter.com/img/avater.jpg
+      descr: 风华绝代，难绘就一成
+      recommend: false
+      color: vip
+      tag: 新
+    - name: 旅游的企鹅
+      link: https://www.lydqe.cc/
+      avatar: https://www.lydqe.cc/upload/biao.jpeg
+      descr: 努力学习新的知识
+      recommend: false
+      color: vip
+      tag: 新
