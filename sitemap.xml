@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.funning.top/article/112251.html</loc>
+    
+    <lastmod>2024-05-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.funning.top/article/112250.html</loc>
     
     <lastmod>2024-05-04</lastmod>
@@ -659,6 +668,20 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://www.funning.top/tags/github/</loc>
+    <lastmod>2024-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.funning.top/tags/pages/</loc>
+    <lastmod>2024-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -789,6 +812,13 @@
   
   <url>
     <loc>https://www.funning.top/categories/%E5%85%8D%E8%B4%B9/</loc>
+    <lastmod>2024-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.funning.top/categories/%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2024-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

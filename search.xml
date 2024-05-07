@@ -3378,4 +3378,26 @@
         <tag>域名</tag>
       </tags>
   </entry>
+  <entry>
+    <title>解决 Github Pages 自定义域名失效的问题</title>
+    <url>/article/112251.html</url>
+    <content><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>最近在 github.io ，为我的<code>hexo博客</code>在pages里添加了个域名。</p>
+<p>然而每次push更新到GitHub的仓库后，发现域名总是莫名的失效了。然后每次非得重新设置，太麻烦啦😩。</p>
+<blockquote>
+<p>最后捣鼓了一下</p>
+</blockquote>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>在每次push的时候，会自动创建 <code>CNAME 文件</code></p>
+<p><img src="https://img2.funning.top/file/37643d8affb8675698a09.png"></p>
+<p><img src="https://img2.funning.top/file/f97501f6713b81108bf1f.png"></p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>解决方法：需要在 &#x2F;source 目录下边设置一个 CNAME 文件，内容是 自己的域名。</p>
+<p><img src="https://img2.funning.top/file/01f18d002b2fcf076cad1.png"></p>
+]]></content>
+      <categories>
+        <category>问题</category>
+      </categories>
+      <tags>
+        <tag>github</tag>
+        <tag>pages</tag>
+      </tags>
+  </entry>
 </search>
