@@ -3400,4 +3400,35 @@
         <tag>pages</tag>
       </tags>
   </entry>
+  <entry>
+    <title>浏览器端本地运行语言模型 = Transformers.js + WebGPU + Phi-3</title>
+    <url>/article/112252.html</url>
+    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><code>Phi-3-mini-4k-instruction</code>，这是一个38.2亿的参数LLM，它针对Web上的推理进行了优化。下载后，模型（2.3 GB）将被缓存，并在您重新访问页面时重用。</p>
+<p>所有内容都<code>直接在浏览器中运行</code>，这意味着您的对话不会发送到服务器。🤗甚至可以在模型加载后<code>断开与互联网的连接</code>！</p>
+<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>进入网址：<a href="https://huggingface.co/spaces/Xenova/experimental-phi3-webgpu">点击进入</a></p>
+<blockquote>
+<p>点击： load model， 大约也就2个G多一点，下载完成后就可以正常使用啦。</p>
+</blockquote>
+<p><img src="https://img2.funning.top/file/bc9badea9cf0850b5b278.png"></p>
+<blockquote>
+<p>大模型被缓存到浏览器里（按F12查看）</p>
+</blockquote>
+<p><img src="https://img2.funning.top/file/88d4993d478f8187d9c21.png"></p>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><ul>
+<li><a href="https://github.com/xenova/transformers.js">https://github.com/xenova/transformers.js</a></li>
+<li><a href="https://huggingface.co/spaces/Xenova/experimental-phi3-webgpu">https://huggingface.co/spaces/Xenova/experimental-phi3-webgpu</a></li>
+<li><a href="https://huggingface.co/Xenova/Phi-3-mini-4k-instruct">https://huggingface.co/Xenova/Phi-3-mini-4k-instruct</a></li>
+<li><a href="https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-onnx">https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-onnx</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>AI</category>
+        <category>大模型</category>
+      </categories>
+      <tags>
+        <tag>大模型</tag>
+        <tag>AI</tag>
+        <tag>web-gpu</tag>
+      </tags>
+  </entry>
 </search>
