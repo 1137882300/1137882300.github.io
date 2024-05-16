@@ -49,7 +49,7 @@ abbrlink: 112250
 
 4. 输入优惠码，优惠码在首页，文章下面点的位置。
 
-   ![](https://img2.funning.top/file/bdba22c617058dfb7764a.png)
+   ![](https://img2.funning.top/file/73e2b196aca7053fcc79c.png)
 
    > 如果这个优惠码名额没有被抢光，那订单价格会直接变成 `0 Rls` 。
    >

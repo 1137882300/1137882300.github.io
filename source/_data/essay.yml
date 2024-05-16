@@ -1,0 +1,101 @@
+- class_name: 即刻短文
+  essay_list:
+    - content: 生命的意义在于帮助他人和分享快乐。
+      date: 2024-09-05
+      from: Google Pixel 7
+      link: https://www.volunteer.gov/
+    - content: 成长的秘密是拥抱变化和拥抱未知。
+      date: 2024-10-15
+      from: iPhone 15 Pro
+      link: https://www.coursera.org/specializations/artificial-intelligence
+    - content: 生命的价值在于拥抱每一个瞬间。
+      date: 2024-04-10
+      from: Samsung Galaxy S21
+      image:
+        - https://picsum.photos/200/300
+        - https://source.unsplash.com/random/200x300
+        - https://loremflickr.com/200/300
+    - content: 成长的秘密是拥抱自己的不完美和尝试。
+      date: 2024-05-25
+      from: Huawei P30
+      image:
+        - https://picsum.photos/200/301
+        - https://source.unsplash.com/random/200x301
+        - https://loremflickr.com/200/301
+    - content: 幸福的来源是内心的宁静和自我接纳。
+      date: 2024-02-05
+      from: MacBook Air
+      image:
+        - https://picsum.photos/200/302
+        - https://source.unsplash.com/random/200x302
+        - https://loremflickr.com/200/302
+    - content: 学习的乐趣在于探索新的领域和挑战自我。
+      date: 2024-06-18
+      from: Google Pixel 6 Pro
+      image:
+        - https://picsum.photos/200/303
+        - https://source.unsplash.com/random/200x303
+        - https://loremflickr.com/200/303
+    - content: 生命的意义在于帮助他人和分享快乐。
+      date: 2024-07-10
+      from: OnePlus 9
+      image:
+        - https://picsum.photos/200/304
+        - https://source.unsplash.com/random/200x304
+        - https://loremflickr.com/200/304
+    - content: 成功不是最终的，失败不是致命的，勇气继续前进才是最重要的。
+      date: 2024-03-15
+      from: iPhone XR
+      video:
+        player:
+    - content: 人生短暂，要有所作为。
+      date: 2024-03-15
+      from: iPhone XR
+      video:
+        bilibili:
+    - content: 你不可能改变过去，但你可以改变未来。
+      date: 2024-03-15
+      from: iPhone XR
+      image:
+        - https://qnocs.funning.top/blog/premium_photo-1712226611084-4983941cbbf0.avif
+    - content: 生活不是等待风暴过去，而是要学会在雨中跳舞。
+      date: 2024-03-15
+      aplayer:
+        server: netease
+        id: 1949516216
+    - content: 成功的关键是相信自己能够成功。
+      date: 2024-03-15
+      from: Macbook Pro
+      link: https://github.com/yife68/Hexo-Theme-Melancholia
+    - content: 生命的意义在于探索和发现。
+      date: 2024-04-01
+      from: iPhone 14 Pro
+      link: https://www.ted.com/talks/ken_robinson_do_schools_kill_creativity
+    - content: 成长的秘密是拥抱失败和尝试。
+      date: 2024-02-20
+      from: iPad Air
+      link: https://www.coursera.org/specializations/machine-learning
+    - content: 幸福的来源是内心的宁静和自信。
+      date: 2024-01-10
+      from: MacBook Air
+      link: https://www.mindfulnessstudio.app/meditations
+    - content: 学习的乐趣在于探索未知的领域。
+      date: 2024-03-22
+      from: Google Pixel 6
+      link: https://www.khanacademy.org/
+    - content: 生命的价值在于勇敢尝试和学习。
+      date: 2024-05-15
+      from: Samsung Galaxy S22
+      link: https://www.edx.org/learn/python
+    - content: 成长的力量来自于自我反思和自我完善。
+      date: 2024-06-01
+      from: Huawei P40
+      link: https://www.coursera.org/specializations/data-science
+    - content: 幸福的秘密是拥抱当下和感恩。
+      date: 2024-07-20
+      from: MacBook Pro
+      link: https://www.calmdown.com/mindfulness-meditation
+    - content: 学习的乐趣在于探索新的领域和挑战自我。
+      date: 2024-08-10
+      from: OnePlus 9 Pro
+      link: https://www.udemy.com/course/machine-learning/

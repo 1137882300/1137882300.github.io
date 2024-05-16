@@ -1,0 +1,42 @@
+- class_name: 玩乐
+  path_name: /album_detail/
+  cover: https://picsum.photos/200/300
+  description: 天空在做美
+  top_background: https://picsum.photos/200/300
+  top_btn_text: 返回
+  top_link: /album
+  lazyload: true
+  type: 2
+  album_list:
+    - content: 真不错
+      aplayer:
+      date: 1622987600000
+      link:
+      address: 西湖
+      from: 杭州
+      image:
+        - https://loremflickr.com/600/800
+    - content: 真不错222
+      aplayer:
+      date: 1622987600000
+      link:
+      address: 北京
+      from: 天
+      image:
+        - https://loremflickr.com/1200/1200
+    - content: 真不错333
+      aplayer:
+      date: 1622987600000
+      link:
+      address: 北京
+      from: 天
+      image:
+        - https://placebeard.it/800/600
+- class_name: 旅行✈️
+  path_name: /album_travel/
+  cover: https://img2.funning.top/file/db6c3f2b22b84613575b9.png
+  description: 你最帅
+  top_background: https://img2.funning.top/file/db6c3f2b22b84613575b9.png
+  top_btn_text:
+  top_link:
+  type: 1

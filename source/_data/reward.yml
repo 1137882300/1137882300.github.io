@@ -1,0 +1,22 @@
+- class_name: 赞赏
+  reward_list:
+    - name: 天才少女
+      amount: 14
+      datatime: 2023-10-05
+      suffix:
+    - name: A筱岚
+      amount: 52
+      datatime: 2024-01-05
+      suffix:
+    - name: 白茶🎀
+      amount: 5
+      datatime: 2023-10-05
+      suffix:
+    - name: 近墨黑
+      amount: 5
+      datatime: 2023-08-02
+      suffix:
+    - name: 小豆豆
+      amount: 35
+      datatime: 2023-06-25
+      suffix:

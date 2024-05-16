@@ -8,6 +8,18 @@
       descr: 茗辰原，一个与众不同的异世界，等待你的探索与发现。
       recommend: true
       color:
+    - name: 梦泽不是梦
+      link: https://www.mengze2.cn
+      avatar: https://www.mengze2.cn/favicon.ico
+      descr: 记录人间的苦逼的日子/我在人间凑数的日子
+      recommend: true
+      color:
+    - name: lozhu's blog
+      link: https://lozhu.happy365.day
+      avatar: https://lozhu.happy365.day/images/logo.png
+      descr: 一切皆是因为好玩～
+      recommend: true
+      color:
     - name: Gin 琴酒
       link: https://blog.gincode.icu/
       avatar: https://files.superbed.cn/store/images/0e/8f/64baa3da1ddac507ccec0e8f.png
@@ -41,7 +53,7 @@
   link_list:
     - name: Langchain
       link: https://python.langchain.com/
-      avatar: https://python.langchain.com/img/brand/favicon.png
+      avatar: https://js.langchain.com/img/favicon.ico
       descr: AI 框架
       recommend: true
     - name: Youtube

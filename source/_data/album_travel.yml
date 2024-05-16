@@ -1,0 +1,33 @@
+- class_name: 吃喝
+  path_name: /album_travel/
+  cover: https://img2.funning.top/file/db6c3f2b22b84613575b9.png
+  description: 你最帅
+  top_background: https://img2.funning.top/file/db6c3f2b22b84613575b9.png
+  top_btn_text: 返回
+  top_link: /album
+  type: 1
+  album_list:
+    - content: 阿水大时代
+      aplayer:
+      date: 1622987600000
+      link:
+      address: 哈哈
+      from: 哈哈
+      image:
+        - https://loremflickr.com/600/800
+    - content: 阿水大时代22
+      aplayer:
+      date: 1622987600000
+      link:
+      address: 北京2哈哈
+      from: 天2哈哈
+      image:
+        - https://loremflickr.com/1200/1200
+    - content: 阿水大时代33
+      aplayer:
+      date: 1622987600000
+      link:
+      address: 北京
+      from: 天
+      image:
+        - https://placebeard.it/800/600

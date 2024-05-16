@@ -1,0 +1,38 @@
+- class_name: 开启创造力
+  creativity_list:
+    - name: Vue
+      color: "#b8f0ae"
+      icon: https://s11.ax1x.com/2023/04/22/p9ZCMxP.png
+    - name: Docker
+      color: "#57b6e6"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9BAH.png
+    - name: Photoshop
+      color: "#4082c3"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9y9I.png
+    - name: Node
+      color: "#333"
+      icon: https://s11.ax1x.com/2023/04/22/p9ZCu8I.png
+    - name: AfterEffect
+      color: "#989bf8"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9NjK.png
+    - name: Python
+      color: "#fff"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9fHg.png
+    - name: Java
+      color: "#fff"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9z59.png
+    - name: CSS3
+      color: "#2c51db"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9TCn.png
+    - name: JS
+      color: "#f7cb4f"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9bvV.png
+    - name: HTML
+      color: "#e9572b"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9ODU.png
+    - name: Git
+      color: "#df5b40"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z9xUJ.png
+    - name: illustrator
+      color: "#f29e39"
+      icon: https://s11.ax1x.com/2023/04/22/p9Z94EQ.png
