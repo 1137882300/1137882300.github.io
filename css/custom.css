@@ -1,0 +1,261 @@
+/* 设置文字内容 :nth-child(1)的作用是选择第几个 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend:nth-child(1):before {
+    content: '输入QQ号会自动获取昵称和头像🐧';
+}
+
+.el-input.el-input--small.el-input-group.el-input-group--prepend:nth-child(2):before {
+    content: '收到回复将会发送到您的邮箱📧';
+}
+
+.el-input.el-input--small.el-input-group.el-input-group--prepend:nth-child(3):before {
+    content: '可以通过昵称访问您的网站🔗';
+}
+
+/* 当用户点击输入框时显示 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend:focus-within::before,
+.el-input.el-input--small.el-input-group.el-input-group--prepend:focus-within::after {
+    display: block;
+}
+
+/* 主内容区 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend::before {
+    /* 先隐藏起来 */
+    display: none;
+    /* 绝对定位 */
+    position: absolute;
+    /* 向上移动60像素 */
+    top: -60px;
+    /* 文字强制不换行，防止left:50%导致的文字换行 */
+    white-space: nowrap;
+    /* 圆角 */
+    border-radius: 10px;
+    /* 距离左边50% */
+    left: 50%;
+    /* 然后再向左边挪动自身的一半，即可实现居中 */
+    transform: translate(-50%);
+    /* 填充 */
+    padding: 14px 18px;
+    background: #444;
+    color: #fff;
+}
+
+/* 小角标 */
+.el-input.el-input--small.el-input-group.el-input-group--prepend::after {
+    display: none;
+    content: '';
+    position: absolute;
+    /* 内容大小（宽高）为0且边框大小不为0的情况下，每一条边（4个边）都是一个三角形，组成一个正方形。
+    我们先将所有边框透明，再给其中的一条边添加颜色就可以实现小三角图标 */
+    border: 12px solid transparent;
+    border-top-color: #444;
+    left: 50%;
+    transform: translate(-50%, -48px);
+}
+
+/*!* 自定义底部  start *!*/
+/*#ft {*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto 12px;*/
+/*    display: flex;*/
+/*    color: rgb(255 255 255 / 80%) !important;*/
+/*    text-align: left;*/
+/*    flex-wrap: wrap;*/
+/*}*/
+
+/*.ft-item-1,*/
+/*.ft-item-2 {*/
+/*    display: flex;*/
+/*    height: 100%;*/
+/*    padding: 10px 14px;*/
+/*}*/
+
+/*.ft-item-1 {*/
+/*    flex-direction: column;*/
+/*    flex: 2;*/
+/*}*/
+
+/*.ft-item-2 {*/
+/*    flex: 1;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*.t-top {*/
+/*    display: flex;*/
+/*}*/
+
+/*.t-top .t-t-l {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    flex: 1.4;*/
+/*    margin-right: 10px;*/
+/*}*/
+
+/*.t-top .t-t-l .bg-ad {*/
+/*    width: 85%;*/
+/*    border-radius: 10px;*/
+/*    padding: 0 10px;*/
+/*}*/
+
+/*.btn-xz-box {*/
+/*    margin-top: 10px;*/
+/*}*/
+
+/*.btn-xz {*/
+/*    display: block;*/
+/*    background-color: var(--btn-bg);*/
+/*    color: var(--btn-color);*/
+/*    text-align: center;*/
+/*    line-height: 2.4;*/
+/*    margin: 8px 0;*/
+/*    cursor: pointer !important;*/
+/*}*/
+
+/*.btn-xz:hover {*/
+/*    text-decoration: none !important;*/
+
+/*}*/
+
+/*.btn-xz-box:hover .btn-xz {*/
+/*    background-color: #6f42c1;*/
+/*}*/
+
+/*.t-top .t-t-r {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    flex: 1;*/
+/*}*/
+
+/*.ft-links {*/
+/*    padding: 0 14px;*/
+/*    list-style: none;*/
+/*    margin-top: 0 !important;*/
+/*}*/
+
+/*.ft-links li a {*/
+/*    display: inline-block !important;*/
+/*    width: 50%;*/
+/*    cursor: pointer !important;*/
+/*}*/
+
+/*.ft-links li a:hover {*/
+/*    text-decoration: none !important;*/
+/*    color: #6f42c1 !important;*/
+/*}*/
+
+/*.ft-item-2 .ft-img-group {*/
+/*    width: 100%;*/
+/*}*/
+
+/*.ft-t {*/
+/*    font-size: 0.8rem;*/
+/*    margin-bottom: 20px;*/
+/*    line-height: 1;*/
+/*    font-weight: 600;*/
+/*}*/
+
+/*.t-l-t {*/
+/*    padding-left: 14px;*/
+/*}*/
+
+/*.ft-item-2 .ft-img-group .img-group-item {*/
+/*    display: inline-block;*/
+/*    width: 18.4%;*/
+/*    margin-right: 14px;*/
+/*    margin-bottom: 6px;*/
+/*}*/
+
+/*.ft-item-2 .ft-img-group .img-group-item a {*/
+/*    display: inline-block;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    cursor: pointer !important;*/
+/*}*/
+
+/*.ft-item-2 .ft-img-group .img-group-item a img {*/
+/*    width: 100%;*/
+/*    max-height: 80px;*/
+/*}*/
+
+/*@media screen and (max-width: 768px) {*/
+
+/*    .ft-item-1 {*/
+/*        flex-basis: 100% !important;*/
+/*    }*/
+
+/*    .ft-item-2 {*/
+/*        flex-basis: 100% !important;*/
+/*    }*/
+
+/*    .t-top .t-t-l .bg-ad {*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (max-width: 576px) {*/
+/*    .t-top {*/
+/*        flex-wrap: wrap;*/
+/*    }*/
+
+/*    .t-top .t-t-l {*/
+/*        flex-basis: 100% !important;*/
+
+/*    }*/
+
+/*    .t-top .t-t-r {*/
+/*        margin-top: 16px;*/
+/*        flex-basis: 100% !important;*/
+/*    }*/
+/*}*/
+/*!* 自定义底部  End *!*/
+
+
+/*头像*/
+.card-info-avatar .author-status-box {
+    position: absolute;
+    bottom: 0;
+    left: calc(100% - 28px);
+    width: 28px;
+    height: 28px;
+    border: 1px solid #d0d7de;
+    border-radius: 2em;
+    background-color: #f8f8f8f8;
+    transition: 0.4s;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .card-info-avatar .author-status-box {
+    background-color: #222222f2;
+    border: 1px solid #5c6060;
+}
+
+.card-info-avatar .author-status-box .author-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    padding: 0 5px;
+}
+
+.card-info-avatar .author-status-box:hover {
+    width: 105px;
+}
+
+.card-info-avatar .author-status-box:hover .author-status span {
+    width: 105px;
+    margin-left: 4px;
+}
+
+.card-info-avatar .author-status-box .author-status span {
+    width: 0;
+    font-size: 12px;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: 0.4s;
+}
+
+.card-widget .card-info-avatar {
+    display: inline-block;
+    position: relative;
+}
