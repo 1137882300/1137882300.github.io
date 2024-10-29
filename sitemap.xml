@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/gallery/index.html</loc>
+    <loc>https://blog.funning.top/fcircle/index.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -182,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/essay/index.html</loc>
+    <loc>https://blog.funning.top/gallery/index.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/fcircle/index.html</loc>
+    <loc>https://blog.funning.top/essay/index.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -380,7 +380,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/article/112218.html</loc>
+    <loc>https://blog.funning.top/article/112221.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -389,7 +389,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/article/112221.html</loc>
+    <loc>https://blog.funning.top/article/112218.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -407,7 +407,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/article/112211.html</loc>
+    <loc>https://blog.funning.top/article/112232.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -416,7 +416,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/article/112232.html</loc>
+    <loc>https://blog.funning.top/article/112211.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -623,6 +623,15 @@
   </url>
   
   <url>
+    <loc>https://blog.funning.top/article/112246.html</loc>
+    
+    <lastmod>2024-07-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.funning.top/article/112258.html</loc>
     
     <lastmod>2024-07-18</lastmod>
@@ -633,15 +642,6 @@
   
   <url>
     <loc>https://blog.funning.top/article/112231.html</loc>
-    
-    <lastmod>2024-07-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/article/112246.html</loc>
     
     <lastmod>2024-07-18</lastmod>
     
@@ -667,6 +667,13 @@
   
   <url>
     <loc>https://blog.funning.top/tags/AI/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E8%A7%86%E9%A2%91/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -701,14 +708,14 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/tags/web-gpu/</loc>
+    <loc>https://blog.funning.top/tags/gpt-3-5/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.funning.top/tags/gpt-3-5/</loc>
+    <loc>https://blog.funning.top/tags/web-gpu/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -723,13 +730,6 @@
   
   <url>
     <loc>https://blog.funning.top/tags/livekit/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E8%A7%86%E9%A2%91/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -848,13 +848,6 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/tags/%E6%96%B0%E9%97%BB/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.funning.top/tags/Vue/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -939,90 +932,6 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/tags/pages/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/aop/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E6%89%A9%E5%B1%95/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E6%B1%87%E6%80%BB/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E5%85%A5%E9%97%A8/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E6%A0%B8%E5%BF%83/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/Nginx/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/ZooKeeper/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/tags/streamlit/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.funning.top/tags/google/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -1050,6 +959,97 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://blog.funning.top/tags/aop/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E6%89%A9%E5%B1%95/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E6%B1%87%E6%80%BB/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E6%A0%B8%E5%BF%83/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/Nginx/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/ZooKeeper/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E6%96%B0%E9%97%BB/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/pages/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/tags/streamlit/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -1060,7 +1060,21 @@
   </url>
   
   <url>
+    <loc>https://blog.funning.top/categories/TTS/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.funning.top/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/categories/%E5%85%8D%E8%B4%B9/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1081,14 +1095,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/%E5%85%8D%E8%B4%B9/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/categories/TTS/</loc>
+    <loc>https://blog.funning.top/categories/%E5%9F%9F%E5%90%8D/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1102,14 +1109,14 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/%E5%9F%9F%E5%90%8D/</loc>
+    <loc>https://blog.funning.top/categories/Java%E6%A0%B8%E5%BF%83/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/Java%E6%A0%B8%E5%BF%83/</loc>
+    <loc>https://blog.funning.top/categories/GPT/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1124,13 +1131,6 @@
   
   <url>
     <loc>https://blog.funning.top/categories/%E6%89%8B%E7%9B%B8/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/categories/GPT-o1/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1158,20 +1158,6 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/GPT/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/categories/news/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.funning.top/categories/LLM/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -1179,7 +1165,21 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/%E9%97%AE%E9%A2%98/</loc>
+    <loc>https://blog.funning.top/categories/GPT-o1/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/categories/Google-Translate/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/categories/%E5%9B%BE%E5%BA%8A/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1200,7 +1200,14 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/Google-Translate/</loc>
+    <loc>https://blog.funning.top/categories/news/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/categories/%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1235,7 +1242,14 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/%E6%9C%80%E6%96%B0AI%E6%96%B0%E9%97%BB/</loc>
+    <loc>https://blog.funning.top/categories/Translate/</loc>
+    <lastmod>2024-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.funning.top/categories/ipfs/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1249,7 +1263,7 @@
   </url>
   
   <url>
-    <loc>https://blog.funning.top/categories/Translate/</loc>
+    <loc>https://blog.funning.top/categories/%E6%9C%80%E6%96%B0AI%E6%96%B0%E9%97%BB/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1257,20 +1271,6 @@
   
   <url>
     <loc>https://blog.funning.top/categories/Google/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/categories/%E5%9B%BE%E5%BA%8A/</loc>
-    <lastmod>2024-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.funning.top/categories/ipfs/</loc>
     <lastmod>2024-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
