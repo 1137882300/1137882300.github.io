@@ -1,0 +1,1306 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>ZooKeeper一看一个不吱声 | 罗布斯</title><meta name="keywords" content="ZooKeeper"><meta name="author" content="罗布斯"><meta name="copyright" content="罗布斯"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="ZooKeeper一看一个不吱声"><meta name="application-name" content="ZooKeeper一看一个不吱声"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="ZooKeeper一看一个不吱声"><meta property="og:url" content="https://blog.funning.top/article/112221.html"><meta property="og:site_name" content="罗布斯"><meta property="og:description" content="# 基本介绍 Apache ZooKeeper 是由 Apache Hadoop 的子项目发展而来，为分布式应用提供高效且可靠的分布式协调服务。 在解决分布式数据一致性方面，ZK 没有直接采用 Paxos 算法，而是采用了 ZAB（ZooKeeper Atomic Broadcast）协议。 ZK"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A6%99%E6%B8%AF.png"><meta property="article:author" content="罗布斯"><meta property="article:tag" content="blog,博客,知识,文章,技术,AI,人工智能,chatgpt,gpt"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A6%99%E6%B8%AF.png"><meta name="description" content="# 基本介绍 Apache ZooKeeper 是由 Apache Hadoop 的子项目发展而来，为分布式应用提供高效且可靠的分布式协调服务。 在解决分布式数据一致性方面，ZK 没有直接采用 Paxos 算法，而是采用了 ZAB（ZooKeeper Atomic Broadcast）协议。 ZK"><link rel="shortcut icon" href="/img/favicon-16.png"><link rel="canonical" href="https://blog.funning.top/article/112221.html"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="rNFdBQtErX3AI0N6rEOzE_1zgiWVH5VAqhezwK7IcvQ"/><meta name="baidu-site-verification" content="codeva-IrojKhEmig"/><meta name="sogou_site_verification" content="ddL6MYyzPq"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="var(--anzhiyu-main)"/><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.ico"/><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.ico"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1290-2796.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2796-1290.jpg" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1179-2556.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2556-1179.jpg" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/><link rel="apple-touch-startup-image" href="/img/siteicon/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: {"enable":true,"title":"与数百名博主无限进步","addFriendPlaceholder":"昵称（请勿包含博客等字样）：\n网站地址（要求博客地址，请勿提交个人主页）：\n头像图片url（请提供尽可能清晰的图片，我会上传到我自己的图床）：\n描述：\n站点截图（可选）：\n"},
+  peoplecanvas: undefined,
+  postHeadAiDescription: undefined,
+  diytitle: {"enable":true,"leaveTitle":"Oh no no no no ~","backTitle":"欢迎肥来！"},
+  LA51: {"enable":true,"ck":"3HpYY76yP9aU49Wd","LingQueMonitorID":"3HpYY76yP9aU49Wd"},
+  greetingBox: {"enable":true,"default":"晚上好👋","list":[{"greeting":"晚安😴","startTime":0,"endTime":5},{"greeting":"早上好鸭👋, 祝你一天好心情！","startTime":6,"endTime":9},{"greeting":"上午好👋, 状态很好，鼓励一下～","startTime":10,"endTime":10},{"greeting":"11点多啦, 在坚持一下就吃饭啦～","startTime":11,"endTime":11},{"greeting":"午安👋, 宝贝","startTime":12,"endTime":14},{"greeting":"🌈充实的一天辛苦啦！","startTime":14,"endTime":18},{"greeting":"19点喽, 奖励一顿丰盛的大餐吧🍔。","startTime":19,"endTime":19},{"greeting":"晚上好👋, 在属于自己的时间好好放松😌~","startTime":20,"endTime":24}]},
+  twikooEnvId: 'https://comment.funning.top/',
+  commentBarrageConfig:{"enable":true,"maxBarrage":1,"barrageTime":4000,"accessToken":"","mailMd5":""},
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: {"apiurl":"https://blog.funning.top"},
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: {"appId":"8Y3BT0M4D5","apiKey":"00e7d3d6a2840feeb77ac9e3178f6e6b","indexName":"prod_NAME","hits":{"per_page":10},"languages":{"input_placeholder":"输入关键词后按下回车查找","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 罗布斯","link":"链接: ","source":"来源: 罗布斯","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '罗布斯',
+  title: 'ZooKeeper一看一个不吱声',
+  postAI: '',
+  pageFillDescription: ' 基本介绍,  数据模型,  数据存储,  Watch 机制,  会话机制,  ACL 权限,  序列化方式,  集群,  ZAB 协议,  日志清理,  实现分布式锁,  实现分布式 ID,  实现负载均衡,  开源框架使用案例基本介绍是由的子项目发展而来为分布式应用提供高效且可靠的分布式协调服务在解决分布式数据一致性方面没有直接采用算法而是采用了协议可以提供诸如数据发布订阅负载均衡命名服务分布式协调通知集群管理选举分布式锁分布式队列等功能它具有以下特性顺序一致性从一个客户端发起的事务请求最终都会严格按照其发起顺序被应用到中原子性要么所有应用要么不应用不存在部分机器应用了该事务而另一部分没有应用的情况单一视图所有客户端看到的服务端数据模型都是一致的无论客户连接的是哪个服务器可靠性一旦服务端成功应用了一个事务则其引起的改变会一直保留直到被另外一个事务所更改实时性一旦一个事务被成功应用后可以保证客户端立即可以读取到这个事务变更后的最新状态的数据一段时间数据模型中的数据模型是一种树形结构非常像电脑中的文件系统有一个根文件夹下面还有很多子文件夹的数据模型也具有一个固定的根节点我们可以在根节点下创建子节点并在子节点下继续创建下一级节点树中的每一层级用斜杠分隔开且只能用绝对路径如的方式查询节点而不能使用相对路径为什么不能采用相对路径查找节点呢这是因为大多是应用场景是定位数据模型上的节点并在相关节点上进行操作像这种查找与给定值相等的记录问题最适合用散列来解决因此在底层实现的时候使用了一个即用节点的完整路径来作为存储节点数据这样就大大提高了的性能节点类型中的数据节点也分为持久节点临时节点和有序节点三种类型持久节点一旦将节点创建为持久节点该数据节点会一直存储在服务器上即使创建该节点的客户端与服务端的会话关闭了该节点依然不会被删除如果我们想删除持久节点就要显式调用函数进行删除操作临时节点如果将节点创建为临时节点那么该节点数据不会一直存储在服务器上当创建该临时节点的客户端会话因超时或发生异常而关闭时该节点也相应在服务器上被删除同样我们可以像删除持久节点一样主动删除临时节点在平时的开发中我们可以利用临时节点的这一特性来做服务器集群内机器运行情况的统计将集群设置为节点并为集群下的每台服务器创建一个临时节点当服务器下线时该节点自动被删除最后统计临时节点个数就可以知道集群中的运行情况有序节点节点有序是说在我们创建有序节点的时候服务器会自动使用一个单调递增的数字作为后缀追加到我们创建节点的后边例如一个客户端创建了一个路径为的有序节点那么将会生成一个序号并追加到该节点的路径后最后该节点的路径为通过这种方式我们可以直观的查看到节点的创建顺序中的每个节点都维护有这些内容一个二进制数组用来存储节点的数据访问控制信息子节点数据因为临时节点不允许有子节点所以其子节点字段为除此之外每个数据节点还有一个记录自身状态信息的字段节点的状态结构执行可以看到控制台输出了一些信息这些就是节点状态信息每一个节点都有一个自己的状态属性记录了节点本身的一些信息状态属性说明数据节点创建时的事务数据节点创建时的时间数据节点最后一次更新时的事务数据节点最后一次更新时的时间数据节点的子节点最后一次被修改时的事务子节点的版本当前节点数据的版本节点的的版本如果节点是临时节点则表示创建该节点的会话的如果节点是持久节点则该属性值为数据内容的长度数据节点当前的子节点个数数据节点的版本在中为数据节点引入了版本的概念每个数据节点有种类型的版本信息对数据节点的任何更新操作都会引起版本号的变化的版本信息表示的是对节点数据内容子节点信息或者是信息的修改次数数据存储从存储位置上来说事务日志和数据快照一样都存储在本地磁盘上而从业务角度来讲内存数据就是我们创建数据节点添加监控等请求时直接操作的数据事务日志数据主要用于记录本地事务性会话操作用于集群服务器之间的数据同步事务快照则是将内存数据持久化到本地磁盘这里要注意的一点是数据快照是每间隔一段时间才把内存数据存储到本地磁盘因此数据并不会一直与内存数据保持一致在单台服务器运行过程中因为异常而关闭时可能会出现数据丢失等情况内存数据的数据模型可以看作一棵树形结构而数据节点就是这棵树上的叶子节点从数据存储的角度看的数据模型是存储在内存中的我们可以把的数据模型看作是存储在内存中的数据库而这个数据库不但存储数据的节点信息还存储每个数据节点的权限信息以及状态信息等而在底层实现中数据模型是通过类来定义的类定义了一个数据的内存结构的内部定义类节点类型根节点信息子节点的监控信息等数据模型中的相关信息可以说一个类定义了内存数据的逻辑结构事务日志为了整个集群中数据的一致性服务器会向集群中的其他角色服务发送数据同步信息在接收到数据同步信息后集群中的和服务器就会进行数据同步而这两种角色服务器所接收到的信息就是服务器的事务日志在接收到事务日志后并在本地服务器上执行这种数据同步的方式避免了直接使用实际的业务数据减少了网络传输的开销提升了整个集群的执行性能机制的客户端可以通过机制来订阅当服务器上某一节点的数据或状态发生变化时收到相应的通知如何实现我们可以通过向客户端的构造方法中传递参数的方式实现上面代码的意思是定义了一个了客户端对象实例并传入三个参数服务端地址超时时间监控事件这个将作为整个会话期间的上下文一直被保存在客户端的中除此之外客户端也可以通过和三个接口来向服务器注册从而方便地在不同的情况下添加事件触发通知的条件上图中列出了客户端在不同会话状态下相应的在服务器节点所能支持的事件类型例如在客户端连接服务端的时候可以对数据节点的创建删除数据变更子节点的更新等操作进行监控当服务端某一节点发生数据变更操作时所有曾经设置了该节点监控事件的客户端都会收到服务器的通知吗答案是否定的事件的触发机制取决于会话的连接状态和客户端注册事件的类型所以当客户端会话状态或数据节点发生改变时都会触发对应的事件订阅发布场景实现提到的应用场景你可能第一时间会想到最为典型的发布订阅功能发布订阅功能可以看作是一个一对多的关系即一个服务或数据的发布者可以被多个不同的消费者调用一般一个发布订阅模式的数据交互可以分为消费者主动请求生产者信息的拉取模式和生产者数据变更时主动推送给消费者的推送模式采用了两种模式结合的方式实现订阅发布功能下面我们来分析一个具体案例在系统开发的过程中会用到各种各样的配置信息如数据库配置项第三方接口服务地址等这些配置操作在我们开发过程中很容易完成但是放到一个大规模的集群中配置起来就比较麻烦了通常这种集群中我们可以用配置管理功能自动完成服务器配置信息的维护利用的发布订阅功能就能解决这个问题我们可以把诸如数据库配置项这样的信息存储在数据节点中如服务器集群客户端对该节点添加事件监控当集群中的服务启动时会读取该节点数据获取数据配置信息而当该节点数据发生变化时服务器会发送事件给各个客户端集群中的客户端在接收到该通知后重新读取节点的数据库配置信息我们使用机制实现了一个分布式环境下的配置管理功能通过对服务器节点添加数据变更事件实现当数据库配置项信息变更后集群中的各个客户端能接收到该变更事件的通知并获取最新的配置信息要注意一点是我们提到具有一次性所以当我们获得服务器通知后要再次添加事件会话机制的工作方式一般是通过客户端向服务端发送请求而实现的而在一个请求的发送过程中首先客户端要与服务端进行连接而一个连接就是一个会话在中一个会话可以看作是一个用于表示客户端与服务器端连接的数据结构这个数据结构由三个部分组成分别是会话会话超时时间会话关闭状态会话会话作为一个会话的标识符当我们创建一次会话的时候会自动为其分配一个唯一的编码会话超时时间一般来说一个会话的超时时间就是指一次会话从发起后到被服务器关闭的时长而设置会话超时时间后服务器会参考设置的超时时间最终计算一个服务端自己的超时时间而这个超时时间则是最终真正用于中服务端用户会话管理的超时时间会话关闭状态会话关闭状态属性字段表示一个会话是否已经关闭如果服务器检查到一个会话已经因为超时等原因失效时会在该会话的属性值标记为关闭再之后就不对该会话进行操作了会话状态在服务的运行过程中会话会经历不同的状态变化这些状态包括正在连接已经连接正在重新连接已经重新连接会话关闭等当客户端开始创建一个与服务端的会话操作时它的会话状态就会变成之后客户端会根据服务器地址列表中的服务器地址分别尝试进行连接如果遇到一个地址可以连接到服务器那么客户端会话状态将变为如果因为网络原因造成已经连接的客户端会话断开时客户端会重新尝试连接服务端而对应的客户端会话状态又变成直到该会话连接到服务端最终又变成在服务的整个运行过程中会话状态经常会在与之间进行切换最后当出现超时或者客户端主动退出程序等情况时客户端会话状态则会变为状态会话异常在中会话的超时异常包括客户端异常和服务器端异常在我们平时的开发中要明确这两个异常的不同之处在于一个是发生在客户端而另一个是发生在服务端而对于那些对接触不深的开发人员来说他们常常踩坑的地方在于虽然设置了超时间但是在实际服务运行的时候并没有按照设置的超时时间来管理会话这是因为实际起作用的超时时间是通过客户端和服务端协商决定客户端在和服务端建立连接的时候会提交一个客户端设置的会话超时时间而该超时时间会和服务端设置的最大超时时间和最小超时时间进行比对如果正好在其允许的范围内则采用客户端的超时时间管理会话如果大于或者小于服务端设置的超时时间则采用服务端设置的值管理会话分桶策略我们知道在中为了保证一个会话的存活状态客户端需要向服务器周期性地发送心跳信息而客户端所发送的心跳信息可以是一个请求也可以是一个普通的业务请求服务端接收请求后会更新会话的过期时间来保证会话的存活状态所以在的会话管理中最主要的工作就是管理会话的过期时间中采用了独特的会话管理方式来管理会话的过期时间在中会话将按照不同的时间间隔进行划分超时时间相近的会话将被放在同一个间隔区间中这种方式避免了对每一个会话进行检查而是采用分批次的方式管理会话这就降低了会话管理的难度因为每次小批量的处理会话过期也提高了会话处理的效率这种会话管理的好处这种分段的会话管理策略大大提高了计算会话过期的效率如果是在一个实际生产环境中一个大型的分布式系统往往具有很高的访问量而作为其中的组件对外提供服务往往要承担数千个客户端的访问这其中就要对这几千个会话进行管理在这种场景下要想通过对每一个会话进行管理和检查并不合适所以采用将同一个时间段的会话进行统一管理这样就大大提高了服务的运行效率底层实现底层实现的原理核心的一点就是过期队列这个数据结构所有会话过期的相关操作都是围绕这个队列进行的可以说底层就是采用这个队列结构来管理会话过期的一个会话过期队列是由若干个组成的是一个按照时间划分的区间在中通常以为单位进行时间区间的划分它是分桶策略中用于划分时间区间的最小单位在中一个过期队列由不同的组成每个中存放了在某一时间内过期的会话将会话按照不同的过期时间段分别维护到过期队列之后在服务运行的过程中具体的执行过程如下图所示首先服务会开启一个线程专门用来检索过期队列找出要过期的而每次只会让一个的会话过期每当要进行会话过期操作时会唤醒一个处于休眠状态的线程进行会话过期操作之后会按照上面介绍的操作检索过期队列取出过期的会话后会执行过期操作权限的可针对设置相应的权限信息一个权限设置通常可以分为部分分别是权限模式授权对象权限信息最终组成一条例如格式的请求信息权限模式的权限验证方式大体分为两种类型一种是范围验证另外一种是口令验证范围验证所谓的范围验证就是说可以针对一个或者一段地址授予某种权限比如我们可以让一个地址为的机器对服务器上的某个数据节点具有写入的权限或者也可以通过给一段地址的机器赋权口令验证可以理解为用户名密码的方式这是我们最熟悉也是日常生活中经常使用的模式比如我们打开自己的电脑或者去银行取钱都需要提供相应的密码在中这种验证方式是认证我们知道通过网络传输相对来说并不安全所以绝不通过明文在网络发送密码也是程序设计中很重要的原则之一而这种认证方式首先在客户端传送这种形式的权限表示符后服务端会对密码部分使用和算法进行加密以保证安全性权限模式权限模式可以认为是一种特殊的认证具有权限的客户端可以对上的任意数据节点进行任意操作下面这段代码给出了模式下客户端的调用方式创建节点设置权限验证用户名格式密码查询节点权限授权操作如果一个客户端对服务器上的一个节点设置了只有它自己才能操作的权限那么等这个客户端下线或被删除后对其创建的节点要想进行修改应该怎么做呢我们可以通过模式即超级管理员的方式删除该节点或变更该节点的权限验证方式正因为模式有如此大的权限我们在平时使用时也应该更加谨慎模式这种授权模式对应于系统中的所有用户本质上起不到任何作用设置了权限模式系统中的所有用户操作都可以不进行权限验证授权对象所谓的授权对象就是说我们要把权限赋予谁而对应于种不同的权限模式来说如果我们选择采用方式使用的授权对象可以是一个地址或地址段而如果使用或方式则对应于一个用户名如果是模式是授权系统中所有的用户权限信息权限就是指我们可以在数据节点上执行的操作种类在中已经定义好的权限有种数据节点创建权限授予权限的对象可以在数据节点下创建子节点数据节点更新权限授予权限的对象可以更新该数据节点数据节点读取权限授予权限的对象可以读取该节点的内容以及子节点的信息数据节点删除权限授予权限的对象可以删除该数据节点的子节点数据节点管理者权限授予权限的对象可以对该数据节点体进行权限设置需要注意的一点是每个节点都有维护自身的权限数据即使是该节点的子节点也是有自己的权限而不是直接继承其父节点的权限实现自己的权限口控制虽然自身的权限控制机制已经做得很细但是它还是提供了一种权限扩展机制来让用户实现自己的权限控制方式官方文档中对这种机制的定义是意思是可插拔的授权机制从名称上我们可以看出它的灵活性那么这种机制是如何实现的呢要想实现自定义的权限控制机制最核心的一点是实现提供的权限控制器接口实现了自定义权限后如何才能让服务端使用自定义的权限验证方式呢接下来就需要将自定义的权限控制注册到服务器中而注册的方式通常有两种第一种是通过设置系统属性来注册自定义的权限控制器另一种是在配置文件中进行配置实现原理首先是封装该请求的类型之后将权限信息封装到中并发送给服务端而服务器的实现比较复杂首先分析请求类型是否是权限相关操作之后根据不同的权限模式调用不同的实现类验证权限最后存储权限信息在授权接口中值得注意的是会话的授权信息存储在服务端的内存中如果客户端会话关闭授权信息会被删除下次连接服务器后需要重新调用授权接口进行授权序列化方式在中并没有采用和一样的序列化方式而是采用了一个的序列解决方案作为框架自身的序列化方式从最开始就采用作为其序列化解决方案直到其最新的版本依然没有更改虽然一直将框架作为序列化解决方案但这并不意味着相对其他框架性能更好反倒是等框架在性能上优于前者之所以一直采用作为序列化解决方案主要是新老版本的兼容等问题如何使用实现序列化如果我们要想将某个定义的类进行序列化首先需要该类实现接口的和方法这两个方法分别是序列化和反序列化方法下边这段代码给出了我们一般在中进行序列化的具体实现首先我们定义了一个类为了能够对它进行序列化需要该类实现接口并在对应的序列化方法和反序列化方法中编辑具体的实现逻辑在序列化方法中我们要实现的逻辑是首先通过字符类型参数传递标记序列化标识符之后使用和等方法分别将对象属性字段进行序列化调用在实现反序列化的过程则与我们上边说的序列化过程正好相反序列化和反序列化的实现逻辑编码方式相对固定首先通过开启一段序列化操作之后通过或等方法执行序列化或反序列化本例中只是实现了长整型和字符型的序列化和反序列化操作除此之外中的框架还支持整数类型布尔类型双精度类型以及类型集群集群模式的特点在集群中将服务器分成三种角色服务器在集群运行期间这三种服务器所负责的工作各不相同角色服务器负责管理集群中其他的服务器是集群中工作的分配和调度者既可以为客户端提供写服务又能提供读服务服务器的主要工作是选举出服务器在发生服务器选举的时候系统会从服务器之间根据多数投票原则选举出一个服务器作为新的服务器只能提供读服务服务器则主要负责处理来自客户端的获取数据等请求并不参与服务器的选举操作也不会作为候选者被选举为服务器只能提供读服务在集群接收到来自客户端的会话请求操作后首先会判断该条请求是否是事务性的会话请求对于事务性的会话请求集群服务端会将该请求统一转发给服务器进行操作所谓事务性请求是指服务器执行完该条会话请求后是否会导致执行该条会话请求的服务器的数据或状态发生改变进而导致与其他集群中的服务器出现数据不一致的情况服务器内部执行该条事务性的会话请求后再将数据同步给其他角色服务器从而保证事务性会话请求的执行顺序进而保证整个集群的数据一致性在集群的内部实现中是通过什么方法保证所有集群接收到的事务性会话请求都能交给服务器进行处理的呢在集群内部集群中除服务器外的其他角色服务器接收到来自客户端的事务性会话请求后必须将该条会话请求转发给服务器进行处理集群中的和服务器都会检查当前接收到的会话请求是否是事务性的请求如果是事务性的请求那么就将该请求以消息类型转发给服务器在集群中的服务器接收到该条消息后会对该条消息进行解析分析出该条消息所包含的原始客户端会话请求之后将该条消息提交到自己的服务器请求处理链中开始进行事务性的会话请求操作如果不是事务性请求集群则交由和角色服务器处理该条会话请求如查询数据节点信息当一个业务场景在查询操作多而创建删除等事务性操作少的情况下集群的性能表现的就会很好如果是在极端情况下集群只有事务性的会话请求而没有查询操作那么和服务器就只能充当一个请求转发服务器的角色所有的会话的处理压力都在服务器在处理性能上整个集群服务器的瓶颈取决于服务器的性能集群的作用只能保证在节点崩溃的时候重新选举出服务器保证系统的稳定性这也是设计的一个缺点选举服务器的选举操作主要发生在两种情况下第一种就是集群服务启动的时候第二种就是在集群中旧的服务器失效时这时集群需要选举出新的服务器集群重新选举的过程只有服务器参与工作服务器状态服务器具有四种状态分别是寻找状态当服务器处于该状态时它会认为当前集群中没有因此需要进入选举状态跟随者状态表明当前服务器角色是领导者状态表明当前服务器角色是观察者状态表明当前服务器角色是事务的状态变化都会由一个事务标识写入会导致状态变化每次写入都会导致发生变化由统一分配全局唯一长度位递增展示了所有的转台变更顺序每次变更都有一个唯一如果小于则说明的事务在的事务之前发生选举过程在集群重新选举节点的过程中主要可以分为失效发现重新选举服务器角色变更集群同步这几个步骤失效发现在集群中当服务器失效时集群会重新选举出新的服务器在集群中探测服务器是否存活的方式与保持客户端活跃性的方法非常相似首先服务器会定期向服务器发送网络请求在接收到请求后服务器会返回响应数据包给服务器而在服务器接收到服务器的响应后如果判断服务器运行正常则继续进行数据同步和服务转发等工作反之则进行服务器的重新选举操作重新选举当服务器向服务器发送状态请求包后如果没有得到服务器的返回信息这时如果是集群中个别的服务器发现返回错误并不会导致集群立刻重新选举服务器而是将该服务器的状态变更为状态并向网络中发起投票当集群中有更多的机器发起投票最后当投票结果满足多数原则的情况下会重新选举出服务器角色变更在集群中服务器作为服务器的候选者当被选举为服务器之后其在集群中的角色也随之发生改变也就是要转变为服务器并作为集群中的角色服务器对外提供服务集群同步数据在集群成功选举服务器并且候选服务器的角色变更后为避免在这期间导致的数据不一致问题集群在对外提供服务之前会通过角色服务器管理同步其他角色服务器底层实现首先集群会先判断服务器是否失效而判断的方式就是服务器向服务器发送请求包之后服务器接收到响应数据后进行解析服务器会根据返回的数据判断服务器的运行状态如果返回的是关键字表明与集群中服务器无法正常通信之后在集群选举服务器时是通过类实现的该类实现了方式的通信连接用于在集群中与其他服务器进行协调沟通类继承了接口定义其是用来进行选举的实现类而在其内部又定义了选举通信相关的一些配置参数比如最终等待时间最大通知间隔时间等在选举的过程中首先调用函数向集群中的其他角色服务器发送本机的投票信息其他服务器在接收投票信息后会对投票信息进行有效性验证等操作之后集群统计投票信息如果过半数的机器投票信息一致则集群就重新选出新的服务器这里我们要注意一个问题那就是在重新选举服务器的过程中集群理论上是无法进行事务性的请求处理的因此发送到集群中的事务性会话会被挂起暂时不执行等到选举出新的服务器后再进行操作在集群服务运行的过程中服务器与服务器具有一个相同的功能那就是负责处理来自客户端的诸如查询数据节点等非事务性的会话请求操作但与服务器不同的是不参与服务器的选举工作也不会被选举为服务器在早期的集群服务运行过程中只有服务器和服务器不过随着在分布式环境下的广泛应用早期模式的设计缺点也随之产生主要带来的问题有如下几点随着集群规模的变大集群处理写入的性能反而下降集群无法做到跨域部署其中最主要的问题在于当集群的规模变大集群中服务器数量逐渐增多的时候处理创建数据节点等事务性请求操作的性能就会逐渐下降这是因为集群在处理事务性请求操作时要在集群中对该事务性的请求发起投票只有超过半数的服务器投票一致才会执行该条写入操作正因如此随着集群中服务器的数量越来越多一次写入等相关操作的投票也就变得越来越复杂并且服务器之间彼此的网络通信也变得越来越耗时导致随着服务器数量的逐步增加事务性的处理性能反而变得越来越低为了解决这一问题在版本后集群中创建了一种新的服务器角色即观察者角色服务器可以处理集群中的非事务性请求并且不参与节点等投票相关的操作这样既保证了集群性能的扩展性又避免了因为过多的服务器参与投票相关的操作而影响集群处理事务性会话请求的能力在实际部署的时候因为不参与节点等操作并不会像服务器那样频繁的与服务器进行通信因此可以将服务器部署在不同的网络区间中这样也不会影响整个集群的性能也就是所谓的跨域部署在我们日常使用集群服务器的时候集群中的机器个数应该选择奇数个两个原因在容错能力相同的情况下奇数台更节省资源中选举算法采用了协议核心思想是当多数写成功则写成功举两个例子假如集群有个节点即想要正常对外提供服务即选举成功至少需要个节点是正常的换句话说个节点的集群允许有一个节点宕机假如集群有个节点即想要正常对外提供服务即选举成功至少需要个节点是正常的换句话说个节点的集群也允许有一个节点宕机集群与集群都有允许个节点宕机的容错能力但是集群比集群多了个节点在相同容错能力的情况下本着节约资源的原则集群的节点数维持奇数个更好一些防止由脑裂造成的集群不可用集群的脑裂通常是发生在节点之间通信不可达的情况下集群会分裂成不同的小集群小集群各自选出自己的节点导致原有的集群出现多个节点的情况这就是脑裂下面举例说一下为什么采用奇数台节点就可以防止由于脑裂造成的服务不可用假如集群有个节点发生了脑裂脑裂成了两个小集群个节点个节点个节点个节点可以看出上面这两种情况下中总会有一个小集群满足可用节点数量总节点数量所以集群仍然能够选举出仍然能对外提供服务只不过是有一部分节点失效了而已假如集群有个节点同样发生脑裂脑裂成了两个小集群个节点个节点个节点个节点因为和都是个节点都不满足可用节点数量总节点数量的选举条件所以此时就彻底不能提供服务了协议协议算法最核心的作用就是保证分布式系统的数据一致性而无论是处理来自客户端的会话请求时还是集群节点发生重新选举时都会产生数据不一致的情况为了解决这个问题采用了协议算法协议算法原子广播协议是专门设计用来解决集群最终一致性问题的算法它的两个核心功能点是崩溃恢复和原子广播协议在整个协议的底层实现中集群主要采用主从模式的系统架构方式来保证集群系统的一致性当接收到来自客户端的事务性会话请求后系统集群采用主服务器来处理该条会话请求经过主服务器处理的结果会通过网络发送给集群中其他从节点服务器进行数据同步操作以集群为例这个操作过程可以概括为当集群接收到来自客户端的事务性的会话请求后集群中的其他角色服务器会将该请求转发给角色服务器进行处理当节点服务器在处理完该条会话请求后会将结果通过操作日志的方式同步给集群中的角色服务器然后角色服务器根据接收到的操作日志在本地执行相关的数据处理操作最终完成整个集群对客户端会话的处理工作崩溃恢复当集群中的发生故障的时候整个集群就会因为缺少服务器而无法处理来自客户端的事务性的会话请求因此为了解决这个问题在协议中也设置了处理该问题的崩溃恢复机制崩溃恢复机制是保证集群服务高可用的关键触发集群执行崩溃恢复的事件是集群中的节点服务器发生了异常而无法工作于是服务器会通过投票来决定是否选出新的节点服务器投票过程如下当崩溃恢复机制开始的时候整个集群的每台服务器会发起投票并同步给集群中的其他服务器在接收到来自集群中的其他服务器的投票信息后集群中的每个服务器都会与自身的投票信息进行对比如果判断新的投票信息更合适则采用新的投票信息作为自己的投票信息在集群中的投票信息还没有达到超过半数原则的情况下再进行新一轮的投票最终当整个集群中的服务器超过半数投出的结果相同的时候就会产生新的服务器选票结构以选举的实现方式来讲如下图所示一个选票的整体结果可以分为一下六个部分用来记录服务器的投票轮次会从开始计数每当该台服务经过一轮投票后的数值就会加用来标记当前服务器的状态在集群中一台服务器具有这四种状态用来表示当前服务器的信息该字段在集群中主要用来作为服务器的身份标识符当前服务器上所保存的数据的最大事务从开始计数投票要被推举的服务器的唯一被推举的服务器上所保存的数据的最大事务从开始计数当集群需要重新选举出新的服务器的时候就会根据上面介绍的投票信息内容进行对比以找出最适合的服务器选票筛选当一台服务器接收到网络中的其他服务器的投票信息后是如何进行对比来更新自己的投票信息的服务器进行选票对比的过程如下图所示首先会对比服务器的投票轮次当相同时表明两张选票处于相同的投票阶段并进入下一阶段否则跳过接下来再对比被选举的服务器信息若接收到的外部投票信息中的字段较大则将自己的票中的与更新为收到的票中的与并广播出去要是对比的结果相同则继续对比被选举服务器上所保存的最大事务若外部投票的比较大则将自己的票中的更新为收到的票中的经过这些对比和替换后最终该台服务器会产生新的投票信息并在下一轮的投票中发送到集群中消息广播在节点服务器处理请求后需要通知集群中的其他角色服务器进行数据同步集群采用消息广播的方式发送通知集群使用原子广播协议进行消息发送该协议的底层实现过程与二阶段提交过程非常相似如下图所示当要在集群中的其他角色服务器进行数据同步的时候服务器将该操作过程封装成一个提交事务并将其发送给集群中其他需要进行数据同步的服务器当这些服务器接收到服务器的数据同步事务后会将该条事务能否在本地正常执行的结果反馈给服务器服务器在接收到其他服务器的反馈信息后进行统计判断是否在集群中执行本次事务操作这里请注意与二阶段提交过程不同即需要集群中所有服务器都反馈可以执行事务操作后主服务器再次发送提交请求执行数据变更协议算法省去了中断的逻辑当集群中有超过一半的服务器能够正常执行事务操作后整个集群就可以提交事务了日志清理日志类型在服务运行的时候一般会产生数据快照和日志文件数据快照用于集群服务中的数据同步而数据日志则记录了服务运行的相关状态信息其中数据日志是我们在生产环境中需要定期维护和管理的文件清理方案如上面所介绍的面对生产系统中产生的日志一般的维护操作是备份和清理备份是为了之后对系统的运行情况进行排查和优化而清理主要因为随着系统日志的增加日志会逐渐占用系统的存储空间如果一直不进行清理可能耗尽系统的磁盘存储空间并最终影响服务的运行清理工具首先我们介绍的是它是系统下的软件可以自动地按照我们设定的时间周期性地执行我们编写的相关脚本定时脚本的方式相对灵活可以按照我们的业务需求来设置处理日志的维护方式比如这里我们希望定期清除服务运行的日志而不想清除数据快照的文件则可以通过脚本设置达到只对数据日志文件进行清理的目的自身还提供了工具类用来清理数据快照文件和系统日志清理方式和我们上面介绍的方式十分相似也是通过定时脚本执行任务唯一的不同是上面提到在编写日志清除的时候我们使用的是原生脚本自己手动编写的数据日志清理逻辑而使用则可以在编写清除脚本的时候调用为我们提供的工具类完成日志清理工作如下面的代码所示首先我们在目录下创建一个脚本注意这里的脚本也是一个文件在脚本中我们只需要编写类的调用程序系统就会自动通过工具类为我们完成对应日志文件的清理工作清理完成方式与相比使用起来更加容易而且也更加稳定安全不过方式更加灵活我们可以根据不同的业务需求编写自己的清理逻辑实现分布式锁分布式锁的目的是保证在分布式部署的应用集群中多个服务在请求同一个方法或者同一个业务操作的情况下对应业务逻辑只能被一台机器上的一个线程执行避免出现并发问题实现分布式锁目前有三种流行方案即基于数据库的方案方案一使用节点中的存储数据区域中节点存储数据的大小不能超过但是只是存放一个标识是足够的线程获得锁时先检查该标识是否是无锁标识若是可修改为占用标识使用完再恢复为无锁标识方案二使用子节点每当有线程来请求锁的时候便在锁的节点下创建一个子节点子节点类型必须维护一个顺序对子节点的自增序号进行排序默认总是最小的子节点对应的线程获得锁释放锁时删除对应子节点便可死锁风险两种方案其实都是可行的但是使用锁的时候一定要去规避死锁方案一看上去是没问题的用的时候设置标识用完清除标识但是要是持有锁的线程发生了意外释放锁的代码无法执行锁就无法释放其他线程就会一直等待锁相关同步代码便无法执行方案二也存在这个问题但方案二可以利用的临时顺序节点来解决这个问题只要线程发生了异常导致程序中断就会丢失与的连接检测到该链接断开就会自动删除该链接创建的临时节点这样就可以达到即使占用锁的线程程序发生意外也能保证锁正常释放的目的避免羊群效应把锁请求者按照后缀数字进行排队后缀数字小的锁请求者先获取锁如果所有的锁请求者都锁持有者当代表锁请求者的被删除以后所有的锁请求者都会通知到但是只有一个锁请求者能拿到锁这就是羊群效应为了避免羊群效应每个锁请求者它前面的锁请求者每次锁被释放只会有一个锁请求者会被通知到这样做还让锁的分配具有公平性锁定的分配遵循先到先得的原则用实现分布式锁的算法流程根节点为客户端连接并在下创建临时有序子节点第一个客户端对应的子节点为第二个为其他客户端获取下的子节点列表判断自己创建的子节点是否为当前列表中序号最小的子节点如果是则认为获得锁执行业务代码否则通过事件监听的子节点变更消息获得变更通知后重复此步骤直至获得锁完成业务流程后删除对应的子节点释放分布式锁在实际开发中可以应用来快速实现分布式锁是公司开源的一个客户端对原生做了抽象和封装实现分布式我们可以通过自身的客户端和服务器运行模式来实现一个分布式网络环境下的请求和分发过程每个需要编码的业务服务器可以看作是的客户端编码生成器可以作为的服务端客户端通过发送请求到服务器来获取编码信息服务端接收到请求后发送编码给客户端实现原理可以利用数据模型中的顺序节点作为编码客户端通过调用函数创建顺序节点服务器成功创建节点后会响应客户端请求把创建好的节点信息发送给客户端客户端用数据节点名称作为编码进行之后的本地业务操作利用中的顺序节点特性很容易使我们创建的编码具有有序的特性并且我们也可以通过客户端传递节点的名称根据不同的业务编码区分不同的业务系统从而使编码的扩展能力更强虽然使用的实现方式有这么多优点但也会有一些潜在的问题其中最主要的是在定义编码的规则上还是强烈依赖于程序员自身的能力和对业务的深入理解很容易出现因为考虑不周造成设置的规则在运行一段时间后无法满足业务要求或者安全性不够等问题实现负载均衡常见负载均衡算法轮询法轮询法是最为简单的负载均衡算法当接收到来自网络中的客户端请求后负载均衡服务器会按顺序逐个分配给后端服务比如集群中有台服务器分别是轮询法会按照这个顺序依次分发会话请求给每个服务器当第一次轮询结束后会重新开始下一轮的循环随机法随机算法是指负载均衡服务器在接收到来自客户端的请求后会根据一定的随机算法选中后台集群中的一台服务器来处理这次会话请求不过当集群中备选机器变的越来越多时通过统计学我们可以知道每台机器被抽中的概率基本相等因此随机算法的实际效果越来越趋近轮询算法原地址哈希法原地址哈希算法的核心思想是根据客户端的地址进行哈希计算用计算结果进行取模后根据最终结果选择服务器地址列表中的一台机器处理该条会话请求采用这种算法后当同一的客户端再次访问服务端后负载均衡服务器最终选举的还是上次处理该台机器会话请求的服务器也就是每次都会分配同一台服务器给客户端加权轮询法加权轮询的方式与轮询算法的方式很相似唯一的不同在于选择机器的时候不只是单纯按照顺序的方式选择还根据机器的配置和性能高低有所侧重配置性能好的机器往往首先分配加权随机法加权随机法和我们上面提到的随机算法一样在采用随机算法选举服务器的时候会考虑系统性能作为权值条件最小连接数法最小连接数算法是指根据后台处理客户端的连接会话条数计算应该把新会话分配给哪一台服务器一般认为连接数越少的机器在网络带宽和计算性能上都有很大优势会作为最优先分配的对象利用实现负载均衡算法这里我们通过采用最小连接数算法来确定究竟如何均衡地分配网络会话请求给后台客户端如下图所示建立的数据模型中节点可以作为存储服务器列表的父节点在它下面创建等临时节点来存储集群中的服务器运行状态信息整个实现的过程如下图所示首先在接收到客户端的请求后通过方法获取服务端节点下的服务器列表其中每个节点信息都存储有当前服务器的连接数通过判断选择最少的连接数作为当前会话的处理服务器并通过方法将该节点连接数加最后当客户端执行完毕再调用方法将该节点信息减我们定义当服务器接收到会话请求后在服务端增加连接数的方法我们通过方法获取服务器最新的连接数之后将该连接数加再通过方法将新的连接数信息写入到服务端对应节点信息中当服务器处理完该会话请求后需要更新服务端相关节点的连接数具体的操作与方法基本一样只是对获取的连接信息进行减一操作这里注意我们日常用到的负载均衡器主要是选择后台处理的服务器并给其分发请求而通过实现的服务器只提供了服务器的筛选工作在请求分发的过程中还是通过负载算法计算出要访问的服务器之后客户端自己连接该服务器完成请求操作开源框架使用案例与是阿里巴巴开发的一套开源的技术框架是一款高性能轻量级的开源框架用做注册中心在整个框架的实现过程中注册中心是其中最为关键的一点它保证了整个过程中服务对外的透明性而的注册中心也是通过来实现的如下图所示在整个服务的启动过程中服务提供者会在启动时向目录写入自己的地址这个操作可以看作是一个客户端在服务器的数据模型上创建一个数据节点服务消费者在启动时订阅目录下的提供者地址并向目录写入自己的地址该操作是通过服务器在节点路径下创建一个子数据节点然后再在请求会话中发起对节点的监控与的作用由于服务器采用分布式集群的方式工作那么在服务的运行过程中难免出现某台机器因异常而关闭的状况为了保证整个集群的可用性需要在系统中监控整个机器的运行情况而可以通过中的数据节点将网络中机器的运行统计存储在数据模型中的节点下在的信息注册中也需要使用到在中同一个消息容器可以分成多个不同片而这些分区既可以存在于一台服务器中也可以存在于不同的服务器中而在集群中每台服务器又相对独立为了能够读取这些以分布式方式存储的分区信息会将这些分区信息在服务器中的对应关系存储在数据模型的节点上每一个在数据节点上都会以的形式存在',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-01 03:52:04',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/essay_page.css"><link rel="stylesheet" href="/css/about.css"><link rel="stylesheet" href="/css/twikoo.css"><meta name="generator" content="Hexo 6.0.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://crab233.cloudns.biz/proxy/cdn.jsdelivr.net/gh/1137882300/images@master/images/fav.jpeg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A6%99%E6%B8%AF.png); background-size: cover; background-position: center;"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">必逛网站</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://linux.do/" title="L"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/t2.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=http://linux.do&amp;size=16" alt="L"/><span class="back-menu-item-text">L</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://x.com/" title="X"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/abs.twimg.com/favicons/twitter.3.ico" alt="X"/><span class="back-menu-item-text">X</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://app.follow.is/" title="follow"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://app.follow.is/favicon.ico" alt="follow"/><span class="back-menu-item-text">follow</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://hot.funning.top/" title="今日热榜"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://hot.funning.top/ico/favicon.png" alt="今日热榜"/><span class="back-menu-item-text">今日热榜</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">AI</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://www.923828.xyz/" title="AI-1oo"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.923828.xyz/favicon.ico" alt="AI-1oo"/><span class="back-menu-item-text">AI-1oo</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://lobe-chat.funning.top/" title="lobe-chat"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://registry.npmmirror.com/@lobehub/assets-favicons/1.4.0/files/assets/favicon.ico" alt="lobe-chat"/><span class="back-menu-item-text">lobe-chat</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://chat.funning.top" title="next-chat"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://chat.funning.top/favicon.ico" alt="next-chat"/><span class="back-menu-item-text">next-chat</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://gemini.923828.xyz" title="gemini-v2"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://gemini.923828.xyz/logo.svg" alt="gemini-v2"/><span class="back-menu-item-text">gemini-v2</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://gemini.funning.top/" title="gemini-v1"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img.funning.top/gemini.png" alt="gemini-v1"/><span class="back-menu-item-text">gemini-v1</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">工具</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://it-tools.tech/" title="it-tools"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://it-tools.tech/favicon.ico" alt="it-tools"/><span class="back-menu-item-text">it-tools</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">罗布斯</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" target="_blank" rel="noopener" href="https://923828.xyz"><span> 进入主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/movies/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 电影栏</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/equipment/"><i class="anzhiyufont anzhiyu-icon-dice-d20 faa-tada" style="font-size: 0.9em;"></i><span> 装备箱</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button only-home" id="travellings_button" title="随机前往一个开往项目网站"><a class="site-page" onclick="anzhiyu.totraveling()" title="随机前往一个开往项目网站" href="javascript:void(0);" rel="external nofollow" data-pjax-state="external"><i class="anzhiyufont anzhiyu-icon-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/wechat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.05rem;">AI<sup>16</sup></a><a href="/tags/Java-IO/" style="font-size: 1.05rem;">Java IO<sup>1</sup></a><a href="/tags/LLM/" style="font-size: 1.05rem;">LLM<sup>7</sup></a><a href="/tags/LangChain/" style="font-size: 1.05rem;">LangChain<sup>8</sup></a><a href="/tags/MoonshotAI/" style="font-size: 1.05rem;">MoonshotAI<sup>2</sup></a><a href="/tags/Nginx/" style="font-size: 1.05rem;">Nginx<sup>1</sup></a><a href="/tags/RAG/" style="font-size: 1.05rem;">RAG<sup>2</sup></a><a href="/tags/SpringBoot/" style="font-size: 1.05rem;">SpringBoot<sup>5</sup></a><a href="/tags/astro/" style="font-size: 1.05rem;">astro<sup>1</sup></a><a href="/tags/chain/" style="font-size: 1.05rem;">chain<sup>1</sup></a><a href="/tags/chat/" style="font-size: 1.05rem;">chat<sup>1</sup></a><a href="/tags/chatgpt/" style="font-size: 1.05rem;">chatgpt<sup>3</sup></a><a href="/tags/gpt-3-5/" style="font-size: 1.05rem;">gpt-3.5<sup>1</sup></a><a href="/tags/gpt-4/" style="font-size: 1.05rem;">gpt-4<sup>3</sup></a><a href="/tags/gpt-4o/" style="font-size: 1.05rem;">gpt-4o<sup>2</sup></a><a href="/tags/java8/" style="font-size: 1.05rem;">java8<sup>1</sup></a><a href="/tags/kimi/" style="font-size: 1.05rem;">kimi<sup>2</sup></a><a href="/tags/livekit/" style="font-size: 1.05rem;">livekit<sup>1</sup></a><a href="/tags/prompt/" style="font-size: 1.05rem;">prompt<sup>2</sup></a><a href="/tags/qwen/" style="font-size: 1.05rem;">qwen<sup>1</sup></a><a href="/tags/tts/" style="font-size: 1.05rem;">tts<sup>2</sup></a><a href="/tags/twikoo/" style="font-size: 1.05rem;">twikoo<sup>1</sup></a><a href="/tags/web-gpu/" style="font-size: 1.05rem;">web-gpu<sup>1</sup></a><a href="/tags/%E5%85%8D%E8%B4%B9/" style="font-size: 1.05rem;">免费<sup>4</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 1.05rem;">入门<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 1.05rem;">域名<sup>6</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">基础<sup>1</sup></a><a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 1.05rem;">大模型<sup>5</sup></a><a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 1.05rem;">大语言模型<sup>7</sup></a><a href="/tags/%E6%89%8B%E7%9B%B8/" style="font-size: 1.05rem;">手相<sup>1</sup></a><a href="/tags/%E6%8E%8C%E7%BA%B9/" style="font-size: 1.05rem;">掌纹<sup>1</sup></a><a href="/tags/%E6%94%BB%E7%95%A5/" style="font-size: 1.05rem;">攻略<sup>1</sup></a><a href="/tags/%E6%96%B0%E9%97%BB/" style="font-size: 1.05rem;">新闻<sup>3</sup></a><a href="/tags/%E6%97%85%E6%B8%B8/" style="font-size: 1.05rem;">旅游<sup>1</sup></a><a href="/tags/%E6%9C%88%E4%B9%8B%E6%9A%97%E9%9D%A2/" style="font-size: 1.05rem;">月之暗面<sup>2</sup></a><a href="/tags/%E6%A0%B8%E5%BF%83/" style="font-size: 1.05rem;">核心<sup>1</sup></a><a href="/tags/%E6%BE%B3%E9%97%A8/" style="font-size: 1.05rem;">澳门<sup>1</sup></a><a href="/tags/%E7%BE%8E%E9%A3%9F/" style="font-size: 1.05rem;">美食<sup>1</sup></a><a href="/tags/%E8%A7%86%E9%A2%91/" style="font-size: 1.05rem;">视频<sup>1</sup></a><a href="/tags/%E9%A6%99%E6%B8%AF/" style="font-size: 1.05rem;">香港<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/10/"><span class="card-archive-list-date">十月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">六月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">14</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="anzhiyu.switchCommentBarrage()" title="热评开关"><a class="commentBarrage"><i class="anzhiyufont anzhiyu-icon-message"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url">中间件</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/ZooKeeper/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>ZooKeeper</span></a></span></div></div><h1 class="post-title" itemprop="name headline">ZooKeeper一看一个不吱声</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2022-10-09T00:00:00.000Z" title="发表于 2022-10-09 00:00:00">2022-10-09</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-12-01T03:52:04.648Z" title="更新于 2024-12-01 03:52:04">2024-12-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">15.6k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>48分钟</span></span><span class="post-meta-separator"></span><span id="" data-flag-title="ZooKeeper一看一个不吱声"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="twikoo_visitors" title="访问量"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为杭州"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>杭州</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A6%99%E6%B8%AF.png"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://blog.funning.top/article/112221.html"><header><a class="post-meta-categories" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url">中间件</a><a href="/tags/ZooKeeper/" tabindex="-1" itemprop="url">ZooKeeper</a><h1 id="CrawlerTitle" itemprop="name headline">ZooKeeper一看一个不吱声</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">罗布斯</span><time itemprop="dateCreated datePublished" datetime="2022-10-09T00:00:00.000Z" title="发表于 2022-10-09 00:00:00">2022-10-09</time><time itemprop="dateCreated datePublished" datetime="2024-12-01T03:52:04.648Z" title="更新于 2024-12-01 03:52:04">2024-12-01</time></header><h2 id="基本介绍"><a class="markdownIt-Anchor" href="#基本介绍">#</a> 基本介绍</h2>
+<p>Apache ZooKeeper 是由 Apache Hadoop 的子项目发展而来，为分布式应用提供高效且可靠的分布式协调服务。</p>
+<p>在解决分布式数据一致性方面，ZK 没有直接采用 Paxos 算法，而是采用了 ZAB（ZooKeeper Atomic Broadcast）协议。<br>
+ZK 可以提供诸如数据发布 / 订阅、负载均衡、命名服务、分布式协调 / 通知，集群管理，Master 选举，分布式锁，分布式队列等功能。</p>
+<p>「它具有以下特性：」</p>
+<ul>
+<li>「顺序一致性」：从一个客户端发起的事务请求，最终都会严格按照其发起顺序被应用到 Zookeeper 中；</li>
+<li>「原子性」：要么所有应用，要么不应用；不存在部分机器应用了该事务，而「另一部分没有应用」的情况；</li>
+<li>「单一视图」：所有客户端看到的服务端数据模型都是一致的，无论客户连接的是哪个 ZK 服务器；</li>
+<li>「可靠性」：一旦服务端成功应用了一个事务，则其引起的改变会一直保留，直到被另外一个事务所更改；</li>
+<li>「实时性」：一旦一个事务被成功应用后，Zookeeper 可以保证客户端立即可以读取到这个事务变更后的最新状态的数据（「一段时间」）。</li>
+</ul>
+<h2 id="数据模型"><a class="markdownIt-Anchor" href="#数据模型">#</a> 数据模型</h2>
+<p>ZooKeeper 中的数据模型是一种树形结构，非常像电脑中的文件系统，有一个根文件夹，下面还有很多子文件夹。</p>
+<ul>
+<li>
+<p>ZooKeeper 的数据模型也具有一个固定的根节点 <code>（/）</code> ，我们可以在根节点下创建子节点，并在子节点下继续创建下一级节点。</p>
+</li>
+<li>
+<p>ZooKeeper 树中的每一层级用斜杠 <code>（/）</code> 分隔开，且只能用绝对路径（如 <code>get /work/task</code> ）的方式查询 ZooKeeper 节点，而不能使用相对路径。</p>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/shujumoxing-1.png" alt=""></p>
+<p><strong>「为什么 ZooKeeper 不能采用相对路径查找节点呢？」</strong></p>
+<blockquote>
+<p>❝</p>
+<p>这是因为 ZooKeeper 大多是应用场景是定位数据模型上的节点，并在相关节点上进行操作。</p>
+<p>❞</p>
+</blockquote>
+<p>像这种查找与给定值相等的记录问题最适合用散列来解决。</p>
+<p>因此 ZooKeeper 在底层实现的时候，使用了一个 hashtable，即  <code>hashtableConcurrentHashMap&lt;String, DataNode&gt; nodes</code> ，用节点的完整路径来作为 key 存储节点数据。</p>
+<p>这样就大大提高了 ZooKeeper 的性能。</p>
+<p><strong>「节点类型」</strong></p>
+<p>ZooKeeper 中的数据节点也分为持久节点、临时节点和有序节点三种类型：</p>
+<blockquote>
+<p>❝</p>
+<p>1、持久节点</p>
+<p>❞</p>
+</blockquote>
+<p>一旦将节点创建为持久节点，该数据节点会一直存储在 ZooKeeper 服务器上，即使创建该节点的客户端与服务端的会话关闭了，该节点依然不会被删除。如果我们想删除持久节点，就要显式调用 delete 函数进行删除操作。</p>
+<blockquote>
+<p>❝</p>
+<p>2、临时节点</p>
+<p>❞</p>
+</blockquote>
+<p>如果将节点创建为临时节点，那么该节点数据不会一直存储在 ZooKeeper 服务器上。</p>
+<p>当创建该临时节点的客户端会话因超时或发生异常而关闭时，该节点也相应在 ZooKeeper 服务器上被删除，同样，我们可以像删除持久节点一样主动删除临时节点。</p>
+<p>在平时的开发中，我们可以利用临时节点的这一特性来做服务器集群内机器运行情况的统计，将集群设置为 <code>/servers</code>  节点，并为集群下的每台服务器创建一个临时节点 <code>/servers/host</code> ，当服务器下线时该节点自动被删除，最后统计临时节点个数就可以知道集群中的运行情况。</p>
+<blockquote>
+<p>❝</p>
+<p>3、有序节点</p>
+<p>❞</p>
+</blockquote>
+<p>节点有序是说在我们创建有序节点的时候，ZooKeeper 服务器会自动使用一个单调递增的数字作为后缀，追加到我们创建节点的后边。</p>
+<p>例如一个客户端创建了一个路径为  <code>works/task-</code>  的有序节点，那么 ZooKeeper 将会生成一个序号并追加到该节点的路径后，最后该节点的路径为 <code>works/task-1</code> 。</p>
+<ul>
+<li>通过这种方式我们可以直观的查看到节点的创建顺序。</li>
+</ul>
+<p>ZooKeeper 中的每个节点都维护有这些内容：一个二进制数组 <code>（byte data[]）</code> ，用来存储节点的数据、ACL 访问控制信息、子节点数据（因为临时节点不允许有子节点，所以其子节点字段为 null），除此之外每个数据节点还有一个记录自身状态信息的字段 stat。</p>
+<p><strong>「节点的状态结构」</strong></p>
+<p>执行 <code>stat /zk_test</code> ，可以看到控制台输出了一些信息，这些就是节点状态信息。</p>
+<p>每一个节点都有一个自己的状态属性，记录了节点本身的一些信息：</p>
+<table>
+<thead>
+<tr>
+<th><strong>「状态属性」</strong></th>
+<th><strong>「说明」</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>czxid</td>
+<td>数据节点创建时的事务 ID</td>
+</tr>
+<tr>
+<td>ctime</td>
+<td>数据节点创建时的时间</td>
+</tr>
+<tr>
+<td>mzxid</td>
+<td>数据节点最后一次更新时的事务 ID</td>
+</tr>
+<tr>
+<td>mtime</td>
+<td>数据节点最后一次更新时的时间</td>
+</tr>
+<tr>
+<td>pzxid</td>
+<td>数据节点的子节点最后一次被修改时的事务 ID</td>
+</tr>
+<tr>
+<td><strong>「cversion」</strong></td>
+<td><strong>「子节点的版本」</strong></td>
+</tr>
+<tr>
+<td><strong>「version」</strong></td>
+<td><strong>「当前节点数据的版本」</strong></td>
+</tr>
+<tr>
+<td><strong>「aversion」</strong></td>
+<td><strong>「节点的 ACL 的版本」</strong></td>
+</tr>
+<tr>
+<td>ephemeralOwner</td>
+<td>如果节点是临时节点，则表示创建该节点的会话的 SessionID；如果节点是持久节点，则该属性值为 0</td>
+</tr>
+<tr>
+<td>dataLength</td>
+<td>数据内容的长度</td>
+</tr>
+<tr>
+<td>numChildren</td>
+<td>数据节点当前的子节点个数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>「数据节点的版本」</strong></p>
+<p>在 ZooKeeper 中为数据节点引入了版本的概念，每个数据节点有 3 种类型的版本信息，对数据节点的任何更新操作都会引起版本号的变化。</p>
+<p>ZooKeeper 的版本信息表示的是对节点数据内容、子节点信息或者是 ACL 信息的修改次数。</p>
+<h2 id="数据存储"><a class="markdownIt-Anchor" href="#数据存储">#</a> 数据存储</h2>
+<p>从存储位置上来说，事务日志和数据快照一样，都存储在本地磁盘上；而从业务角度来讲，内存数据就是我们创建数据节点、添加监控等请求时直接操作的数据。</p>
+<p>事务日志数据主要用于记录本地事务性会话操作，用于 ZooKeeper 集群服务器之间的数据同步。</p>
+<p>事务快照则是将内存数据持久化到本地磁盘。</p>
+<p>❝<br>
+这里要注意的一点是，数据快照是每间隔一段时间才把内存数据存储到本地磁盘，因此数据并不会一直与内存数据保持一致。<br>
+❞<br>
+在单台 ZooKeeper 服务器运行过程中因为异常而关闭时，可能会出现数据丢失等情况。</p>
+<p>「内存数据」</p>
+<p>ZooKeeper 的数据模型可以看作一棵树形结构，而数据节点就是这棵树上的叶子节点。</p>
+<p>从数据存储的角度看，ZooKeeper 的数据模型是存储在内存中的。</p>
+<p>我们可以把 ZooKeeper 的数据模型看作是存储在内存中的数据库，而这个数据库不但存储数据的节点信息，还存储每个数据节点的 ACL 权限信息以及 stat 状态信息等。</p>
+<p>而在底层实现中，ZooKeeper 数据模型是通过 DataTree 类来定义的。<br>
+DataTree 类定义了一个 ZooKeeper 数据的内存结构。</p>
+<p>DataTree 的内部定义类 nodes 节点类型、root 根节点信息、子节点的 WatchManager 监控信息等数据模型中的相关信息。</p>
+<p>可以说，一个 DataTree 类定义了 ZooKeeper 内存数据的逻辑结构。</p>
+<p>「事务日志」</p>
+<p>为了整个 ZooKeeper 集群中数据的一致性，Leader 服务器会向 ZooKeeper 集群中的其他角色服务发送数据同步信息，在接收到数据同步信息后， ZooKeeper 集群中的 Follow 和 Observer 服务器就会进行数据同步。</p>
+<p>❝<br>
+而这两种角色服务器所接收到的信息就是 Leader 服务器的事务日志。<br>
+❞<br>
+在接收到事务日志后，并在本地服务器上执行。这种数据同步的方式，避免了直接使用实际的业务数据，减少了网络传输的开销，提升了整个 ZooKeeper 集群的执行性能。</p>
+<h2 id="watch机制"><a class="markdownIt-Anchor" href="#watch机制">#</a> Watch 机制</h2>
+<p>ZooKeeper 的客户端可以通过 Watch 机制来订阅当服务器上某一节点的数据或状态发生变化时收到相应的通知；</p>
+<p><strong>「如何实现：」</strong></p>
+<p>我们可以通过向 ZooKeeper 客户端的构造方法中传递 Watcher 参数的方式实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new ZooKeeper(String connectString, int sessionTimeout, Watcher watcher)</span><br></pre></td></tr></table></figure>
+<p>上面代码的意思是定义了一个了 ZooKeeper 客户端对象实例，并传入三个参数：</p>
+<ul>
+<li>
+<p>connectString 服务端地址</p>
+</li>
+<li>
+<p>sessionTimeout：超时时间</p>
+</li>
+<li>
+<p>Watcher：监控事件</p>
+</li>
+</ul>
+<p>这个 Watcher 将作为整个 ZooKeeper 会话期间的上下文 ，一直被保存在客户端 ZKWatchManager 的 defaultWatcher 中。</p>
+<p>除此之外，ZooKeeper 客户端也可以通过 getData、exists 和 getChildren 三个接口来向 ZooKeeper 服务器注册 Watcher，从而方便地在不同的情况下添加 Watch 事件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getData(String path, Watcher watcher, Stat stat)</span><br></pre></td></tr></table></figure>
+<p>触发通知的条件：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/watch-1.png" alt=""></p>
+<p>上图中列出了客户端在不同会话状态下，相应的在服务器节点所能支持的事件类型。</p>
+<ul>
+<li>例如在客户端连接服务端的时候，可以对数据节点的创建、删除、数据变更、子节点的更新等操作进行监控。</li>
+</ul>
+<p><strong>「当服务端某一节点发生数据变更操作时，所有曾经设置了该节点监控事件的客户端都会收到服务器的通知吗？」</strong></p>
+<p>答案是否定的，Watch 事件的触发机制取决于会话的连接状态和客户端注册事件的类型，所以当客户端会话状态或数据节点发生改变时，都会触发对应的 Watch 事件。</p>
+<p><strong>「订阅发布场景实现」</strong></p>
+<blockquote>
+<p>❝</p>
+<p>提到 ZooKeeper 的应用场景，你可能第一时间会想到最为典型的发布订阅功能。</p>
+<p>❞</p>
+</blockquote>
+<p>发布订阅功能可以看作是一个一对多的关系，即一个服务或数据的发布者可以被多个不同的消费者调用。</p>
+<p>一般一个发布订阅模式的数据交互可以分为消费者主动请求生产者信息的拉取模式，和生产者数据变更时主动推送给消费者的推送模式。</p>
+<p>ZooKeeper 采用了两种模式结合的方式实现订阅发布功能。</p>
+<blockquote>
+<p>❝</p>
+<p>下面我们来分析一个具体案例：</p>
+<p>❞</p>
+</blockquote>
+<p>在系统开发的过程中会用到各种各样的配置信息，如数据库配置项、第三方接口、服务地址等，这些配置操作在我们开发过程中很容易完成，但是放到一个大规模的集群中配置起来就比较麻烦了。</p>
+<p>通常这种集群中，我们可以用配置管理功能自动完成服务器配置信息的维护，利用 ZooKeeper 的发布订阅功能就能解决这个问题。</p>
+<p>我们可以把诸如数据库配置项这样的信息存储在 ZooKeeper 数据节点中。</p>
+<p>如 <code>/confs/data_item1</code> 。</p>
+<ul>
+<li>
+<p>服务器集群客户端对该节点添加 Watch 事件监控，当集群中的服务启动时，会读取该节点数据获取数据配置信息。</p>
+</li>
+<li>
+<p>而当该节点数据发生变化时，ZooKeeper 服务器会发送 Watch 事件给各个客户端，集群中的客户端在接收到该通知后，重新读取节点的数据库配置信息。</p>
+</li>
+</ul>
+<p>我们使用 Watch 机制实现了一个分布式环境下的配置管理功能，通过对 ZooKeeper 服务器节点添加数据变更事件，实现当数据库配置项信息变更后，集群中的各个客户端能接收到该变更事件的通知，并获取最新的配置信息。</p>
+<blockquote>
+<p>❝</p>
+<p>要注意一点是，我们提到 Watch 具有一次性，所以当我们获得服务器通知后要再次添加 Watch 事件。</p>
+<p>❞</p>
+</blockquote>
+<h2 id="会话机制"><a class="markdownIt-Anchor" href="#会话机制">#</a> 会话机制</h2>
+<p>ZooKeeper 的工作方式一般是通过客户端向服务端发送请求而实现的。</p>
+<p>而在一个请求的发送过程中，首先，客户端要与服务端进行连接，而一个连接就是一个会话。</p>
+<blockquote>
+<p>❝</p>
+<p>在 ZooKeeper 中，一个会话可以看作是一个用于表示客户端与服务器端连接的数据结构 Session。</p>
+<p>❞</p>
+</blockquote>
+<p>这个数据结构由三个部分组成：分别是会话 ID（sessionID）、会话超时时间（TimeOut）、会话关闭状态（isClosing）</p>
+<ul>
+<li>
+<p>会话 ID：会话 ID 作为一个会话的标识符，当我们创建一次会话的时候，ZooKeeper 会自动为其分配一个唯一的 ID 编码。</p>
+</li>
+<li>
+<p>会话超时时间：一般来说，一个会话的超时时间就是指一次会话从发起后到被服务器关闭的时长。而设置会话超时时间后，服务器会参考设置的超时时间，最终计算一个服务端自己的超时时间。而这个超时时间则是最终真正用于 ZooKeeper 中服务端用户会话管理的超时时间。</p>
+</li>
+<li>
+<p>会话关闭状态：会话关闭 isClosing 状态属性字段表示一个会话是否已经关闭。如果服务器检查到一个会话已经因为超时等原因失效时， ZooKeeper 会在该会话的 isClosing 属性值标记为关闭，再之后就不对该会话进行操作了。</p>
+</li>
+</ul>
+<p><strong>「会话状态」</strong></p>
+<p>在 ZooKeeper 服务的运行过程中，会话会经历不同的状态变化。</p>
+<p>这些状态包括：</p>
+<blockquote>
+<p>❝</p>
+<p>正在连接（CONNECTING）、已经连接（CONNECTIED）、正在重新连接（RECONNECTING）、已经重新连接（RECONNECTED）、会话关闭（CLOSE）等。</p>
+<p>❞</p>
+</blockquote>
+<p>当客户端开始创建一个与服务端的会话操作时，它的会话状态就会变成 CONNECTING，之后客户端会根据服务器地址列表中的服务器 IP 地址分别尝试进行连接。如果遇到一个 IP 地址可以连接到服务器，那么客户端会话状态将变为 CONNECTIED。</p>
+<p>如果因为网络原因造成已经连接的客户端会话断开时，客户端会重新尝试连接服务端。而对应的客户端会话状态又变成 CONNECTING ，直到该会话连接到服务端最终又变成 CONNECTIED。</p>
+<blockquote>
+<p>❝</p>
+<p>在 ZooKeeper 服务的整个运行过程中，会话状态经常会在 CONNECTING 与 CONNECTIED 之间进行切换。</p>
+<p>❞</p>
+</blockquote>
+<p>最后，当出现超时或者客户端主动退出程序等情况时，客户端会话状态则会变为 CLOSE 状态。</p>
+<p><strong>「会话异常」</strong></p>
+<p>在 ZooKeeper 中，会话的超时异常包括客户端 readtimeout 异常和服务器端 sessionTimeout 异常。</p>
+<ul>
+<li>在我们平时的开发中，要明确这两个异常的不同之处在于一个是发生在客户端，而另一个是发生在服务端。</li>
+</ul>
+<p>而对于那些对 ZooKeeper 接触不深的开发人员来说，他们常常踩坑的地方在于，虽然设置了超时间，但是在实际服务运行的时候 ZooKeeper 并没有按照设置的超时时间来管理会话。</p>
+<ul>
+<li>这是因为 ZooKeeper 实际起作用的超时时间是通过客户端和服务端协商决定。</li>
+</ul>
+<p>ZooKeeper 客户端在和服务端建立连接的时候，会提交一个客户端设置的会话超时时间，而该超时时间会和服务端设置的最大超时时间和最小超时时间进行比对，如果正好在其允许的范围内，则采用客户端的超时时间管理会话。</p>
+<p>如果大于或者小于服务端设置的超时时间，则采用服务端设置的值管理会话。</p>
+<p><strong>「分桶策略」</strong></p>
+<p>我们知道在 ZooKeeper 中为了保证一个会话的存活状态，客户端需要向服务器周期性地发送心跳信息。</p>
+<ul>
+<li>而客户端所发送的心跳信息可以是一个 ping 请求，也可以是一个普通的业务请求。</li>
+</ul>
+<p>ZooKeeper 服务端接收请求后，会更新会话的过期时间，来保证会话的存活状态。</p>
+<ul>
+<li>所以在 ZooKeeper 的会话管理中，最主要的工作就是管理会话的过期时间。</li>
+</ul>
+<blockquote>
+<p>❝</p>
+<p>ZooKeeper 中采用了独特的会话管理方式来管理会话的过期时间。</p>
+<p>❞</p>
+</blockquote>
+<p>在 ZooKeeper 中，会话将按照不同的时间间隔进行划分，超时时间相近的会话将被放在同一个间隔区间中，这种方式避免了 ZooKeeper 对每一个会话进行检查，而是采用分批次的方式管理会话。</p>
+<p>这就降低了会话管理的难度，因为每次小批量的处理会话过期也提高了会话处理的效率。</p>
+<p><strong>「ZooKeeper 这种会话管理的好处？」</strong></p>
+<p>ZooKeeper 这种分段的会话管理策略大大提高了计算会话过期的效率，如果是在一个实际生产环境中，一个大型的分布式系统往往具有很高的访问量。</p>
+<p>而 ZooKeeper 作为其中的组件，对外提供服务往往要承担数千个客户端的访问，这其中就要对这几千个会话进行管理。</p>
+<p>在这种场景下，要想通过对每一个会话进行管理和检查并不合适，所以采用将同一个时间段的会话进行统一管理，这样就大大提高了服务的运行效率。</p>
+<p><strong>「底层实现」</strong></p>
+<p>ZooKeeper 底层实现的原理，核心的一点就是过期队列这个数据结构。所有会话过期的相关操作都是围绕这个队列进行的。</p>
+<ul>
+<li>可以说 ZooKeeper 底层就是采用这个队列结构来管理会话过期的。</li>
+</ul>
+<p><strong>「一个会话过期队列是由若干个 bucket 组成的。」</strong></p>
+<ul>
+<li>
+<p>bucket 是一个按照时间划分的区间。</p>
+</li>
+<li>
+<p>在 ZooKeeper 中，通常以 expirationInterval 为单位进行时间区间的划分，它是 ZooKeeper 分桶策略中用于划分时间区间的最小单位。</p>
+</li>
+<li>
+<p>在 ZooKeeper 中，一个过期队列由不同的 bucket 组成。</p>
+</li>
+<li>
+<p>每个 bucket 中存放了在某一时间内过期的会话。</p>
+</li>
+</ul>
+<p>将会话按照不同的过期时间段分别维护到过期队列之后，在 ZooKeeper 服务运行的过程中，具体的执行过程如下图所示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/huihuajizhi-1.png" alt=""></p>
+<p>首先，ZooKeeper 服务会开启一个线程专门用来检索过期队列，找出要过期的 bucket，而 ZooKeeper 每次只会让一个 bucket 的会话过期，每当要进行会话过期操作时，ZooKeeper 会唤醒一个处于休眠状态的线程进行会话过期操作，之后会按照上面介绍的操作检索过期队列，取出过期的会话后会执行过期操作。</p>
+<h2 id="acl权限"><a class="markdownIt-Anchor" href="#acl权限">#</a> ACL 权限</h2>
+<p>ZooKeeper 的 ACL 可针对 znodes 设置相应的权限信息。</p>
+<p>一个 ACL 权限设置通常可以分为 3 部分，分别是：权限模式（Scheme）、授权对象（ID）、权限信息（Permission）。</p>
+<p>最终组成一条例如 scheme🆔permission 格式的 ACL 请求信息。<br>
+「权限模式：Scheme」</p>
+<p>ZooKeeper 的权限验证方式大体分为两种类型，一种是范围验证，另外一种是口令验证。</p>
+<p>❝<br>
+范围验证<br>
+❞<br>
+所谓的范围验证就是说 ZooKeeper 可以针对一个 IP 或者一段 IP 地址授予某种权限。</p>
+<p>比如我们可以让一个 IP 地址为 ip：192.168.0.11 的机器对服务器上的某个数据节点具有写入的权限。</p>
+<p>或者也可以通过 ip:192.168.0.11/22 给一段 IP 地址的机器赋权。</p>
+<p>❝<br>
+口令验证<br>
+❞<br>
+可以理解为用户名密码的方式，这是我们最熟悉也是日常生活中经常使用的模式，比如我们打开自己的电脑或者去银行取钱都需要提供相应的密码。</p>
+<p>在 ZooKeeper 中这种验证方式是 Digest 认证，我们知道通过网络传输相对来说并不安全，所以绝不通过明文在网络发送密码也是程序设计中很重要的原则之一，而 Digest 这种认证方式首先在客户端传送 username:password 这种形式的权限表示符后，ZooKeeper 服务端会对密码部分使用 SHA-1 和 BASE64 算法进行加密，以保证安全性。</p>
+<p>❝<br>
+Super 权限模式<br>
+❞<br>
+权限模式 Super 可以认为是一种特殊的 Digest 认证。</p>
+<p>具有 Super 权限的客户端可以对 ZooKeeper 上的任意数据节点进行任意操作。</p>
+<p>下面这段代码给出了 Digest 模式下客户端的调用方式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//创建节点</span><br><span class="line">create /digest_node1</span><br><span class="line">//设置digest权限验证</span><br><span class="line">setAcl /digest_node1 digest:用户名:base64格式密码:rwadc </span><br><span class="line">//查询节点Acl权限</span><br><span class="line">getAcl /digest_node1 </span><br><span class="line">//授权操作</span><br><span class="line">addauth digest user:passwd</span><br></pre></td></tr></table></figure>
+<p>❝<br>
+如果一个客户端对服务器上的一个节点设置了只有它自己才能操作的权限，那么等这个客户端下线或被删除后。<br>
+❞<br>
+对其创建的节点要想进行修改应该怎么做呢？</p>
+<p>我们可以通过「super 模式」即超级管理员的方式删除该节点或变更该节点的权限验证方式。</p>
+<p>正因为「super 模式」有如此大的权限，我们在平时使用时也应该更加谨慎。</p>
+<p>❝<br>
+world 模式<br>
+❞<br>
+这种授权模式对应于系统中的所有用户，本质上起不到任何作用。</p>
+<p>设置了 world 权限模式系统中的所有用户操作都可以不进行权限验证。</p>
+<p>「授权对象（ID）」</p>
+<p>所谓的授权对象就是说我们要把权限赋予谁，而对应于 4 种不同的权限模式来说，如果我们选择采用 IP 方式，使用的授权对象可以是一个 IP 地址或 IP 地址段；而如果使用 Digest 或 Super 方式，则对应于一个用户名。</p>
+<p>如果是 World 模式，是授权系统中所有的用户。</p>
+<p>「权限信息（Permission）」</p>
+<p>权限就是指我们可以在数据节点上执行的操作种类，在 ZooKeeper 中已经定义好的权限有 5 种：</p>
+<ul>
+<li>
+<p>数据节点（create）创建权限，授予权限的对象可以在数据节点下创建子节点；</p>
+</li>
+<li>
+<p>数据节点（wirte）更新权限，授予权限的对象可以更新该数据节点；</p>
+</li>
+<li>
+<p>数据节点（read）读取权限，授予权限的对象可以读取该节点的内容以及子节点的信息；</p>
+</li>
+<li>
+<p>数据节点（delete）删除权限，授予权限的对象可以删除该数据节点的子节点；</p>
+</li>
+<li>
+<p>数据节点（admin）管理者权限，授予权限的对象可以对该数据节点体进行 ACL 权限设置。</p>
+</li>
+</ul>
+<p>❝<br>
+需要注意的一点是，每个节点都有维护自身的 ACL 权限数据，即使是该节点的子节点也是有自己的 ACL 权限而不是直接继承其父节点的权限。<br>
+❞<br>
+「实现自己的权限口控制」</p>
+<p>虽然 ZooKeeper 自身的权限控制机制已经做得很细，但是它还是提供了一种权限扩展机制来让用户实现自己的权限控制方式。</p>
+<p>官方文档中对这种机制的定义是 Pluggable ZooKeeper Authenication，意思是可插拔的授权机制，从名称上我们可以看出它的灵活性。那么这种机制是如何实现的呢？</p>
+<p>❝<br>
+要想实现自定义的权限控制机制，最核心的一点是实现 ZooKeeper 提供的权限控制器接口 AuthenticationProvider。<br>
+❞<br>
+实现了自定义权限后，如何才能让 ZooKeeper 服务端使用自定义的权限验证方式呢？</p>
+<p>接下来就需要将自定义的权限控制注册到 ZooKeeper 服务器中，而注册的方式通常有两种。</p>
+<p>第一种是通过设置系统属性来注册自定义的权限控制器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dzookeeper.authProvider.x=CustomAuthenticationProvider</span><br></pre></td></tr></table></figure>
+<p>另一种是在配置文件 zoo.cfg 中进行配置：</p>
+<p><code>authProvider.x=CustomAuthenticationProvider</code></p>
+<p>「实现原理」</p>
+<p>首先是封装该请求的类型，之后将权限信息封装到 request 中并发送给服务端。而服务器的实现比较复杂，首先分析请求类型是否是权限相关操作，之后根据不同的权限模式（scheme）调用不同的实现类验证权限最后存储权限信息。</p>
+<p>在授权接口中，值得注意的是会话的授权信息存储在 ZooKeeper 服务端的内存中，如果客户端会话关闭，授权信息会被删除。</p>
+<p>下次连接服务器后，需要重新调用授权接口进行授权。</p>
+<h2 id="序列化方式"><a class="markdownIt-Anchor" href="#序列化方式">#</a> 序列化方式</h2>
+<p>在 ZooKeeper 中并没有采用和 Java 一样的序列化方式，而是采用了一个 Jute 的序列解决方案作为 ZooKeeper 框架自身的序列化方式。</p>
+<p>❝<br>
+ZooKeeper 从最开始就采用 Jute 作为其序列化解决方案，直到其最新的版本依然没有更改。<br>
+❞<br>
+虽然 ZooKeeper 一直将 Jute 框架作为序列化解决方案，但这并不意味着 Jute 相对其他框架性能更好，反倒是 Apache Avro、Thrift 等框架在性能上优于前者。</p>
+<p>之所以 ZooKeeper 一直采用 Jute 作为序列化解决方案，主要是新老版本的兼容等问题。</p>
+<p>「如何 使用 Jute 实现序列化」</p>
+<p>如果我们要想将某个定义的类进行序列化，首先需要该类实现 Record 接口的 serilize 和 deserialize 方法，这两个方法分别是序列化和反序列化方法。</p>
+<p>❝<br>
+下边这段代码给出了我们一般在 ZooKeeper 中进行序列化的具体实现：<br>
+❞<br>
+首先，我们定义了一个 test_jute 类，为了能够对它进行序列化，需要该 test_jute 类实现 Record 接口，并在对应的 serialize 序列化方法和 deserialize 反序列化方法中编辑具体的实现逻辑。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class test_jute implements Record&#123;</span><br><span class="line">  private long ids；</span><br><span class="line">  private String name;</span><br><span class="line">  ...</span><br><span class="line">  public void serialize(OutpurArchive a_,String tag)&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  public void deserialize(INputArchive a_,String tag)&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在序列化方法 serialize 中，我们要实现的逻辑是，首先通过字符类型参数 tag 传递标记序列化标识符，之后使用 writeLong 和 writeString 等方法分别将对象属性字段进行序列化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void serialize(OutpurArchive a_,String tag) throws ...&#123;</span><br><span class="line">  a_.startRecord(this.tag);</span><br><span class="line">  a_.writeLong(ids,&quot;ids&quot;);</span><br><span class="line">  a_.writeString(type,&quot;name&quot;);</span><br><span class="line">  a_.endRecord(this,tag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用 derseralize 在实现反序列化的过程则与我们上边说的序列化过程正好相反。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void deserialize(INputArchive a_,String tag) throws &#123;</span><br><span class="line">  a_.startRecord(tag);</span><br><span class="line">  ids = a_.readLong(&quot;ids&quot;);</span><br><span class="line">  name = a_.readString(&quot;name&quot;);</span><br><span class="line">  a_.endRecord(tag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>序列化和反序列化的实现逻辑编码方式相对固定，首先通过 startRecord 开启一段序列化操作，之后通过 writeLong、writeString 或 readLong、 readString 等方法执行序列化或反序列化。</p>
+<p>本例中只是实现了长整型和字符型的序列化和反序列化操作，除此之外 ZooKeeper 中的 Jute 框架还支持整数类型（Int）、布尔类型（Bool）、双精度类型（Double）以及 Byte/Buffer 类型。</p>
+<h2 id="集群"><a class="markdownIt-Anchor" href="#集群">#</a> 集群</h2>
+<p>「ZooKeeper 集群模式的特点」</p>
+<p>在 ZooKeeper 集群中将服务器分成 「Leader 、Follow 、Observer 三」种角色服务器，在集群运行期间这三种服务器所负责的工作各不相同：</p>
+<p>Leader 角色服务器负责管理集群中其他的服务器，是集群中工作的分配和调度者，既可以为客户端提供写服务又能提供读服务。</p>
+<p>Follow 服务器的主要工作是选举出 Leader 服务器，在发生 Leader 服务器选举的时候，系统会从 Follow 服务器之间根据多数投票原则，选举出一个 Follow 服务器作为新的 Leader 服务器，只能提供读服务。</p>
+<p>Observer 服务器则主要负责处理来自客户端的获取数据等请求，并不参与 Leader 服务器的选举操作，也不会作为候选者被选举为 Leader 服务器，只能提供读服务。</p>
+<p>在 ZooKeeper 集群接收到来自客户端的会话请求操作后，首先会判断该条请求是否是事务性的会话请求。</p>
+<p>❝<br>
+对于事务性的会话请求，ZooKeeper 集群服务端会将该请求统一转发给 Leader 服务器进行操作。<br>
+所谓事务性请求，是指 ZooKeeper 服务器执行完该条会话请求后，是否会导致执行该条会话请求的服务器的数据或状态发生改变，进而导致与其他集群中的服务器出现数据不一致的情况。<br>
+❞<br>
+Leader 服务器内部执行该条事务性的会话请求后，再将数据同步给其他角色服务器，从而保证事务性会话请求的执行顺序，进而保证整个 ZooKeeper 集群的数据一致性。</p>
+<p>❝<br>
+在 ZooKeeper 集群的内部实现中，是通过什么方法保证所有 ZooKeeper 集群接收到的事务性会话请求都能交给 Leader 服务器进行处理的呢？<br>
+❞<br>
+在 ZooKeeper 集群内部，集群中除 Leader 服务器外的其他角色服务器接收到来自客户端的事务性会话请求后，必须将该条会话请求转发给 Leader 服务器进行处理。</p>
+<p>ZooKeeper 集群中的 Follow 和 Observer 服务器，都会检查当前接收到的会话请求是否是事务性的请求，如果是事务性的请求，那么就将该请求以 REQUEST 消息类型转发给 Leader 服务器。</p>
+<p>在 ZooKeeper 集群中的服务器接收到该条消息后，会对该条消息进行解析。</p>
+<p>分析出该条消息所包含的原始客户端会话请求。</p>
+<p>之后将该条消息提交到自己的 Leader 服务器请求处理链中，开始进行事务性的会话请求操作。</p>
+<p>如果不是事务性请求，ZooKeeper 集群则交由 Follow 和 Observer 角色服务器处理该条会话请求，如查询数据节点信息。</p>
+<p>当一个业务场景在查询操作多而创建删除等事务性操作少的情况下，ZooKeeper 集群的性能表现的就会很好。</p>
+<p>❝<br>
+如果是在极端情况下，ZooKeeper 集群只有事务性的会话请求而没有查询操作，那么 Follow 和 Observer 服务器就只能充当一个请求转发服务器的角色， 所有的会话的处理压力都在 Leader 服务器。<br>
+❞<br>
+在处理性能上整个集群服务器的瓶颈取决于 Leader 服务器的性能。</p>
+<p>❝<br>
+ZooKeeper 集群的作用只能保证在 Leader 节点崩溃的时候，重新选举出 Leader 服务器保证系统的稳定性。<br>
+❞<br>
+这也是 ZooKeeper 设计的一个缺点。</p>
+<p>「Leader 选举」</p>
+<p>Leader 服务器的选举操作主要发生在两种情况下。</p>
+<p>第一种就是 ZooKeeper 集群服务启动的时候，第二种就是在 ZooKeeper 集群中旧的 Leader 服务器失效时，这时 ZooKeeper 集群需要选举出新的 Leader 服务器。</p>
+<p>❝<br>
+ZooKeeper 集群重新选举 Leader 的过程只有 Follow 服务器参与工作。<br>
+❞<br>
+❝<br>
+服务器状态<br>
+❞<br>
+服务器具有四种状态，分别是 LOOKING、FOLLOWING、LEADING、OBSERVING。</p>
+<p>「LOOKING」：寻找 Leader 状态。当服务器处于该状态时，它会认为当前集群中没有 Leader，因此需要进入 Leader 选举状态。</p>
+<p>「FOLLOWING」：跟随者状态。表明当前服务器角色是 Follower。</p>
+<p>「LEADING」：领导者状态。表明当前服务器角色是 Leader。</p>
+<p>「OBSERVING」：观察者状态。表明当前服务器角色是 Observer。</p>
+<p>「事务 ID（zxid）」</p>
+<p>Zookeeper 的状态变化，都会由一个 Zookeeper 事务 ID（ZXID）标识。</p>
+<p>❝<br>
+写入 Zookeeper，会导致状态变化，每次写入都会导致 ZXID 发生变化。<br>
+❞<br>
+ZXID 由 Leader 统一分配，全局唯一，长度 64 位，递增。</p>
+<p>ZXID 展示了所有的 Zookeeper 转台变更顺序，每次变更都有一个唯一 ZXID，如果 zxid1 小于 zxid2，则说明 zxid1 的事务在 zxid2 的事务之前发生。</p>
+<p>「选举过程」</p>
+<p>在 ZooKeeper 集群重新选举 Leader 节点的过程中，主要可以分为 Leader 失效发现、重新选举 Leader 、Follow 服务器角色变更、集群同步这几个步骤。</p>
+<p>❝<br>
+Leader 失效发现<br>
+❞<br>
+在 ZooKeeper 集群中，当 Leader 服务器失效时，ZooKeeper 集群会重新选举出新的 Leader 服务器。</p>
+<p>在 ZooKeeper 集群中，探测 Leader 服务器是否存活的方式与保持客户端活跃性的方法非常相似。<br>
+首先，Follow 服务器会定期向 Leader 服务器发送 网络请求，在接收到请求后，Leader 服务器会返回响应数据包给 Follow 服务器，而在 Follow 服务器接收到 Leader 服务器的响应后，如果判断 Leader 服务器运行正常，则继续进行数据同步和服务转发等工作，反之，则进行 Leader 服务器的重新选举操作。</p>
+<p>❝<br>
+Leader 重新选举<br>
+❞<br>
+当 Follow 服务器向 Leader 服务器发送状态请求包后，如果没有得到 Leader 服务器的返回信息，这时，如果是集群中个别的 Follow 服务器发现返回错误，并不会导致 ZooKeeper 集群立刻重新选举 Leader 服务器，而是将该 Follow 服务器的状态变更为 LOOKING 状态，并向网络中发起投票，当 ZooKeeper 集群中有更多的机器发起投票，最后当投票结果满足多数原则的情况下。</p>
+<p>ZooKeeper 会重新选举出 Leader 服务器。</p>
+<p>❝<br>
+Follow 角色变更<br>
+❞<br>
+在 ZooKeeper 集群中，Follow 服务器作为 Leader 服务器的候选者，当被选举为 Leader 服务器之后，其在 ZooKeeper 集群中的 Follow 角色，也随之发生改变。也就是要转变为 Leader 服务器，并作为 ZooKeeper 集群中的 Leader 角色服务器对外提供服务。</p>
+<p>❝<br>
+集群同步数据<br>
+❞<br>
+在 ZooKeeper 集群成功选举 Leader 服务器，并且候选 Follow 服务器的角色变更后。</p>
+<p>为避免在这期间导致的数据不一致问题，ZooKeeper 集群在对外提供服务之前，会通过 Leader 角色服务器管理同步其他角色服务器。</p>
+<p>「底层实现」</p>
+<p>首先，ZooKeeper 集群会先判断 Leader 服务器是否失效，而判断的方式就是 Follow 服务器向 Leader 服务器发送请求包，之后 Follow 服务器接收到响应数据后，进行解析，Follow 服务器会根据返回的数据，判断 Leader 服务器的运行状态，如果返回的是 LOOKING 关键字，表明与集群中 Leader 服务器无法正常通信。</p>
+<p>之后，在 ZooKeeper 集群选举 Leader 服务器时，是通过 「FastLeaderElection」 类实现的。<br>
+该类实现了 TCP 方式的通信连接，用于在 ZooKeeper 集群中与其他 Follow 服务器进行协调沟通。</p>
+<p>FastLeaderElection 类继承了 Election 接口，定义其是用来进行选举的实现类。</p>
+<p>而在其内部，又定义了选举通信相关的一些配置参数，比如 finalizeWait 最终等待时间、最大通知间隔时间 maxNotificationInterval 等。<br>
+在选举的过程中，首先调用 ToSend 函数向 ZooKeeper 集群中的其他角色服务器发送本机的投票信息，其他服务器在接收投票信息后，会对投票信息进行有效性验证等操作，之后 ZooKeeper 集群统计投票信息，如果过半数的机器投票信息一致，则集群就重新选出新的 Leader 服务器。</p>
+<p>❝<br>
+这里我们要注意一个问题，那就是在重新选举 Leader 服务器的过程中，ZooKeeper 集群理论上是无法进行事务性的请求处理的。<br>
+❞<br>
+因此，发送到 ZooKeeper 集群中的事务性会话会被挂起，暂时不执行，等到选举出新的 Leader 服务器后再进行操作。</p>
+<p>「Observer」</p>
+<p>在 ZooKeeper 集群服务运行的过程中，Observer 服务器与 Follow 服务器具有一个相同的功能，那就是负责处理来自客户端的诸如查询数据节点等非事务性的会话请求操作。</p>
+<p>但与 Follow 服务器不同的是，Observer 不参与 Leader 服务器的选举工作，也不会被选举为 Leader 服务器。<br>
+在早期的 ZooKeeper 集群服务运行过程中，只有 Leader 服务器和 Follow 服务器。</p>
+<p>不过随着 ZooKeeper 在分布式环境下的广泛应用，早期模式的设计缺点也随之产生，主要带来的问题有如下几点：</p>
+<p>随着集群规模的变大，集群处理写入的性能反而下降。</p>
+<p>ZooKeeper 集群无法做到跨域部署。</p>
+<p>其中最主要的问题在于，当 ZooKeeper 集群的规模变大，集群中 Follow 服务器数量逐渐增多的时候，ZooKeeper 处理创建数据节点等事务性请求操作的性能就会逐渐下降。</p>
+<p>这是因为 ZooKeeper 集群在处理事务性请求操作时，要在 ZooKeeper 集群中对该事务性的请求发起投票，只有超过半数的 Follow 服务器投票一致，才会执行该条写入操作。</p>
+<p>正因如此，随着集群中 Follow 服务器的数量越来越多，一次写入等相关操作的投票也就变得越来越复杂，并且 Follow 服务器之间彼此的网络通信也变得越来越耗时，导致随着 Follow 服务器数量的逐步增加，事务性的处理性能反而变得越来越低。</p>
+<p>为了解决这一问题，在 ZooKeeper 3.6 版本后，ZooKeeper 集群中创建了一种新的服务器角色，即 Observer—— 观察者角色服务器。<br>
+Observer 可以处理 ZooKeeper 集群中的非事务性请求，并且不参与 Leader 节点等投票相关的操作。</p>
+<p>这样既保证了 ZooKeeper 集群性能的扩展性，又避免了因为过多的服务器参与投票相关的操作而影响 ZooKeeper 集群处理事务性会话请求的能力。</p>
+<p>在实际部署的时候，因为 Observer 不参与 Leader 节点等操作，并不会像 Follow 服务器那样频繁的与 Leader 服务器进行通信。<br>
+因此，可以将 Observer 服务器部署在不同的网络区间中，这样也不会影响整个 ZooKeeper 集群的性能，也就是所谓的跨域部署。</p>
+<p>「在我们日常使用 ZooKeeper 集群服务器的时候，集群中的机器个数应该选择奇数个？」</p>
+<p>两个原因：</p>
+<p>❝<br>
+在容错能力相同的情况下，奇数台更节省资源<br>
+❞<br>
+Zookeeper 中 Leader 选举算法采用了 Zab 协议。</p>
+<p>Zab 核心思想是当多数 Server 写成功，则写成功。</p>
+<p>举两个例子：</p>
+<p>假如 zookeeper 集群 1 ，有 3 个节点，3/2=1.5 ,  即 zookeeper 想要正常对外提供服务（即 leader 选举成功），至少需要 2 个节点是正常的。换句话说，3 个节点的 zookeeper 集群，允许有一个节点宕机。</p>
+<p>假如 zookeeper 集群 2，有 4 个节点，4/2=2 , 即 zookeeper 想要正常对外提供服务（即 leader 选举成功），至少需要 3 个节点是正常的。换句话说，4 个节点的 zookeeper 集群，也允许有一个节点宕机。</p>
+<p>集群 1 与集群 2 都有 允许 1 个节点宕机 的容错能力，但是集群 2 比集群 1 多了 1 个节点。在相同容错能力的情况下，本着节约资源的原则，zookeeper 集群的节点数维持奇数个更好一些。</p>
+<p>❝<br>
+防止由脑裂造成的集群不可用。<br>
+❞<br>
+集群的脑裂通常是发生在节点之间通信不可达的情况下，集群会分裂成不同的小集群，小集群各自选出自己的 master 节点，导致原有的集群出现多个 master 节点的情况，这就是脑裂。</p>
+<p>下面举例说一下为什么采用奇数台节点，就可以防止由于脑裂造成的服务不可用：</p>
+<p>假如 zookeeper 集群有 5 个节点，发生了脑裂，脑裂成了 A、B 两个小集群：</p>
+<p>A ：1 个节点 ，B ：4 个节点</p>
+<p>A ：2 个节点， B ：3 个节点</p>
+<p>可以看出，上面这两种情况下，A、B 中总会有一个小集群满足 可用节点数量 &gt; 总节点数量 / 2 。</p>
+<p>所以 zookeeper 集群仍然能够选举出 leader ， 仍然能对外提供服务，只不过是有一部分节点失效了而已。</p>
+<p>假如 zookeeper 集群有 4 个节点，同样发生脑裂，脑裂成了 A、B 两个小集群：</p>
+<p>A：1 个节点 ，  B：3 个节点</p>
+<p>A：2 个节点 ， B：2 个节点</p>
+<p>因为 A 和 B 都是 2 个节点，都不满足 可用节点数量 &gt; 总节点数量 / 2 的选举条件， 所以此时 zookeeper 就彻底不能提供服务了。</p>
+<h2 id="zab协议"><a class="markdownIt-Anchor" href="#zab协议">#</a> ZAB 协议</h2>
+<p><strong>「ZAB 协议算法」</strong></p>
+<p>ZooKeeper 最核心的作用就是保证分布式系统的数据一致性，而无论是处理来自客户端的会话请求时，还是集群 Leader 节点发生重新选举时，都会产生数据不一致的情况。</p>
+<blockquote>
+<p>❝</p>
+<p>为了解决这个问题，ZooKeeper 采用了 ZAB 协议算法。</p>
+<p>❞</p>
+</blockquote>
+<p>ZAB 协议算法（Zookeeper Atomic Broadcast  ，Zookeeper 原子广播协议）是 ZooKeeper 专门设计用来解决集群最终一致性问题的算法，它的两个核心功能点是崩溃恢复和原子广播协议。</p>
+<ul>
+<li>在整个 ZAB 协议的底层实现中，ZooKeeper 集群主要采用主从模式的系统架构方式来保证 ZooKeeper 集群系统的一致性。</li>
+</ul>
+<p>当接收到来自客户端的事务性会话请求后，系统集群采用主服务器来处理该条会话请求，经过主服务器处理的结果会通过网络发送给集群中其他从节点服务器进行数据同步操作。</p>
+<blockquote>
+<p>❝</p>
+<p>以 ZooKeeper 集群为例，这个操作过程可以概括为：</p>
+<p>❞</p>
+</blockquote>
+<p>当 ZooKeeper 集群接收到来自客户端的事务性的会话请求后，集群中的其他 Follow 角色服务器会将该请求转发给 Leader 角色服务器进行处理。</p>
+<p>当 Leader 节点服务器在处理完该条会话请求后，会将结果通过操作日志的方式同步给集群中的 Follow 角色服务器。</p>
+<p>然后 Follow 角色服务器根据接收到的操作日志，在本地执行相关的数据处理操作，最终完成整个 ZooKeeper 集群对客户端会话的处理工作。</p>
+<p><strong>「崩溃恢复」</strong></p>
+<p>当集群中的 Leader 发生故障的时候，整个集群就会因为缺少 Leader 服务器而无法处理来自客户端的事务性的会话请求。</p>
+<blockquote>
+<p>❝</p>
+<p>因此，为了解决这个问题。在 ZAB 协议中也设置了处理该问题的崩溃恢复机制。</p>
+<p>❞</p>
+</blockquote>
+<p>崩溃恢复机制是保证 ZooKeeper 集群服务高可用的关键。触发 ZooKeeper 集群执行崩溃恢复的事件是集群中的 Leader 节点服务器发生了异常而无法工作，于是 Follow 服务器会通过投票来决定是否选出新的 Leader 节点服务器。</p>
+<blockquote>
+<p>❝</p>
+<p>投票过程如下：</p>
+<p>❞</p>
+</blockquote>
+<p>当崩溃恢复机制开始的时候，整个 ZooKeeper 集群的每台 Follow 服务器会发起投票，并同步给集群中的其他 Follow 服务器。</p>
+<p>在接收到来自集群中的其他 Follow 服务器的投票信息后，集群中的每个 Follow 服务器都会与自身的投票信息进行对比，如果判断新的投票信息更合适，则采用新的投票信息作为自己的投票信息。在集群中的投票信息还没有达到超过半数原则的情况下，再进行新一轮的投票，最终当整个 ZooKeeper 集群中的 Follow 服务器超过半数投出的结果相同的时候，就会产生新的 Leader 服务器。</p>
+<blockquote>
+<p>❝</p>
+<p>选票结构：</p>
+<p>❞</p>
+</blockquote>
+<p>以 Fast Leader Election 选举的实现方式来讲，如下图所示，一个选票的整体结果可以分为一下六个部分：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/zab-1.png" alt=""></p>
+<ul>
+<li>
+<p>logicClock：用来记录服务器的投票轮次。logicClock 会从 1 开始计数，每当该台服务经过一轮投票后，logicClock 的数值就会加 1 。</p>
+</li>
+<li>
+<p>state：用来标记当前服务器的状态。在 ZooKeeper 集群中一台服务器具有 LOOKING、FOLLOWING、LEADERING、OBSERVING 这四种状态。</p>
+</li>
+<li>
+<p><code>self_id</code> ：用来表示当前服务器的 ID 信息，该字段在 ZooKeeper 集群中主要用来作为服务器的身份标识符。</p>
+</li>
+<li>
+<p><code>self_zxid</code> ：当前服务器上所保存的数据的最大事务 ID ，从 0 开始计数。</p>
+</li>
+<li>
+<p><code>vote_id</code> ：投票要被推举的服务器的唯一 ID 。</p>
+</li>
+<li>
+<p><code>vote_zxid</code> ：被推举的服务器上所保存的数据的最大事务 ID ，从 0 开始计数。</p>
+</li>
+</ul>
+<p>当 ZooKeeper 集群需要重新选举出新的 Leader 服务器的时候，就会根据上面介绍的投票信息内容进行对比，以找出最适合的服务器。</p>
+<blockquote>
+<p>❝</p>
+<p>选票筛选</p>
+<p>❞</p>
+</blockquote>
+<p>当一台 Follow 服务器接收到网络中的其他 Follow 服务器的投票信息后，是如何进行对比来更新自己的投票信息的。</p>
+<p>Follow 服务器进行选票对比的过程，如下图所示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/zab-2.png" alt=""></p>
+<p>首先，会对比 logicClock 服务器的投票轮次，当 logicClock 相同时，表明两张选票处于相同的投票阶段，并进入下一阶段，否则跳过。</p>
+<p>接下来再对比 <code>vote_zxid</code>  被选举的服务器 ID 信息，若接收到的外部投票信息中的  <code>vote_zxid</code>  字段较大，则将自己的票中的 <code>vote_zxid</code>  与 <code>vote_myid</code>  更新为收到的票中的 <code>vote_zxid</code>  与 <code>vote_myid</code> ，并广播出去。</p>
+<p>要是对比的结果相同，则继续对比 <code>vote_myid</code>  被选举服务器上所保存的最大事务 ID ，若外部投票的 <code>vote_myid</code>  比较大，则将自己的票中的  <code>vote_myid</code>  更新为收到的票中的 <code>vote_myid</code>  。</p>
+<p>经过这些对比和替换后，最终该台 Follow 服务器会产生新的投票信息，并在下一轮的投票中发送到 ZooKeeper 集群中。</p>
+<p><strong>「消息广播」</strong></p>
+<p>在 Leader 节点服务器处理请求后，需要通知集群中的其他角色服务器进行数据同步。ZooKeeper 集群采用消息广播的方式发送通知。</p>
+<p>ZooKeeper 集群使用原子广播协议进行消息发送，该协议的底层实现过程与二阶段提交过程非常相似，如下图所示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/zab-3.png" alt=""></p>
+<p>当要在集群中的其他角色服务器进行数据同步的时候，Leader 服务器将该操作过程封装成一个 Proposal 提交事务，并将其发送给集群中其他需要进行数据同步的服务器。</p>
+<p>当这些服务器接收到 Leader 服务器的数据同步事务后，会将该条事务能否在本地正常执行的结果反馈给 Leader 服务器，Leader 服务器在接收到其他 Follow 服务器的反馈信息后进行统计，判断是否在集群中执行本次事务操作。</p>
+<p>这里请注意 ，与二阶段提交过程不同（即需要集群中所有服务器都反馈可以执行事务操作后，主服务器再次发送 commit 提交请求执行数据变更） ，ZAB 协议算法省去了中断的逻辑，当 ZooKeeper 集群中有超过一半的 Follow 服务器能够正常执行事务操作后，整个 ZooKeeper 集群就可以提交 Proposal 事务了。</p>
+<h2 id="日志清理"><a class="markdownIt-Anchor" href="#日志清理">#</a> 日志清理</h2>
+<p>「日志类型」</p>
+<p>在 ZooKeeper 服务运行的时候，一般会产生数据快照和日志文件，数据快照用于集群服务中的数据同步，而数据日志则记录了 ZooKeeper 服务运行的相关状态信息。</p>
+<p>❝<br>
+其中，数据日志是我们在生产环境中需要定期维护和管理的文件。<br>
+❞<br>
+「清理方案」</p>
+<p>如上面所介绍的，面对生产系统中产生的日志，一般的维护操作是备份和清理。</p>
+<p>备份是为了之后对系统的运行情况进行排查和优化，而清理主要因为随着系统日志的增加，日志会逐渐占用系统的存储空间，如果一直不进行清理，可能耗尽系统的磁盘存储空间，并最终影响服务的运行。</p>
+<p>「清理工具」</p>
+<p>❝<br>
+Corntab<br>
+❞<br>
+首先，我们介绍的是 Linux corntab ，它是 Linux 系统下的软件，可以自动地按照我们设定的时间，周期性地执行我们编写的相关脚本。</p>
+<p>crontab 定时脚本的方式相对灵活，可以按照我们的业务需求来设置处理日志的维护方式，比如这里我们希望定期清除 ZooKeeper 服务运行的日志，而不想清除数据快照的文件，则可以通过脚本设置，达到只对数据日志文件进行清理的目的。</p>
+<p>❝<br>
+PurgeTxnLog<br>
+❞<br>
+ZooKeeper 自身还提供了 PurgeTxnLog 工具类，用来清理 snapshot 数据快照文件和系统日志。</p>
+<p>PurgeTxnLog 清理方式和我们上面介绍的方式十分相似，也是通过定时脚本执行任务，唯一的不同是，上面提到在编写日志清除 logsCleanWeek 的时候 ，我们使用的是原生 shell 脚本自己手动编写的数据日志清理逻辑，而使用 PurgeTxnLog 则可以在编写清除脚本的时候调用 ZooKeeper 为我们提供的工具类完成日志清理工作。</p>
+<p>如下面的代码所示，首先，我们在 /usr/bin 目录下创建一个 PurgeLogsClean 脚本。注意这里的脚本也是一个 shell 文件。</p>
+<p>在脚本中我们只需要编写 PurgeTxnLog 类的调用程序，系统就会自动通过 PurgeTxnLog 工具类为我们完成对应日志文件的清理工作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh  </span><br><span class="line">java -cp &quot;$CLASSPATH&quot; org.apache.zookeeper.server.PurgeTxnLog </span><br><span class="line">echo &quot;清理完成&quot; </span><br></pre></td></tr></table></figure>
+<p>PurgeTxnLog 方式与 crontab 相比，使用起来更加容易而且也更加稳定安全，不过 crontab 方式更加灵活，我们可以根据不同的业务需求编写自己的清理逻辑。</p>
+<h2 id="实现分布式锁"><a class="markdownIt-Anchor" href="#实现分布式锁">#</a> 实现分布式锁</h2>
+<p>分布式锁的目的是保证在分布式部署的应用集群中，多个服务在请求同一个方法或者同一个业务操作的情况下，对应业务逻辑只能被一台机器上的一个线程执行，避免出现并发问题。</p>
+<blockquote>
+<p>❝</p>
+<p>实现分布式锁目前有三种流行方案，即基于数据库、Redis、ZooKeeper 的方案</p>
+<p>❞</p>
+</blockquote>
+<p><strong>「方案一：」</strong></p>
+<p>使用节点中的存储数据区域，ZK 中节点存储数据的大小不能超过 1M，但是只是存放一个标识是足够的，线程获得锁时，先检查该标识是否是无锁标识，若是可修改为占用标识，使用完再恢复为无锁标识</p>
+<p><strong>「方案二：」</strong></p>
+<p>使用子节点，每当有线程来请求锁的时候，便在锁的节点下创建一个子节点，子节点类型必须维护一个顺序，对子节点的自增序号进行排序，默认总是最小的子节点对应的线程获得锁，释放锁时删除对应子节点便可</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fenbushisuo-1.png" alt=""></p>
+<p><strong>「死锁风险:」</strong></p>
+<p>两种方案其实都是可行的，但是使用锁的时候一定要去规避死锁</p>
+<ul>
+<li>
+<p>方案一看上去是没问题的，用的时候设置标识，用完清除标识，但是要是持有锁的线程发生了意外，释放锁的代码无法执行，锁就无法释放，其他线程就会一直等待锁，相关同步代码便无法执行</p>
+</li>
+<li>
+<p>方案二也存在这个问题，但方案二可以利用 ZK 的临时顺序节点来解决这个问题，只要线程发生了异常导致程序中断，就会丢失与 ZK 的连接，ZK 检测到该链接断开，就会自动删除该链接创建的临时节点，这样就可以达到即使占用锁的线程程序发生意外，也能保证锁正常释放的目的</p>
+</li>
+</ul>
+<p><strong>「避免羊群效应」</strong></p>
+<p>把锁请求者按照后缀数字进行排队，后缀数字小的锁请求者先获取锁。</p>
+<p>如果所有的锁请求者都 watch 锁持有者，当代表锁请求者的 znode 被删除以后，所有的锁请求者都会通知到，但是只有一个锁请求者能拿到锁。这就是羊群效应。</p>
+<blockquote>
+<p>❝</p>
+<p>为了避免羊群效应，每个锁请求者 watch 它前面的锁请求者。</p>
+<p>❞</p>
+</blockquote>
+<p>每次锁被释放，只会有一个锁请求者 会被通知到。</p>
+<p>这样做还让锁的分配具有公平性，锁定的分配遵循先到先得的原则。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fenbushisuo-2.png" alt=""></p>
+<p><strong>「用 ZooKeeper 实现分布式锁的算法流程，根节点为 /lock：」</strong></p>
+<ul>
+<li>
+<p>客户端连接 ZooKeeper，并 <code>在/lock</code>  下创建临时有序子节点，第一个客户端对应的子节点为 <code>/lock/lock01/00000001</code> ，第二个为  <code>/lock/lock01/00000002</code> ；</p>
+</li>
+<li>
+<p>其他客户端获取 <code>/lock01</code>  下的子节点列表，判断自己创建的子节点是否为当前列表中序号最小的子节点；</p>
+</li>
+<li>
+<p>如果是则认为获得锁，执行业务代码，否则通过 watch 事件监听 <code>/lock01</code>  的子节点变更消息，获得变更通知后重复此步骤直至获得锁；</p>
+</li>
+<li>
+<p>完成业务流程后，删除对应的子节点，释放分布式锁；</p>
+</li>
+</ul>
+<p>在实际开发中，可以应用 Apache Curator 来快速实现分布式锁，Curator 是 Netflix 公司开源的一个 ZooKeeper 客户端，对 ZooKeeper 原生 API 做了抽象和封装。</p>
+<h2 id="实现分布式id"><a class="markdownIt-Anchor" href="#实现分布式id">#</a> 实现分布式 ID</h2>
+<p>我们可以通过 ZooKeeper 自身的客户端和服务器运行模式，来实现一个分布式网络环境下的 ID 请求和分发过程。</p>
+<p>❝<br>
+每个需要 ID 编码的业务服务器可以看作是 ZooKeeper 的客户端。ID 编码生成器可以作为 ZooKeeper 的服务端。<br>
+❞<br>
+客户端通过发送请求到 ZooKeeper 服务器，来获取编码信息，服务端接收到请求后，发送 ID 编码给客户端。</p>
+<p>「实现原理：」</p>
+<p>可以利用 ZooKeeper 数据模型中的顺序节点作为 ID 编码。</p>
+<p>客户端通过调用 create 函数创建顺序节点。服务器成功创建节点后，会响应客户端请求，把创建好的节点信息发送给客户端。</p>
+<p>客户端用数据节点名称作为 ID 编码，进行之后的本地业务操作。</p>
+<p>利用 ZooKeeper 中的顺序节点特性，很容易使我们创建的 ID 编码具有有序的特性。并且我们也可以通过客户端传递节点的名称，根据不同的业务编码区分不同的业务系统，从而使编码的扩展能力更强。</p>
+<p>❝<br>
+虽然使用 ZooKeeper 的实现方式有这么多优点，但也会有一些潜在的问题。<br>
+❞<br>
+其中最主要的是，在定义编码的规则上还是强烈依赖于程序员自身的能力和对业务的深入理解。</p>
+<p>很容易出现因为考虑不周，造成设置的规则在运行一段时间后，无法满足业务要求或者安全性不够等问题。</p>
+<h2 id="实现负载均衡"><a class="markdownIt-Anchor" href="#实现负载均衡">#</a> 实现负载均衡</h2>
+<p><strong>「常见负载均衡算法」</strong></p>
+<blockquote>
+<p>❝</p>
+<p>轮询法</p>
+<p>❞</p>
+</blockquote>
+<p>轮询法是最为简单的负载均衡算法，当接收到来自网络中的客户端请求后，负载均衡服务器会按顺序逐个分配给后端服务。</p>
+<p>比如集群中有 3 台服务器，分别是 server1、server2、server3，轮询法会按照 sever1、server2、server3 这个顺序依次分发会话请求给每个服务器。当第一次轮询结束后，会重新开始下一轮的循环。</p>
+<blockquote>
+<p>❝</p>
+<p>随机法</p>
+<p>❞</p>
+</blockquote>
+<p>随机算法是指负载均衡服务器在接收到来自客户端的请求后，会根据一定的随机算法选中后台集群中的一台服务器来处理这次会话请求。</p>
+<p>不过，当集群中备选机器变的越来越多时，通过统计学我们可以知道每台机器被抽中的概率基本相等，因此随机算法的实际效果越来越趋近轮询算法。</p>
+<blockquote>
+<p>❝</p>
+<p>原地址哈希法</p>
+<p>❞</p>
+</blockquote>
+<p>原地址哈希算法的核心思想是根据客户端的 IP 地址进行哈希计算，用计算结果进行取模后，根据最终结果选择服务器地址列表中的一台机器，处理该条会话请求。</p>
+<p>采用这种算法后，当同一 IP 的客户端再次访问服务端后，负载均衡服务器最终选举的还是上次处理该台机器会话请求的服务器，也就是每次都会分配同一台服务器给客户端。</p>
+<blockquote>
+<p>❝</p>
+<p>加权轮询法</p>
+<p>❞</p>
+</blockquote>
+<p>加权轮询的方式与轮询算法的方式很相似，唯一的不同在于选择机器的时候，不只是单纯按照顺序的方式选择，还根据机器的配置和性能高低有所侧重，配置性能好的机器往往首先分配。</p>
+<blockquote>
+<p>❝</p>
+<p>加权随机法</p>
+<p>❞</p>
+</blockquote>
+<p>加权随机法和我们上面提到的随机算法一样，在采用随机算法选举服务器的时候，会考虑系统性能作为权值条件。</p>
+<blockquote>
+<p>❝</p>
+<p>最小连接数法</p>
+<p>❞</p>
+</blockquote>
+<p>最小连接数算法是指，根据后台处理客户端的连接会话条数，计算应该把新会话分配给哪一台服务器。</p>
+<p>一般认为，连接数越少的机器，在网络带宽和计算性能上都有很大优势，会作为最优先分配的对象。</p>
+<p><strong>「利用 ZooKeeper 实现 负载均衡 算法」</strong></p>
+<blockquote>
+<p>❝</p>
+<p>这里我们通过采用最小连接数算法，来确定究竟如何均衡地分配网络会话请求给后台客户端。</p>
+<p>❞</p>
+</blockquote>
+<p>如下图所示，建立的 ZooKeeper 数据模型中 Severs 节点可以作为存储服务器列表的父节点。</p>
+<p>在它下面创建 servers_host1、servers_host2、servers_host3 等临时节点来存储集群中的服务器运行状态信息。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fuzaijunheng-1.png" alt=""></p>
+<p>整个实现的过程如下图所示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fuzaijunheng-2.png" alt=""></p>
+<ul>
+<li>
+<p>首先，在接收到客户端的请求后，通过 getData 方法获取服务端 Severs 节点下的服务器列表，其中每个节点信息都存储有当前服务器的连接数。</p>
+</li>
+<li>
+<p>通过判断选择最少的连接数作为当前会话的处理服务器，并通过 setData 方法将该节点连接数加 1。</p>
+</li>
+<li>
+<p>最后，当客户端执行完毕，再调用 setData 方法将该节点信息减 1。</p>
+</li>
+<li>
+<p>我们定义当服务器接收到会话请求后。在 ZooKeeper 服务端增加连接数的 addBlance 方法。</p>
+</li>
+<li>
+<p>我们通过 readData 方法获取服务器最新的连接数，之后将该连接数加 1，再通过 writeData 方法将新的连接数信息写入到服务端对应节点信息中。</p>
+</li>
+<li>
+<p>当服务器处理完该会话请求后，需要更新服务端相关节点的连接数。</p>
+</li>
+<li>
+<p>具体的操作与 addBlance 方法基本一样，只是对获取的连接信息进行减一操作。</p>
+</li>
+</ul>
+<p><strong>「这里注意：」</strong></p>
+<p>我们日常用到的负载均衡器主要是选择后台处理的服务器，并给其分发请求。</p>
+<blockquote>
+<p>❝</p>
+<p>而通过 ZooKeeper 实现的服务器，只提供了服务器的筛选工作。</p>
+<p>❞</p>
+</blockquote>
+<p>在请求分发的过程中，还是通过负载算法计算出要访问的服务器，之后客户端自己连接该服务器，完成请求操作。</p>
+<h2 id="开源框架使用案例"><a class="markdownIt-Anchor" href="#开源框架使用案例">#</a> 开源框架使用案例</h2>
+<p><strong>「Dubbo 与 ZooKeeper」</strong></p>
+<p>Dubbo 是阿里巴巴开发的一套开源的技术框架，是一款高性能、轻量级的开源 Java RPC 框架。</p>
+<p><strong>「用 ZooKeeper 做注册中心」</strong></p>
+<p>在整个 Dubbo 框架的实现过程中，注册中心是其中最为关键的一点，它保证了整个 PRC 过程中服务对外的透明性。</p>
+<p>而 Dubbo 的注册中心也是通过 ZooKeeper 来实现的。</p>
+<p>如下图所示，在整个 Dubbo 服务的启动过程中，服务提供者会在启动时向  <code>/dubbo/com.foo.BarService/providers</code>  目录写入自己的 URL 地址，这个操作可以看作是一个 ZooKeeper 客户端在 ZooKeeper 服务器的数据模型上创建一个数据节点。</p>
+<p>服务消费者在启动时订阅  <code>/dubbo/com.foo.BarService/providers</code>  目录下的提供者 URL 地址，并向  <code>/dubbo/com.foo.BarService/consumers</code>  目录写入自己的 URL 地址。</p>
+<p>该操作是通过 ZooKeeper 服务器在 /consumers 节点路径下创建一个子数据节点，然后再在请求会话中发起对 /providers 节点的 watch 监控</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/shiyonganli-1.png" alt=""></p>
+<p><strong>「Kafka 与 ZooKeeper」</strong></p>
+<p><strong>「Zookeeper 的作用」</strong></p>
+<p>由于 Broker 服务器采用分布式集群的方式工作，那么在服务的运行过程中，难免出现某台机器因异常而关闭的状况。</p>
+<p>为了保证整个 Kafka 集群的可用性，需要在系统中监控整个机器的运行情况。而 Kafka 可以通过 ZooKeeper 中的数据节点，将网络中机器的运行统计存储在数据模型中的 brokers 节点下。</p>
+<p>在 Kafka 的 Topic 信息注册中也需要使用到 ZooKeeper ，在 Kafka 中同一个 Topic 消息容器可以分成多个不同片，而这些分区既可以存在于一台 Broker 服务器中，也可以存在于不同的 Broker 服务器中。</p>
+<p>而在 Kafka 集群中，每台 Broker 服务器又相对独立。</p>
+<p>为了能够读取这些以分布式方式存储的分区信息，Kafka 会将这些分区信息在 Broker 服务器中的对应关系存储在 ZooKeeper 数据模型的 topic 节点上，每一个 topic 在 ZooKeeper 数据节点上都会以  <code>/brokers/topics/[topic]</code>  的形式存在。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/shiyonganli-2.png" alt=""></p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://crab233.cloudns.biz/proxy/cdn.jsdelivr.net/gh/1137882300/images@master/images/fav.jpeg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://crab233.cloudns.biz/proxy/cdn.jsdelivr.net/gh/1137882300/images@master/images/fav.jpeg" title="头像" alt="头像"></a><div class="post-copyright__author_name">罗布斯</div><div class="post-copyright__author_desc">生活无捷径，每步皆机会。</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://blog.funning.top/article/112221.html">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://blog.funning.top/article/112221.html')">ZooKeeper一看一个不吱声</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://blog.funning.top/article/112221.html"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=ZooKeeper一看一个不吱声&amp;url=https://blog.funning.top/article/112221.html&amp;pic=https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E9%A6%99%E6%B8%AF.png" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.funning.top" target="_blank">罗布斯</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/ZooKeeper/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>ZooKeeper<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://proxy.funning.filegear-sg.me/proxy/images.unsplash.com/photo-1728131751556-3694189db906?q=80&amp;w=3061&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/article/112217.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/1137882300/images@master/images%E5%BE%B7%E5%9B%BD%202.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">5分钟带你深入浅出搞懂 Nginx</div></div></a></div><div class="next-post pull-right"><a href="/article/112230.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img.funning.top/zhili.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2024年免费域名注册网站大全(持续更新,建议收藏)</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-switch"><span class="first-comment">Twikoo</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://crab233.cloudns.biz/proxy/cdn.jsdelivr.net/gh/1137882300/images@master/images/fav.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/08/24/64e6ce9c507bb.png" alt="status"/></div></div><div class="author-info__description"><div style="text-indent:2em">永远不要相信苦难是值得的，苦难就是苦难，它不会带来成功，也不值得追求，磨炼意志是因为苦难无法逃避。</div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about"><h1 class="author-info__name">罗布斯</h1><div class="author-info__desc">生活无捷径，每步皆机会。</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://t.me" target="_blank" title="Telegram"><i class="anzhiyufont anzhiyu-icon-paper-plane"></i></a><a class="social-icon faa-parent animated-hover" href="https://github.com/1137882300" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> 基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text"> 数据模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="toc-number">3.</span> <span class="toc-text"> 数据存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#watch%E6%9C%BA%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text"> Watch 机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6"><span class="toc-number">5.</span> <span class="toc-text"> 会话机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#acl%E6%9D%83%E9%99%90"><span class="toc-number">6.</span> <span class="toc-text"> ACL 权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text"> 序列化方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-number">8.</span> <span class="toc-text"> 集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zab%E5%8D%8F%E8%AE%AE"><span class="toc-number">9.</span> <span class="toc-text"> ZAB 协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86"><span class="toc-number">10.</span> <span class="toc-text"> 日志清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="toc-number">11.</span> <span class="toc-text"> 实现分布式锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8Fid"><span class="toc-number">12.</span> <span class="toc-text"> 实现分布式 ID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">13.</span> <span class="toc-text"> 实现负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">14.</span> <span class="toc-text"> 开源框架使用案例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/article/112268.html" title="在 Astro 中添加 Twikoo 评论系统"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/images.unsplash.com/photo-1728131751556-3694189db906?q=80&amp;w=3061&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Astro 中添加 Twikoo 评论系统"/></a><div class="content"><a class="title" href="/article/112268.html" title="在 Astro 中添加 Twikoo 评论系统">在 Astro 中添加 Twikoo 评论系统</a><time datetime="2024-11-10T00:00:00.000Z" title="发表于 2024-11-10 00:00:00">2024-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112267.html" title="发送email免费api，实用场景很丰富"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/images.unsplash.com/photo-1729876045509-4938a1e416c6?q=80&amp;w=2103&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="发送email免费api，实用场景很丰富"/></a><div class="content"><a class="title" href="/article/112267.html" title="发送email免费api，实用场景很丰富">发送email免费api，实用场景很丰富</a><time datetime="2024-11-03T00:00:00.000Z" title="发表于 2024-11-03 00:00:00">2024-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112266.html" title="免费腾讯云EdgeOne Pages托管博客"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/images.unsplash.com/photo-1729097588858-276b55642ef1?q=80&amp;w=2970&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="免费腾讯云EdgeOne Pages托管博客"/></a><div class="content"><a class="title" href="/article/112266.html" title="免费腾讯云EdgeOne Pages托管博客">免费腾讯云EdgeOne Pages托管博客</a><time datetime="2024-10-30T00:00:00.000Z" title="发表于 2024-10-30 00:00:00">2024-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112265.html" title="继telegra.ph失效后，搭建免费图床(超简单)"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://i0.img2ipfs.com/ipfs/QmU2fbecRq5sFKKPXtuubjY3bHJrGbgBiMKB6Qm8N49sRf" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="继telegra.ph失效后，搭建免费图床(超简单)"/></a><div class="content"><a class="title" href="/article/112265.html" title="继telegra.ph失效后，搭建免费图床(超简单)">继telegra.ph失效后，搭建免费图床(超简单)</a><time datetime="2024-10-29T00:00:00.000Z" title="发表于 2024-10-29 00:00:00">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/article/112264.html" title="谷歌翻译镜像大全，有需要的自取。(持续更新)"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/images.unsplash.com/photo-1501854140801-50d01698950b?q=80&amp;w=2600&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="谷歌翻译镜像大全，有需要的自取。(持续更新)"/></a><div class="content"><a class="title" href="/article/112264.html" title="谷歌翻译镜像大全，有需要的自取。(持续更新)">谷歌翻译镜像大全，有需要的自取。(持续更新)</a><time datetime="2024-10-22T00:00:00.000Z" title="发表于 2024-10-22 00:00:00">2024-10-22</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div id="footer_deal"><a class="deal_link" href="mailto:923828430@qq.com" title="email"><i class="anzhiyufont anzhiyu-icon-envelope"></i></a><a class="deal_link" target="_blank" rel="noopener" href="https://weibo.com/" title="微博"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a><a class="deal_link" target="_blank" rel="noopener" href="https://www.facebook.com/" title="facebook"><i class="anzhiyufont anzhiyu-icon-facebook1"></i></a><a class="deal_link" href="/atom.xml" title="RSS"><i class="anzhiyufont anzhiyu-icon-rss"></i></a><img class="footer_mini_logo" title="返回顶部" alt="返回顶部" onclick="anzhiyu.scrollToDest(0, 500)" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon-32.ico" size="50px"/><a class="deal_link" target="_blank" rel="noopener" href="https://github.com/1137882300" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a><a class="deal_link" target="_blank" rel="noopener" href="https://space.bilibili.com" title="Bilibili"><i class="anzhiyufont anzhiyu-icon-bilibili"></i></a><a class="deal_link" target="_blank" rel="noopener" href="https://v.douyin.com/" title="抖音"><i class="anzhiyufont anzhiyu-icon-tiktok"></i></a><a class="deal_link" href="/copyright" title="CC"><i class="anzhiyufont anzhiyu-icon-copyright-line"></i></a></div><div id="anzhiyu-footer"><div class="footer-group"><div class="footer-title">服务</div><div class="footer-links"><a class="footer-item" title="51la统计" target="_blank" rel="noopener" href="https://v6.51.la/">51la统计</a><a class="footer-item" title="gemini-pro" target="_blank" rel="noopener" href="https://gemini.google.com/app">gemini-pro</a><a class="footer-item" title="开往" target="_blank" rel="noopener" href="https://github.com/travellings-link/travellings">开往</a></div></div><div class="footer-group"><div class="footer-title">主题</div><div class="footer-links"><a class="footer-item" title="文档" href="/docs/">文档</a><a class="footer-item" title="源码" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu">源码</a><a class="footer-item" title="更新日志" href="/update/">更新日志</a></div></div><div class="footer-group"><div class="footer-title">导航</div><div class="footer-links"><a class="footer-item" title="即刻短文" href="/essay/">即刻短文</a><a class="footer-item" title="友链文章" href="/fcircle/">友链文章</a><a class="footer-item" title="留言板" href="/comments/">留言板</a></div></div><div class="footer-group"><div class="footer-title">协议</div><div class="footer-links"><a class="footer-item" title="隐私协议" href="/privacy/">隐私协议</a><a class="footer-item" title="Cookies" href="/cookies/">Cookies</a><a class="footer-item" title="版权协议" href="/copyright/">版权协议</a></div></div><div class="footer-group"><div class="footer-title-group"><div class="footer-title">友链</div><a class="random-friends-btn" id="footer-random-friends-btn" href="javascript:addFriendLinksInFooter();" title="换一批友情链接"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i></a></div><div class="footer-links" id="friend-links-in-footer"></div></div></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title="博客框架为Hexo_v5.4.0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg" alt="博客框架为Hexo_v5.4.0"/></a><a class="github-badge" target="_blank" href="https://blog.anheyu.com/" style="margin-inline:5px" data-title="本站使用AnZhiYu主题" title="本站使用AnZhiYu主题"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.9/img/Theme-AnZhiYu-2E67D3.svg" alt="本站使用AnZhiYu主题"/></a><a class="github-badge" target="_blank" href="https://cf.blog.923828.xyz/" style="margin-inline:5px" data-title="本站使用cf为静态资源提供CDN加速" title="本站使用cf为静态资源提供CDN加速"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img.shields.io/badge/%E2%98%81%EF%B8%8FCDN-Cloudflare-f4822f" alt="本站使用cf为静态资源提供CDN加速"/></a><a class="github-badge" target="_blank" href="https://vercel.blog.923828.xyz/" style="margin-inline:5px" data-title="本站使用vercel为静态资源提供CDN加速" title="本站使用vercel为静态资源提供CDN加速"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img.shields.io/badge/%E2%98%81%EF%B8%8FCDN-Vercel-ffffff" alt="本站使用vercel为静态资源提供CDN加速"/></a></p></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2023 - 2024 By <a class="footer-bar-link" href="/" title="罗布斯" target="_blank">罗布斯</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://home-blog.funning.top/" title="时光">时光</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://mail.qq.com/" title="QQ邮箱">QQ邮箱</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://img.funning.top/" title="图床">图床</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://chat.funning.top" title="ChatGPT">ChatGPT</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">61</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">39</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">必逛网站</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://linux.do/" title="L"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/t2.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=http://linux.do&amp;size=16" alt="L"/><span class="back-menu-item-text">L</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://x.com/" title="X"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://proxy.funning.filegear-sg.me/proxy/abs.twimg.com/favicons/twitter.3.ico" alt="X"/><span class="back-menu-item-text">X</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://app.follow.is/" title="follow"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://app.follow.is/favicon.ico" alt="follow"/><span class="back-menu-item-text">follow</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://hot.funning.top/" title="今日热榜"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://hot.funning.top/ico/favicon.png" alt="今日热榜"/><span class="back-menu-item-text">今日热榜</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">AI</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://www.923828.xyz/" title="AI-1oo"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.923828.xyz/favicon.ico" alt="AI-1oo"/><span class="back-menu-item-text">AI-1oo</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://lobe-chat.funning.top/" title="lobe-chat"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://registry.npmmirror.com/@lobehub/assets-favicons/1.4.0/files/assets/favicon.ico" alt="lobe-chat"/><span class="back-menu-item-text">lobe-chat</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://chat.funning.top" title="next-chat"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://chat.funning.top/favicon.ico" alt="next-chat"/><span class="back-menu-item-text">next-chat</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://gemini.923828.xyz" title="gemini-v2"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://gemini.923828.xyz/logo.svg" alt="gemini-v2"/><span class="back-menu-item-text">gemini-v2</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://gemini.funning.top/" title="gemini-v1"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://img.funning.top/gemini.png" alt="gemini-v1"/><span class="back-menu-item-text">gemini-v1</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">工具</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://it-tools.tech/" title="it-tools"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://it-tools.tech/favicon.ico" alt="it-tools"/><span class="back-menu-item-text">it-tools</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" target="_blank" rel="noopener" href="https://923828.xyz"><span> 进入主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/movies/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 电影栏</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/equipment/"><i class="anzhiyufont anzhiyu-icon-dice-d20 faa-tada" style="font-size: 0.9em;"></i><span> 装备箱</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 0.88rem; color: rgb(1, 42, 119);">AI<sup>16</sup></a><a href="/tags/Java-IO/" style="font-size: 0.88rem; color: rgb(9, 40, 73);">Java IO<sup>1</sup></a><a href="/tags/LLM/" style="font-size: 0.88rem; color: rgb(57, 65, 138);">LLM<sup>7</sup></a><a href="/tags/LangChain/" style="font-size: 0.88rem; color: rgb(114, 192, 146);">LangChain<sup>8</sup></a><a href="/tags/MoonshotAI/" style="font-size: 0.88rem; color: rgb(109, 167, 196);">MoonshotAI<sup>2</sup></a><a href="/tags/Nginx/" style="font-size: 0.88rem; color: rgb(153, 65, 4);">Nginx<sup>1</sup></a><a href="/tags/RAG/" style="font-size: 0.88rem; color: rgb(177, 59, 112);">RAG<sup>2</sup></a><a href="/tags/SpringBoot/" style="font-size: 0.88rem; color: rgb(155, 99, 11);">SpringBoot<sup>5</sup></a><a href="/tags/astro/" style="font-size: 0.88rem; color: rgb(196, 83, 58);">astro<sup>1</sup></a><a href="/tags/chain/" style="font-size: 0.88rem; color: rgb(8, 129, 74);">chain<sup>1</sup></a><a href="/tags/chat/" style="font-size: 0.88rem; color: rgb(56, 110, 178);">chat<sup>1</sup></a><a href="/tags/chatgpt/" style="font-size: 0.88rem; color: rgb(142, 191, 133);">chatgpt<sup>3</sup></a><a href="/tags/gpt-3-5/" style="font-size: 0.88rem; color: rgb(41, 119, 193);">gpt-3.5<sup>1</sup></a><a href="/tags/gpt-4/" style="font-size: 0.88rem; color: rgb(139, 174, 78);">gpt-4<sup>3</sup></a><a href="/tags/gpt-4o/" style="font-size: 0.88rem; color: rgb(114, 184, 14);">gpt-4o<sup>2</sup></a><a href="/tags/java8/" style="font-size: 0.88rem; color: rgb(133, 130, 60);">java8<sup>1</sup></a><a href="/tags/kimi/" style="font-size: 0.88rem; color: rgb(43, 34, 172);">kimi<sup>2</sup></a><a href="/tags/livekit/" style="font-size: 0.88rem; color: rgb(145, 133, 73);">livekit<sup>1</sup></a><a href="/tags/prompt/" style="font-size: 0.88rem; color: rgb(83, 103, 65);">prompt<sup>2</sup></a><a href="/tags/qwen/" style="font-size: 0.88rem; color: rgb(48, 144, 155);">qwen<sup>1</sup></a><a href="/tags/tts/" style="font-size: 0.88rem; color: rgb(116, 162, 57);">tts<sup>2</sup></a><a href="/tags/twikoo/" style="font-size: 0.88rem; color: rgb(148, 27, 147);">twikoo<sup>1</sup></a><a href="/tags/web-gpu/" style="font-size: 0.88rem; color: rgb(191, 190, 81);">web-gpu<sup>1</sup></a><a href="/tags/%E5%85%8D%E8%B4%B9/" style="font-size: 0.88rem; color: rgb(113, 55, 84);">免费<sup>4</sup></a><a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 0.88rem; color: rgb(70, 7, 168);">入门<sup>1</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 0.88rem; color: rgb(102, 85, 2);">域名<sup>6</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 0.88rem; color: rgb(68, 120, 2);">基础<sup>1</sup></a><a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" style="font-size: 0.88rem; color: rgb(96, 160, 75);">大模型<sup>5</sup></a><a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 0.88rem; color: rgb(12, 159, 198);">大语言模型<sup>7</sup></a><a href="/tags/%E6%89%8B%E7%9B%B8/" style="font-size: 0.88rem; color: rgb(6, 46, 167);">手相<sup>1</sup></a><a href="/tags/%E6%8E%8C%E7%BA%B9/" style="font-size: 0.88rem; color: rgb(81, 127, 53);">掌纹<sup>1</sup></a><a href="/tags/%E6%94%BB%E7%95%A5/" style="font-size: 0.88rem; color: rgb(6, 14, 4);">攻略<sup>1</sup></a><a href="/tags/%E6%96%B0%E9%97%BB/" style="font-size: 0.88rem; color: rgb(36, 126, 146);">新闻<sup>3</sup></a><a href="/tags/%E6%97%85%E6%B8%B8/" style="font-size: 0.88rem; color: rgb(47, 177, 39);">旅游<sup>1</sup></a><a href="/tags/%E6%9C%88%E4%B9%8B%E6%9A%97%E9%9D%A2/" style="font-size: 0.88rem; color: rgb(45, 13, 162);">月之暗面<sup>2</sup></a><a href="/tags/%E6%A0%B8%E5%BF%83/" style="font-size: 0.88rem; color: rgb(10, 121, 26);">核心<sup>1</sup></a><a href="/tags/%E6%BE%B3%E9%97%A8/" style="font-size: 0.88rem; color: rgb(54, 5, 146);">澳门<sup>1</sup></a><a href="/tags/%E7%BE%8E%E9%A3%9F/" style="font-size: 0.88rem; color: rgb(192, 176, 46);">美食<sup>1</sup></a><a href="/tags/%E8%A7%86%E9%A2%91/" style="font-size: 0.88rem; color: rgb(80, 121, 131);">视频<sup>1</sup></a><a href="/tags/%E9%A6%99%E6%B8%AF/" style="font-size: 0.88rem; color: rgb(133, 146, 87);">香港<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><a id="switch-commentBarrage" href="javascript:anzhiyu.switchCommentBarrage();" title="开关弹幕"><i class="anzhiyufont anzhiyu-icon-danmu"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎光临!`,
+    `2024，加油`,
+    `
+      _
+     | |
+     | |__     __ _   _ __    _ __    _   _
+     | '_ \\   / _\` | | '_ \\  | '_ \\  | | | |
+     | | | | | (_| | | |_) | | |_) | | |_| |
+     |_| |_|  \\__,_| | .__/  | .__/   \\__, |
+                     | |     | |       __/ |
+                     |_|     |_|      |___/
+
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2023 By 罗布斯 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小八嘎】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，靓仔.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ nice %c 你正在访问 罗布斯 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.cbd.int/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.cbd.int/instantsearch.js@4.60.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.cbd.int/mermaid@10.2.4/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  anzhiyu.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://comment.funning.top/',
+      region: '',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.39/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://comment.funning.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://comment.funning.top/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.39/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script async data-pjax src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.1/bubble/bubble.js"></script><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/anzhiyu/right_click_menu.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script src="/js/custom.js"></script><script type="text/javascript" src ="/js/reward.js" ></script><script src="https://cdn1.tianli0.top/npm/sweetalert2@11.6.16/dist/sweetalert2.all.min.js"></script><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"3HpYY76yP9aU49Wd",ck:"3HpYY76yP9aU49Wd"})</script><script async data-pjax src="/js/essay.js"></script><script async data-pjax src="/js/waterfall.js"></script><script defer src="/_vercel/insights/script.js"></script><script> window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); }; </script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
